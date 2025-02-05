@@ -14,6 +14,8 @@ extra_javascript:
   - js/buffer.js
   - js/add-zilliqa-PM-chain.js
   - js/add-zilliqa-PT-chain.js
+  - https://dashboard.letmeexplain.ai/embed/lme_chatbot_widget.js
+  - assets/js/enable_lme_chatbot.js
 
 
 theme:
