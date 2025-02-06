@@ -10,7 +10,7 @@ description: Node Monitoring
 
 ## Overview
 
-This guide explains how to run an Ethereum network monitoring dashboard using Docker. The provided command allows you to configure various environment variables to suit your deployment needs.
+This guide explains how to run an Zilliqa network monitoring dashboard using Docker. The provided command allows you to configure various environment variables to suit your deployment needs.
 
 ## Prerequisites
 * Docker installed on your system
