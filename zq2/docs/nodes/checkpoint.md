@@ -9,7 +9,7 @@ Checkpoints in nodes serve as specific reference points within the blockchain, a
 
 ## Syncing a Node from a Checkpoint
 
-Before proceeding, ensure you have completed the [Node Setup](../nodes/nodes.md#setting-up-your-environment-and-building-zq2-node) section.
+Before proceeding, ensure you have completed the [Node Setup](../nodes/node.md#setting-up-your-node) section.
 
 For **prototestnet**, you will need the `zq2-prototestnet.toml` configuration file and the `start_node.sh` script, both generated during the setup process. Similarly, for **protomainnet**, you will use the `zq2-protomainnet.toml` configuration file.
 
@@ -68,6 +68,6 @@ The following steps apply to both networks.
   By this stage, your checkpoints configuration should be set up in the `zq2-prototestnet.toml` or `zq2-protomainnet.toml` file.
 
 4. **Launch the node**  
-Now the node is ready to launch. Follow the instructions in the [Start the Node](../nodes/node.md#start-the-node) section to start your node.
+Now the node is ready to launch. Follow the instructions in the [Start the Node](../nodes/node.md#starting-your-node) section to start your node.
 
 **Note**: Running a node from a checkpoint typically takes approximately 1.5 hours to sync. Please allow sufficient time for the process to complete.
