@@ -35,8 +35,6 @@ docker run -ti --platform linux/x86_64 \
 
 ## Configuration Options
 
-### Command-Line Options
-
 | Option       | Description                                                                               | Default      |
 | ------------ | ----------------------------------------------------------------------------------------- | ------------ |
 | `--platform` | The platform architecture for the Docker container (e.g., `linux/x86_64`, `linux/arm64`, `windows/amd64`, `darwin/amd64` etc). | User-defined |
@@ -48,9 +46,9 @@ docker run -ti --platform linux/x86_64 \
 
 | Variable          | Description                                                          | Default     |
 | ----------------- | -------------------------------------------------------------------- | ----------- |
-| `RPC_HOST`        | The host for the RPC server.                                         | `localhost` |
-| `RPC_PORT`        | The port for the RPC server.                                         | `4202`      |
-| `LISTENING_PORT`  | The port on which the monitoring instance listens.                   | `3333`      |
+| `RPC_HOST`        | The validator's node host machine.                                   | `localhost` |
+| `RPC_PORT`        | The exposed RPC port number of the validator node.                   | `4202`      |
+| `LISTENING_PORT`  | The p2pcomm port of the validator node.                              | `3333`      |
 | `INSTANCE_NAME`   | The name assigned to this monitored node.                            | N/A         |
 | `CONTACT_DETAILS` | Contact information for the node operator.                           | N/A         |
 | `WS_SERVER`       | WebSocket server URL for dashboard communication.<br>For prototestnet: `https://stats.zq2-prototestnet.zilliqa.com` <br>For protomainnet: `https://stats.zq2-protomainnet.zilliqa.com` | N/A |
