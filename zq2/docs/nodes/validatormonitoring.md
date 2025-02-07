@@ -1,16 +1,17 @@
 ---
-id: nodes/nodemonitoring
-title: Node Monitoring 
+id: nodes/validatormonitoring
+title: Validator Monitoring 
   - Node 
+  - Validator 
   - Monitor 
-description: Node Monitoring 
+description: Validator Monitoring 
 ---
 
-# Running Network Monitoring Dashboard with Docker
+# Listing in the Network Monitoring Dashboard 
 
 ## Overview
 
-This guide explains how to run the Zilliqa network monitoring dashboard using Docker. The provided command allows you to configure various environment variables to suit your deployment needs.
+This guide explains how to run the Docker container that integrates your node in the public network monitoring dashboard `https://stats.zq2-prototestnet.zilliqa.com/` or `https://stats.zq2-protomainnet.zilliqa.com/`.
 
 ## Prerequisites
 * Docker installed on your system
@@ -32,6 +33,16 @@ docker run -ti --platform linux/x86_64 \
     asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/eth-net-intelligence-api:v0.0.1
 ```
 
+## Configuration Options
+
+### Command-Line Options
+
+| Option       | Description                                                                               | Default      |
+| ------------ | ----------------------------------------------------------------------------------------- | ------------ |
+| `--platform` | The platform architecture for the Docker container (e.g., `linux/x86_64`, `linux/arm64`, `windows/amd64`, `darwin/amd64` etc). | User-defined |
+| `--net=host` | Uses the host network, allowing the container to share the network stack with the host.  | Enabled      |
+
+
 
 ## Environment Variables
 
@@ -51,23 +62,18 @@ docker run -ti --platform linux/x86_64 \
 
 ## Security Considerations
 
-Do not share WS_SECRET publicly. It should only be shared with authorized personnel.
+Do not share `WS_SECRET` publicly. It should only be shared with authorized personnel.
 
 Use environment variable management tools if deploying in production to handle secrets securely.
 
-## Running the Command
-
-To execute the above command, simply copy and paste it into your terminal. Ensure that all required parameters are correctly set before running.
 
 ## Troubleshooting
 
 **Port Conflicts**: If the specified ports are already in use, change the values accordingly.
 
-**Connection Issues**: Ensure that WS_SERVER is reachable from your network.
+**Connection Issues**: Ensure that `WS_SERVER` is reachable from your network.
 
 **Docker Errors**: Verify that you have the correct permissions to run Docker and pull images.
-
-## Additional Notes
 
 For further assistance, reach out to the Zilliqa team if you need any support.
 
