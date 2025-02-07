@@ -46,12 +46,12 @@ docker run -ti --platform linux/x86_64 \
 
 | Variable          | Description                                                          | Default     |
 | ----------------- | -------------------------------------------------------------------- | ----------- |
-| `RPC_HOST`        | The validator's node host machine.                                   | `localhost` |
-| `RPC_PORT`        | The exposed RPC port number of the validator node.                   | `4202`      |
-| `LISTENING_PORT`  | The p2pcomm port of the validator node.                              | `3333`      |
-| `INSTANCE_NAME`   | The name assigned to this monitored node.                            | N/A         |
-| `CONTACT_DETAILS` | Contact information for the node operator.                           | N/A         |
-| `WS_SERVER`       | WebSocket server URL for dashboard communication.<br>For prototestnet: `https://stats.zq2-prototestnet.zilliqa.com` <br>For protomainnet: `https://stats.zq2-protomainnet.zilliqa.com` | N/A |
+| `RPC_HOST`        | Host machine of the validator node.                                  | `localhost` |
+| `RPC_PORT`        | RPC port number exposed by the validator node.                   | `4202`      |
+| `LISTENING_PORT`  | P2P communication port of the validator node..                              | `3333`      |
+| `INSTANCE_NAME`   | Name to register for your validator.                           | N/A         |
+| `CONTACT_DETAILS` | Node operator's contact information.                           | N/A         |
+| `WS_SERVER`       | WebSocket server URL for dashboard communication.<br>For prototestnet: `ws://stats.zq2-prototestnet.zilliqa.com` <br>For protomainnet: `ws://stats.zq2-protomainnet.zilliqa.com` | N/A |
 | `WS_SECRET`       | **(Confidential - shared on request)** WebSocket authentication key. | N/A         |
 | `VERBOSITY`       | Logging verbosity level.                                             | `2`         |
 
@@ -59,8 +59,6 @@ docker run -ti --platform linux/x86_64 \
 ## Security Considerations
 
 Do not share `WS_SECRET` publicly. It should only be shared with authorized personnel.
-
-Use environment variable management tools if deploying in production to handle secrets securely.
 
 
 For further assistance, reach out to the Zilliqa team if you need any support.
