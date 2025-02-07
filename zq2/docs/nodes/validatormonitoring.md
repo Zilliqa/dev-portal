@@ -20,14 +20,14 @@ This guide explains how to run the Docker container that integrates your node in
 ### Docker Command
 
 ```
-docker run -ti --platform linux/x86_64 \
+docker run -d -ti --platform linux/x86_64 \
     --net=host \
     -e RPC_HOST="localhost" \
     -e RPC_PORT="4202" \
     -e LISTENING_PORT="3333" \
     -e INSTANCE_NAME="node-name" \
-    -e CONTACT_DETAILS="contact@example.com" \
-    -e WS_SERVER="ws://stats.example.com" \
+    -e CONTACT_DETAILS="your email address" \
+    -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="<secret-value>" \
     -e VERBOSITY="2" \
     asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/eth-net-intelligence-api:v0.0.2
