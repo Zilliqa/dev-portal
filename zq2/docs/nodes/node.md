@@ -1,6 +1,6 @@
 ---
 id: nodes/nodes
-title:  Node setup 
+title: Node setup 
 ---
 
 # Node setup
