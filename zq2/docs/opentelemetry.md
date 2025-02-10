@@ -12,7 +12,9 @@ description: OpenTelemetry
 
 # OpenTelemetry Metrics
 
-[OpenTelemetry](https://opentelemetry.io/) is an open-source observability framework designed to generate, collect, and manage telemetry data (metrics, traces, and logs) in distributed systems. It provides a standardized way to instrument, generate, collect, and export telemetry data for analysis, making it easier to monitor and troubleshoot complex distributed applications.
+[OpenTelemetry](https://opentelemetry.io/) is an open-source observability framework designed to generate, collect, and manage telemetry data (metrics, traces, and logs) in
+distributed systems. It provides a standardized way to instrument, generate, collect, and export telemetry data for analysis, making it easier to monitor and troubleshoot
+complex distributed applications.
 
 ## Integration with Zilliqa
 
