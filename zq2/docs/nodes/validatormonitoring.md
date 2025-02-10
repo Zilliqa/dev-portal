@@ -11,15 +11,17 @@ description: Validator Monitoring
 # Validator Stats Agent Setup Guide
 
 This document provides a step-by-step guide for validator operators to deploy the Zilliqa Stats Agent, enabling their node to appear on the public Zilliqa Network Status pages:
-* [Protomainnet Status Page](https://stats.zq2-protomainnet.zilliqa.com/)
-* [Prototestnet Status Page](https://stats.zq2-prototestnet.zilliqa.com/)
+
+- [Protomainnet Status Page](https://stats.zq2-protomainnet.zilliqa.com/)
+
+- [Prototestnet Status Page](https://stats.zq2-prototestnet.zilliqa.com/)
 
 ## Prerequisites
 
 Before proceeding, ensure you have the following:
-* A running Zilliqa node.
-* Docker installed on your system.
-* The required WebSocket secret (`WS_SECRET`) provided by Zilliqa to connect to the public status pages.
+- A running Zilliqa node.
+- Docker installed on your system.
+- The required WebSocket secret (`WS_SECRET`) provided by Zilliqa to connect to the public status pages.
 
 ## Deployment Command
 
@@ -41,22 +43,22 @@ docker run -td --restart=unless-stopped \
 ```
 
 > **Note:** 
-> * Check the [Zilliqa eth-net-intelligence-api repository](https://github.com/Zilliqa/eth-net-intelligence-api) for more recent versions of the zilstats-agent image before deploying.
-> * To ensure compatibility, is used the `--platform=linux/amd64` option in the docker run command. If your machine’s architecture is not `Linux/amd64` (e.g., ARM64 on a MacBook or Raspberry Pi), you may need to explicitly specify the platform when running the Docker container.
+> - Check the [Zilliqa eth-net-intelligence-api repository](https://github.com/Zilliqa/eth-net-intelligence-api) for more recent versions of the zilstats-agent image before deploying.
+> - To ensure compatibility, is used the `--platform=linux/amd64` option in the docker run command. If your machine’s architecture is not `Linux/amd64` (e.g., ARM64 on a MacBook or Raspberry Pi), you may need to explicitly specify the platform when running the Docker container.
 
 ### Environment Variables
 
 Customize the following environment variables based on your node and network setup:
-* `RPC_HOST`: The IP address of your Zilliqa node's RPC interface. Default is `127.0.0.1`.
-* `RPC_PORT`: The RPC admin port your Zilliqa node is listening on. Default is `4202`.
-* `LISTENING_PORT`: The P2P communication port where the agent is listening. Default is `3333`.
-* `INSTANCE_NAME`: A unique name for your node instance (e.g., "validator-1").
-* `CONTACT_DETAILS`: Your contact email address for identification.
-* `WS_SERVER`: WebSocket server URL for the stats page.
+- `RPC_HOST`: The IP address of your Zilliqa node's RPC interface. Default is `127.0.0.1`.
+- `RPC_PORT`: The RPC admin port your Zilliqa node is listening on. Default is `4202`.
+- `LISTENING_PORT`: The P2P communication port where the agent is listening. Default is `3333`.
+- `INSTANCE_NAME`: A unique name for your node instance (e.g., "validator-1").
+- `CONTACT_DETAILS`: Your contact email address for identification.
+- `WS_SERVER`: WebSocket server URL for the stats page.
   * Use `ws://stats.zq2-protomainnet.zilliqa.com` for protomainnet.
   * Use `ws://stats.zq2-prototestnet.zilliqa.com` for prototestnet.
-* `WS_SECRET`: The secret token provided by Zilliqa. **This is sensitive and confidential information. Please do not share it publicly or with unauthorized parties.**
-* `VERBOSITY`: Logging verbosity level (default: `2`).
+- `WS_SECRET`: The secret token provided by Zilliqa. **This is sensitive and confidential information. Please do not share it publicly or with unauthorized parties.**
+- `VERBOSITY`: Logging verbosity level (default: `2`).
 
 
 ### Example Configuration
@@ -64,8 +66,8 @@ Customize the following environment variables based on your node and network set
 For a node connecting to the protomainnet:
 
 ```bash
-docker run -td \
-    --restart=unless-stopped \
+docker run -td --restart=unless-stopped \
+    --platform=linux/amd64 \
     --net=host \
     -e RPC_HOST="127.0.0.1" \
     -e RPC_PORT="4202" \
@@ -80,9 +82,9 @@ docker run -td \
 
 ### Troubleshooting
 
-* **Issue:** The agent fails to connect to the WebSocket server.
-  * **Solution:** Verify the `WS_SECRET` and `WS_SERVER` values are correct.
-* **Issue:** Logs show the agent cannot reach the Zilliqa node.
-  * **Solution:** Ensure the `RPC_HOST` and `RPC_PORT` match your node's settings and are accessible.
+1. **Issue:** The agent fails to connect to the WebSocket server.
+    **Solution:** Verify the `WS_SECRET` and `WS_SERVER` values are correct.
+2. **Issue:** Logs show the agent cannot reach the Zilliqa node.
+    **Solution:** Ensure the `RPC_HOST` and `RPC_PORT` match your node's settings and are accessible.
 
 For further assistance, please contact the Zilliqa team.
