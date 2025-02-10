@@ -67,9 +67,9 @@ Customize the following environment variables based on your node and network set
 
 - `WS_SERVER`: WebSocket server URL for the stats page.
 
-  - Use `ws://stats.zq2-protomainnet.zilliqa.com` for protomainnet.
+    - Use `ws://stats.zq2-protomainnet.zilliqa.com` for protomainnet.
 
-  - Use `ws://stats.zq2-prototestnet.zilliqa.com` for prototestnet.
+    - Use `ws://stats.zq2-prototestnet.zilliqa.com` for prototestnet.
 
 - `WS_SECRET`: The secret token provided by Zilliqa. **This is sensitive and confidential information. Please do not share it publicly or with unauthorized parties.**
 
@@ -100,6 +100,7 @@ docker run -td --restart=unless-stopped \
 1. **Issue:** The agent fails to connect to the WebSocket server.
 
     **Solution:** Verify the `WS_SECRET` and `WS_SERVER` values are correct.
+
 2. **Issue:** Logs show the agent cannot reach the Zilliqa node.
 
     **Solution:** Ensure the `RPC_HOST` and `RPC_PORT` match your node's settings and are accessible.
