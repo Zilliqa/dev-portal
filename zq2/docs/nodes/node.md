@@ -181,7 +181,7 @@ Once you have sufficient $ZILs you can register your node as validator.
 
 Below is a guide on how to register a validator node for Zilliqa 2.0:
 
-<https://github.com/Zilliqa/zq2/blob/main/z2/docs/deposit.md>
+<https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md>
 
 ### [Upgrading your node](#upgrading-your-node)
 
