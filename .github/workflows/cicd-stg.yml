@@ -10,8 +10,7 @@ on:
   push:
     branches:
       - main
-      - devops-1843
-      
+
 jobs:
   build-makefile:
     permissions:
@@ -90,7 +89,7 @@ jobs:
       id-token: write
       contents: write
     runs-on: ubuntu-22.04
-    if: github.actor != 'dependabot[bot]' && github.ref_name == 'main'
+    if: github.actor != 'dependabot[bot]' && github.ref_name == 'devops-1843'
     strategy:
       fail-fast: false
       matrix:

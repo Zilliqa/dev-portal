@@ -2,8 +2,8 @@
 id: nodes/opentelemetry
 title: OpenTelemetry
 keywords:
-  - Node 
-  - Validator 
+  - Node
+  - Validator
   - Monitor
   - OpenTelemetry
   - Metrics
