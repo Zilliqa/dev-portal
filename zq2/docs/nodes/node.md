@@ -85,6 +85,13 @@ base. Follow the step by step guide to setup your node:
   ```
   _NOTE: You can replace `zq2-prototestnet` with `zq2-protomainnet` depending on
   which network you want your node to join._
+
+  A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry protocol specification. If you want to export the OpenTelemetry metrics you can define the collector endpoint with the `--otlp-endpoint` parameter in `z2 join`:
+  ```bash
+  z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
+  ```
+  For more details on testing and using the available OpenTelemetry metrics refer to [OpenTelemetry](../nodes/opentelemetry.md) page.
+
 8. Generate the node private key.
   ```bash
   openssl rand -hex 32 > node-private-key.txt
