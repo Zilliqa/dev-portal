@@ -2,8 +2,8 @@
 
 This repository contains the Zilliqa developer documentation.
 
-- The `main` branch has CD at [https://developer-portal.zilstg.dev/]
-- Releases to go to [https://developer-portal.zilliqa.com]
+- The `main` branch has CD at [https://stg-dev.zilliqa.com/](https://stg-dev.zilliqa.com/)
+- Releases to go to [https://dev.zilliqa.com](https://dev.zilliqa.com/)
 
 ## How it works
 
