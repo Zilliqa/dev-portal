@@ -10,7 +10,7 @@ hide:
 # The Zilliqa 2.0 Developer Portal
 <div class="flex" markdown>
 <div markdown>
-Welcome to the developer documentation for Zilliqa 2.0, a fast-finality, scalable blockchain protocol. Zilliqa 2.0 features a native EVM execution layer, supporting standard EVM development tools and wallets while also retaining a custom execution layer based on the [Scilla](https://scilla.readthdocs.io/latest) smart contract language.
+Welcome to the developer documentation for Zilliqa 2.0, a fast-finality, scalable blockchain protocol. Zilliqa 2.0 features a native EVM execution layer, supporting standard EVM development tools and wallets while also retaining a custom execution layer based on the [Scilla](https://scilla.readthedocs.io/en/latest) smart contract language.
 </div>
 <div markdown>
 [Check the Roadmap](http://roadmap.zilliqa.com/) 
