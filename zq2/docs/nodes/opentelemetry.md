@@ -33,17 +33,14 @@ parameter in `z2 join`:
 z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
 ```
 
-This integration demonstrates Zilliqa's commitment to providing robust monitoring capabilities that align
-with modern observability practices, enabling operators to maintain healthy and efficient network nodes.
-
 ## Local Testing
 
-For local testing of the OpenTelemetry stack with the Zilliqa nodes, you can use the provided Docker
+For local testing of the OpenTelemetry integration with the Zilliqa nodes, you can use the provided Docker
 Compose project in the `infra/opentelemetry` folder of the [zq2 repository](https://github.com/Zilliqa/zq2), and run:
 
 ```bash
 docker-compose up -d
 ```
 
-This will deploy a Zilliqa environment with the complete OpenTelemetry toolset and once deployed,
+This will deploy a Zilliqa environment with the complete OpenTelemetry toolset, and once deployed,
 the metrics can be visualized through Grafana at [http://localhost:9010](http://localhost:9010).
