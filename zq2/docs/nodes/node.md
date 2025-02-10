@@ -101,7 +101,7 @@ There are two options you can choose from:
     Starting from a checkpoint is a significantly faster option. This method leverages a 
     predefined checkpoint block number and hash, enabling the node to sync with the network 
      in justa few hours, depending on the checkpoint's block height. Before proceeding to 
-    [start the node](#start-the-node) section, you'll need to configure the necessary
+    [start the node](#starting-your-node) section, you'll need to configure the necessary
     settings to start the node from a checkpoint. Detailed instructions for this configuration
     are available in [syncing-from-checkpoints](../nodes/checkpoint.md#syncing-a-node-from-a-checkpoint).
 
