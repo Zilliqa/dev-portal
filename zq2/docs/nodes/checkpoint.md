@@ -9,7 +9,7 @@ Checkpoints in nodes serve as specific reference points within the blockchain, a
 
 ## Syncing a Node from a Checkpoint
 
-Before proceeding, ensure you have completed the [Node Setup](../nodes/nodes.md#setting-up-your-environment-and-building-zq2-node) section.
+Before proceeding, ensure you have completed the [Node Setup](../nodes/node.md#setting-up-your-node) section.
 
 For **prototestnet**, you will need the `zq2-prototestnet.toml` configuration file and the `start_node.sh` script, both generated during the setup process. Similarly, for **protomainnet**, you will use the `zq2-protomainnet.toml` configuration file.
 

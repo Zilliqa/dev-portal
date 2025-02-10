@@ -37,7 +37,7 @@ docker run -d -ti --platform linux/x86_64 \
 
 | Option       | Description                                                                               | Default      |
 | ------------ | ----------------------------------------------------------------------------------------- | ------------ |
-| `--platform` | The platform architecture for the Docker container (e.g., `linux/x86_64`, `linux/arm64`, `windows/amd64`, `darwin/amd64` etc). | User-defined |
+| `--platform` | The platform architecture for the Docker container (e.g., `linux/x86_64`, `linux/arm64`, `windows/amd64`, `darwin/amd64`). | User-defined |
 | `--net=host` | Uses the host network, allowing the container to share the network stack with the host.  | Enabled      |
 
 
@@ -48,7 +48,7 @@ docker run -d -ti --platform linux/x86_64 \
 | ----------------- | -------------------------------------------------------------------- | ----------- |
 | `RPC_HOST`        | Host machine of the validator node.                                  | `localhost` |
 | `RPC_PORT`        | RPC port number exposed by the validator node.                   | `4202`      |
-| `LISTENING_PORT`  | P2P communication port of the validator node..                              | `3333`      |
+| `LISTENING_PORT`  | P2P communication port of the validator node.                              | `3333`      |
 | `INSTANCE_NAME`   | Name to register for your validator.                           | N/A         |
 | `CONTACT_DETAILS` | Node operator's contact information.                           | N/A         |
 | `WS_SERVER`       | WebSocket server URL for dashboard communication.<br>For prototestnet: `ws://stats.zq2-prototestnet.zilliqa.com` <br>For protomainnet: `ws://stats.zq2-protomainnet.zilliqa.com` | N/A |
