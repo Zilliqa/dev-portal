@@ -8,7 +8,7 @@ nav:
       - Nodes: nodes/node.md
       - Checkpoints:
           - nodes/checkpoints/index.md
-          - Prototestnet: nodes/checkpoints/prototestnet.md
+          - Downloads: nodes/checkpoints/download.md
       - Node FAQ: nodes/nodefaq.md
       - Validator Monitoring: nodes/validatormonitoring.md
   - Tools and SDKs: sdk.md

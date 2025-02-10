@@ -7,6 +7,8 @@ title: Checkpoint
 
 Checkpoints in nodes serve as specific reference points within the blockchain, allowing nodes to synchronize more efficiently when joining or rejoining the network. Instead of processing the entire blockchain from the genesis block, nodes can start from a known, validated state. Below is a detailed guide on how to set up checkpoints.
 
+You can find a list of checkpoints and hashes to download in the menu bar.
+
 ## Syncing a Node from a Checkpoint
 
 Before proceeding, ensure you have completed the [Node Setup](../nodes/node.md#setting-up-your-node) section.
