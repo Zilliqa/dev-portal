@@ -10,7 +10,8 @@ on:
   push:
     branches:
       - main
-
+      - devops-1843
+      
 jobs:
   build-makefile:
     permissions:
