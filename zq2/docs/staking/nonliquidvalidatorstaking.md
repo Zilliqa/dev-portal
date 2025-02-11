@@ -15,7 +15,6 @@ For more information on the liquid variant or any other detailed information, pl
 To deploy and interact with staking contracts via the CLI, use the provided Forge scripts. Follow these steps before proceeding:
 
 1. **Install Foundry**:
-
    Follow the official [link](https://book.getfoundry.sh/getting-started/installation) for foundry installation.
 
 2. **Install OpenZeppenlin Contracts**:
@@ -24,17 +23,13 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
    forge install OpenZeppelin/openzeppelin-contracts --no-commit
    ```
 3. **Set the RPC URL**:
-
    ```bash
    export FOUNDRY_ETH_RPC_URL=http://localhost:4202
    ```
-
    Alternatively, specify the RPC URL for each command by adding:
-
    ```bash
    --rpc-url http://localhost:4202
    ```
-
 4. **Set the Private Key**:
    ```bash
    export PRIVATE_KEY=0x...
