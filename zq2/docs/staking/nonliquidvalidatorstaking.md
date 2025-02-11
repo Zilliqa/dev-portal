@@ -88,43 +88,34 @@ Expected output:
 If your node is already activated as a validator (solo staker), it can join a staking pool. Execute the following:
 
 1. **Set the Control Address**:
-
    ```bash
    cast send --legacy --private-key <0x...> \
    0x00000000005a494c4445504f53495450524f5859 "setControlAddress(bytes,address)" \
    <BLS_PRIVATE_KEY> \
    <DELEGATION_CONTRACT_PROXY_ADDRESS>
    ```
-
    here `--private-key` refers to the private key previously used to deposit 10 million ZIL into the network.
-
    Example:
-
    ```bash
    cast send --legacy --private-key 0x... \
    0x00000000005a494c4445504f53495450524f5859 "setControlAddress(bytes,address)" \
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
    ```
-
 2. **Join the Staking Pool**:
-
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
    <DELEGATION_CONTRACT_PROXY_ADDRESS> "join(bytes,address)" \
    <BLS_PRIVATE_KEY> \
    <CONTROL-ADDRESS>
    ```
-
    Example:
-
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
    0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "join(bytes,address)" \
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
-
    `CONTROL_ADDRESS` is generated when depositing 10 million ZIL. For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
 
 ---
