@@ -6,7 +6,9 @@ nav:
   - Nodes & Validators:
       - Overview: nodes/index.md
       - Nodes: nodes/node.md
-      - Checkpoints: nodes/checkpoint.md
+      - Checkpoints:
+          - nodes/checkpoints/index.md
+          - Downloads: nodes/checkpoints/download.md
       - Node FAQ: nodes/nodefaq.md
       - Validator Monitoring: nodes/validatormonitoring.md
   - Tools and SDKs: sdk.md
