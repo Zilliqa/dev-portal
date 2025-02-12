@@ -109,8 +109,7 @@ Before your validator node can join the staking pool, you have to execute the fo
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
    `CONTROL_ADDRESS` is generated when depositing 10 million ZIL. 
-   For details, refer to the [staking.md]
-   (https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
+   For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
 
 ---
 
