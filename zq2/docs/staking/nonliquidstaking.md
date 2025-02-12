@@ -115,7 +115,7 @@ Before your validator node can join the staking pool, you have to execute the fo
 
 ## Step 4: Staking Pool Registration
 
- TO Once the validator has joined the staking pool, share the 
+ Once the validator has joined the staking pool, share the 
  **<DELEGATION_CONTRAT_PROXY_ADDRESS>** with the Zilliqa team to allow users
  to delegate ZIL to the staking pool on the new staking portal.
 
