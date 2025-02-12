@@ -1,13 +1,11 @@
 ---
-id: staking/nonliquidstaking
-title: Non-Liquid Staking
+id: staking/delegatedstaking
+title: Delegated Staking
 ---
 
 ## Overview
 
-This guide focuses on the **Non-Liquid Staking** variant. The following steps
-outline the creation of a staking pool for an already deposited validator
-node.
+The following steps outline the creation of a staking pool for an already deposited validator node.
 
 ---
 
@@ -35,9 +33,33 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 
 ---
 
-## Step 1: Contract Deployment
 
-Deploy the **NonLiquidDelegation** contract by running:
+## Step 1: Contract Deployment
+Choose one of the variant Liquid/Non-Liquid staking contract to deploy:
+
+### Deploying **LiquidDelegation** Contract
+Deploy the **LiquidDelegation** contract using:
+
+
+```bash
+forge script script/Deploy.s.sol --broadcast --legacy --sig "liquidDelegation(string,string)" Name Symbol
+```
+where `Name` and `Symbol` represent your Liquid Staking Token (LST).
+
+
+Example output:
+
+```
+  Signer is 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77
+  Proxy deployed: 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
+  Implementation deployed: 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD
+  Owner is 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77
+  Upgraded to version: 1.3.4
+```
+
+ 
+### Deploying **Non-LiquidDelegation** Contract
+Alternatively, deploy the NonLiquidDelegation contract using:
 
 ```bash
 forge script script/Deploy.s.sol --broadcast --legacy --sig "nonLiquidDelegation()"

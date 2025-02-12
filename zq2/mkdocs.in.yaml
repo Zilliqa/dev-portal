@@ -12,7 +12,7 @@ nav:
 
   - Staking:
       - Overview: staking/index.md
-      - Non-Liquid Staking: staking/nonliquidstaking.md
+      - Delegated Staking: staking/delegatedstaking.md
   - Tools and SDKs: sdk.md
   - $use_zq2_from
   - $APIs
