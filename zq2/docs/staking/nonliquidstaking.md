@@ -1,12 +1,13 @@
 ---
-id: staking/validatorstaking
-title: Non Liquid Validator Staking
+id: staking/nonliquidstaking
+title: Non-Liquid Staking
 ---
 
 ## Overview
 
-This guide focuses on the **Non-Liquid Staking** variant, where a validator has already been activated (with 10 million ZIL delegated and producing blocks). The following steps outline the staking pool creation and delegation process.
-For more information on the liquid variant or any other detailed information, please refer to [delegated-staking](https://github.com/Zilliqa/delegated_staking) repository.
+This guide focuses on the **Non-Liquid Staking** variant. The following steps
+outline the creation of a staking pool for an already deposited validator
+node.
 
 ---
 
@@ -25,10 +26,6 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 3. **Set the RPC URL**:
    ```bash
    export FOUNDRY_ETH_RPC_URL=http://localhost:4202
-   ```
-   Alternatively, specify the RPC URL for each command by adding:
-   ```bash
-   --rpc-url http://localhost:4202
    ```
 4. **Set the Private Key**:
    ```bash
@@ -66,7 +63,7 @@ Configure the validator’s commission rate (e.g., 10%):
 forge script script/Configure.s.sol --broadcast --legacy --sig "commissionRate(address payable, uint16)" <DELEGATION_CONTRACT_PROXY_ADDRESS> 1000
 ```
 
-you can find `DELEGATION_CONTRACT_PROXY_ADDRESS` in the output of deployment step 1.
+You can find `DELEGATION_CONTRACT_PROXY_ADDRESS` in the output of deployment step 1.
 
 Expected output:
 
@@ -80,16 +77,16 @@ Expected output:
 
 ## Step 3: Validator Addition
 
-If your node is already activated as a validator (solo staker), it can join a staking pool. Execute the following:
+Before your validator node can join the staking pool, you have to execute the following steps:
 
 1. **Set the Control Address**:
    ```bash
    cast send --legacy --private-key <0x...> \
    0x00000000005a494c4445504f53495450524f5859 "setControlAddress(bytes,address)" \
-   <BLS_PRIVATE_KEY> \
+   <BLS_PUBLIC_KEY> \
    <DELEGATION_CONTRACT_PROXY_ADDRESS>
    ```
-   here `--private-key` refers to the private key previously used to deposit 10 million ZIL into the network.
+   here `--private-key` refers to the private key previously used to deposit stake for the validator node.
    Example:
    ```bash
    cast send --legacy --private-key 0x... \
@@ -101,8 +98,8 @@ If your node is already activated as a validator (solo staker), it can join a st
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
    <DELEGATION_CONTRACT_PROXY_ADDRESS> "join(bytes,address)" \
-   <BLS_PRIVATE_KEY> \
-   <CONTROL-ADDRESS>
+   <BLS_PUBLIC_KEY> \
+   <CONTROL_ADDRESS>
    ```
    Example:
    ```bash
@@ -111,16 +108,23 @@ If your node is already activated as a validator (solo staker), it can join a st
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
-   `CONTROL_ADDRESS` is generated when depositing 10 million ZIL. For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
+   `CONTROL_ADDRESS` is generated when depositing 10 million ZIL. 
+   For details, refer to the [staking.md]
+   (https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
 
 ---
 
-## Step 4: Delegation Pool Registration
+## Step 4: Staking Pool Registration
 
-Once the validator has joined the staking pool, share the **delegation proxy address** with the Zilliqa team. The team will add the **SSN (Staking Service Node)** to the Zillion portal, allowing delegators to stake with their preferred SSN.
+ TO Once the validator has joined the staking pool, share the 
+ **<DELEGATION_CONTRAT_PROXY_ADDRESS>** with the Zilliqa team to allow users
+ to delegate ZIL to the staking pool on the new staking portal.
 
 ---
 
 ## Summary
 
-By following these steps, you have successfully deployed, configured, and added a validator to a **Non-Liquid Staking Pool**. Delegators can now stake to your SSN and regularly claim their rewards without withdrawing the staked amount.
+By following these steps, you have successfully deployed, configured, and 
+added a validator to a **Non-Liquid Staking Pool**. Delegators can now 
+delegate to your staking pool and regularly claim their rewards without 
+withdrawing the staked amount.

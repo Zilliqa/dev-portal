@@ -63,6 +63,7 @@ lint:
         - zq2/docs/js/** # trunk does not know this is looking for metamask in the user's browser.
         - zq2/docs/index.md # contains legitimate empty links
         - zq2/docs/nodes/**
+        - zq2/docs/staking/**
         - .trunk/*out/**
         - cd/base/deployment.yaml
         - zq1/** # Legacy
