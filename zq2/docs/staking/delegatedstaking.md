@@ -146,6 +146,6 @@ Before your validator node can join the staking pool, you have to execute the fo
 ## Summary
 
 By following these steps, you have successfully deployed, configured, and 
-added a validator to a **Non-Liquid Staking Pool**. Delegators can now 
+added a validator into either a **Non-Liquid Staking Pool** or a **Liquid staking Pool**. Delegators can now 
 delegate to your staking pool and regularly claim their rewards without 
 withdrawing the staked amount.
