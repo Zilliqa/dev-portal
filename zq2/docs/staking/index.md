@@ -3,13 +3,21 @@ id: staking/index
 title: Delegated Staking
 ---
 
-# Delegated Staking Mechanism
+# Solo Staking
 
-Zilliqa 2.0 validators can operate staking pools, allowing users to delegate 
-stake to them. They can use the reference implementation of the staking 
-variants mentioned below or create their own smart contracts.
+If node operators want to become a validator on Zilliqa 2.0, they can deposit the
+minimum stake required on their own. They can increase their deposit or decrease
+it by unstaking and withdrawing part of their deposit. Note that the remaining
+deposit must be at least the required minimum. If a validator does not want to
+participate in the consensus anymore, they must unstake their entire deposit.
 
-The staking mechanism supports two variants:
+# Delegated Staking
+
+Alternatively, validators can operate staking pools, allowing users to delegate 
+stake to them. To set up a staking pool, they can use the reference implementation
+mentioned below or create and deploy their own smart contracts.
+
+The reference smart contracts currently supports two variants of delegated staking:
 
 ## Staking Variants
 
@@ -34,3 +42,10 @@ and claiming rewards.
 
 Operators of validator nodes on the proto-mainnet can set up and join a staking pool
 with their validator by following the instructions [here](../staking/delegatedstaking.md).
+
+## Setup by Funding a Validator through Delegations
+
+Node operators who do not have the minimum stake required to run a validator node can
+launch a staking pool, collect delegated stake and deposit it to turn their node into
+a validator once the total delegated stake reaches the minimum required of validators.
+Detailed setup instructions for this scenario will be published soon.
