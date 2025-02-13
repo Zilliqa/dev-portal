@@ -25,3 +25,7 @@ The tokens are burned when the delegator withdraws their stake,
 
 - Users can withdraw their share of the rewards regularly without unstaking 
 their principal amount.
+
+## Setup for Existing Validators
+
+Operators of validator nodes on the proto-mainnet can set up a staking pool for their validator by following the instructions [here](../staking/delegatedstaking.md).
