@@ -177,7 +177,3 @@ dApp may be able to help, or if you are sophisticated, you may be able
 to do this yourself.
 
 We will try to provide assistance with the most common cases as they arise.
-
-#### How do I get started with development using hardhat?
-
-See our [handy guide](zilevm/tools/hardhat.md) .
