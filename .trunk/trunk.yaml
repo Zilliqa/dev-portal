@@ -52,7 +52,6 @@ lint:
       paths:
         - zq1/** # Not worth fixing.
         - zq2/docs/ecosystem/index.md # multiple headers
-        - zq2/docs/zilevm/tools/remix.md # Don't care about line length
         - README.md
         - DEPLOY.md
         - zq2/docs/changes.md # contains inline HTML
