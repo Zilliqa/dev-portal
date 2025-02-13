@@ -1,6 +1,6 @@
 ---
 id: staking/index
-title: Delegated Staking
+title: Staking
 ---
 
 # Solo Staking
