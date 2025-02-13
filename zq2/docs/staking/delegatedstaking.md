@@ -11,7 +11,9 @@ The following steps outline the creation of a staking pool for an already deposi
 
 ## Prerequisites
 
-To deploy and interact with staking contracts via the CLI, use the provided Forge scripts. Follow these steps before proceeding:
+Clone the [delegated staking](https://github.com/zilliqa/delegated_staking) repository or pull the `main` branch if you have already cloned it.
+
+To deploy and interact with staking contracts via the CLI, use the provided Forge scripts. Follow these steps before proceeding with the deployment:
 
 1. **Install Foundry**:
    Follow the official [link](https://book.getfoundry.sh/getting-started/installation) for foundry installation.
@@ -29,7 +31,7 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
    ```bash
    export PRIVATE_KEY=0x...
    ```
-   `PRIVATE_KEY` refers to the contract owner's private key.
+   `PRIVATE_KEY` refers to the staking pool contract owner's private key.
 
 ---
 
@@ -37,7 +39,7 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 ## Step 1: Contract Deployment
 Choose one of the variant Non-Liquid/Liquid staking contract to deploy:
 
-### Deploying **Non-LiquidDelegation** Contract
+### Deploying **NonLiquidDelegation** Contract
 
 ```bash
 forge script script/Deploy.s.sol --broadcast --legacy --sig "nonLiquidDelegation()"
@@ -108,7 +110,7 @@ Before your validator node can join the staking pool, you have to execute the fo
    <BLS_PUBLIC_KEY> \
    <DELEGATION_CONTRACT_PROXY_ADDRESS>
    ```
-   here `--private-key` refers to the private key previously used to deposit stake for the validator node.
+   here `--private-key <0x...>` refers to the private key previously used to deposit stake for the validator node.
    Example:
    ```bash
    cast send --legacy --private-key 0x... \
@@ -130,7 +132,7 @@ Before your validator node can join the staking pool, you have to execute the fo
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
-   `CONTROL_ADDRESS` is generated when depositing 10 million ZIL. 
+   The `CONTROL_ADDRESS` was generated when depositing the minimum stake required of validators. 
    For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
 
 ---
@@ -138,14 +140,13 @@ Before your validator node can join the staking pool, you have to execute the fo
 ## Step 4: Staking Pool Registration
 
  Once the validator has joined the staking pool, share the 
- **<DELEGATION_CONTRAT_PROXY_ADDRESS>** with the Zilliqa team to allow users
+ **<DELEGATION_CONTRACT_PROXY_ADDRESS>** with the Zilliqa team to allow users
  to delegate ZIL to the staking pool on the new staking portal.
 
 ---
 
 ## Summary
 
-By following these steps, you have successfully deployed, configured, and 
-added a validator into either a **Non-Liquid Staking Pool** or a **Liquid staking Pool**. Delegators can now 
-delegate to your staking pool and regularly claim their rewards without 
-withdrawing the staked amount.
+By following these steps, you have successfully deployed, configured, and added
+a validator into either a **Non-Liquid Staking Pool** or a **Liquid Staking Pool**.
+ZIL holders can now delegate to the pool and you receive commissions on the delegated amount.
