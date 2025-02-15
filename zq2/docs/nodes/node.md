@@ -103,7 +103,7 @@ There are two options you can choose from:
      in justa few hours, depending on the checkpoint's block height. Before proceeding to 
     [start the node](#starting-your-node) section, you'll need to configure the necessary
     settings to start the node from a checkpoint. Detailed instructions for this configuration
-    are available in [syncing-from-checkpoints](../nodes/checkpoint.md#syncing-a-node-from-a-checkpoint).
+    are available in [syncing-from-checkpoints](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpointsyncing-a-node-from-a-checkpoint).
 
     - Synchronization from the genesis.
 
@@ -132,7 +132,7 @@ Since only full archive nodes need to sync from the genesis block, all other nod
   ```
 
 
-_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoint.md#syncing-a-node-from-a-checkpoint)_
+_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
 Great! The node should now be syncing with the network. It may
 take up to 1-2 hours for the node to fully synchronize. You can check the progress
