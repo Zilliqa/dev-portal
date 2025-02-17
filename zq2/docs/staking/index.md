@@ -17,7 +17,7 @@ Alternatively, validators can operate staking pools, allowing users to delegate
 stake to them. To set up a staking pool, they can use the reference implementation
 mentioned below or create and deploy their own smart contracts.
 
-The reference smart contracts currently supports two variants of delegated staking:
+The reference smart contracts currently support two variants of delegated staking:
 
 ## Staking Variants
 
