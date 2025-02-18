@@ -93,7 +93,7 @@ base. Follow the step by step guide to setup your node:
   z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
   ```
   _NOTE: For more details on testing and using the available OpenTelemetry 
-  metrics refer to the [OpenTelemetry](../nodes/opentelemetry.md) page._
+  metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
   ```bash
