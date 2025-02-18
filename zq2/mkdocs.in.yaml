@@ -10,8 +10,9 @@ nav:
           - nodes/checkpoints/index.md
           - Downloads: nodes/checkpoints/download.md
       - Node FAQ: nodes/nodefaq.md
-      - Validator Monitoring: nodes/validatormonitoring.md
-
+      - Monitoring:
+          - Validator Stats Agent: nodes/monitoring/statsagent.md
+          - OpenTelemetry: nodes/monitoring/opentelemetry.md
   - Staking:
       - Overview: staking/index.md
       - Delegated Staking: staking/delegatedstaking.md

@@ -1,11 +1,11 @@
 ---
-id: nodes/validatormonitoring
+id: nodes/monitoring/statsagent
 title: Validator Monitoring 
 keywords:
   - Node
   - Validator
   - Monitoring
-description: Validator Monitoring 
+description: Validator Stats Agent 
 ---
 
 # Validator Stats Agent Setup Guide
