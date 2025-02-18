@@ -87,7 +87,7 @@ base. Follow the step by step guide to setup your node:
   which network you want your node to join._
 
 8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
-  protocol specification. If you want to export these metrics you can define a [collector](https://github.com/open-telemetry/opentelemetry-collector) 
+  protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
   ```bash
   z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317

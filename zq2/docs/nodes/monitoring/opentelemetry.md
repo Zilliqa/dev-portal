@@ -26,12 +26,16 @@ protocol specification. These metrics are useful for:
 - Understanding system behavior under different conditions
 - Enabling proactive maintenance and troubleshooting
 
-To export the OpenTelemetry metrics, you can define the collector endpoint with the `--otlp-endpoint`
-parameter in `z2 join`:
+To export the OpenTelemetry metrics, you can define a collector endpoint with the `--otlp-endpoint`
+parameter in `z2 join`, for example `http://localhost:4317`:
 
 ```bash
 z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
 ```
+
+This endpoint should point to a OpenTelemetry compatible [collector](https://opentelemetry.io/docs/collector/) in your monitoring stack such as:
+- [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
+- [Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent/otlp)
 
 ## Local Testing
 

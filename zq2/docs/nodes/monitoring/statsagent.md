@@ -5,7 +5,7 @@ keywords:
   - Node
   - Validator
   - Monitoring
-description: Validator Monitoring 
+description: Validator Stats Agent 
 ---
 
 # Validator Stats Agent Setup Guide
