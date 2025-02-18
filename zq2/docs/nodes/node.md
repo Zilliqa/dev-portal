@@ -85,7 +85,17 @@ base. Follow the step by step guide to setup your node:
   ```
   _NOTE: You can replace `zq2-prototestnet` with `zq2-protomainnet` depending on
   which network you want your node to join._
-8. Generate the node private key.
+
+8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
+  protocol specification. If you want to export these metrics you can define a [collector](https://github.com/open-telemetry/opentelemetry-collector) 
+  endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
+  ```bash
+  z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
+  ```
+  _NOTE: For more details on testing and using the available OpenTelemetry 
+  metrics refer to the [OpenTelemetry](../nodes/opentelemetry.md) page._
+
+9. Generate the node private key.
   ```bash
   openssl rand -hex 32 > node-private-key.txt
   export PRIVATE_KEY=$(cat node-private-key.txt)
@@ -93,7 +103,7 @@ base. Follow the step by step guide to setup your node:
   _NOTE: Please save the node key as described above. You may need it
   in the future to restart the node to generate the BLS public
   key of the node._
-9. Now it's time to decide how the node will synchronize with the network. 
+10. Now it's time to decide how the node will synchronize with the network. 
 There are two options you can choose from:
 
     - Synchronization from a checkpoint.
@@ -171,7 +181,7 @@ Once you have sufficient $ZILs you can register your node as validator.
 
 Below is a guide on how to register a validator node for Zilliqa 2.0:
 
-<https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md>
+<https://github.com/Zilliqa/zq2/blob/main/z2/docs/deposit.md>
 
 ### [Upgrading your node](#upgrading-your-node)
 

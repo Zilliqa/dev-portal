@@ -1,5 +1,5 @@
 ---
-id: nodes/validatormonitoring
+id: nodes/monitoring/statsagent
 title: Validator Monitoring 
 keywords:
   - Node
