@@ -38,15 +38,3 @@ in your monitoring stack such as:
 
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
 - [Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent/otlp)
-
-## Local Testing
-
-For local testing of the OpenTelemetry integration with the Zilliqa nodes, you can use the provided Docker
-Compose project in the `infra/opentelemetry` folder of the [zq2 repository](https://github.com/Zilliqa/zq2), and run:
-
-```bash
-docker-compose up -d
-```
-
-This will deploy a Zilliqa environment with the complete OpenTelemetry toolset, and once deployed,
-the metrics can be visualized through Grafana at [http://localhost:9010](http://localhost:9010).
