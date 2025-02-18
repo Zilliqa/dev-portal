@@ -33,7 +33,9 @@ parameter in `z2 join`, for example `http://localhost:4317`:
 z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
 ```
 
-This endpoint should point to a OpenTelemetry compatible [collector](https://opentelemetry.io/docs/collector/) in your monitoring stack such as:
+This endpoint should point to a OpenTelemetry compatible [collector](https://opentelemetry.io/docs/collector/) 
+in your monitoring stack such as:
+
 - [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector)
 - [Ops Agent](https://cloud.google.com/monitoring/agent/ops-agent/otlp)
 
