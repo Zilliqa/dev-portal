@@ -104,7 +104,7 @@ Expected output:
 Before your validator node can join the staking pool, follow one of the approaches below depending on 
 whether you have already deposited the required stake or need delegations to accumulate enough funds.
 
-### Scenario 1: Already Deposited Validators
+### Scenario 1: Already Activated Validators
 If your validator node has already met the minimum staking requirement, execute the following steps:
 
 
@@ -142,7 +142,7 @@ If your validator node has already met the minimum staking requirement, execute 
 
 ---
 
-### Scenario 2: Node Operators Without 10M ZIL (Needing Delegations)
+### Scenario 2: Not activated validators 
 
 #### Case 1: If You Have Enough Balance in the Delegation Contract
 If you don't have an activated validator node yet, but have already deployed a delegation contract and your balance as the contract owner covers the required minimum stake, you can activate a fully synced node as your first validator by submitting a transaction with 10 million ZIL:
@@ -163,7 +163,7 @@ cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
 ```
 
 #### Case 2: If You Need Delegations to Reach 10M ZIL
-Even if you don’t own the full 10M ZIL, your delegation contract can still collect delegated stake. Once the total funds (your stake + delegations) reach 10M ZIL, you can activate a fully synced node as your first validator by adding 5 million ZIL from your balance:
+Even if you don’t own the full 10M ZIL, your delegation contract can still collect delegated stake. Once the total funds (your stake + delegations) reach 10M ZIL, you can activate a fully synced node as your first validator by adding required ZIL from your balance:
 ```
 cast send --legacy --value <AMOUNT_IN_MILLIONS>ether --private-key $PRIVATE_KEY \
 <DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
@@ -171,7 +171,7 @@ cast send --legacy --value <AMOUNT_IN_MILLIONS>ether --private-key $PRIVATE_KEY 
 <VALIDATOR_REGISTRATION_SIGNATURE> \
 <VALIDATOR_BLS_SIGNATURE>
 ```
-Example:
+Example: If your validator node has collected 5M ZIL from delegators but is still short of another 5M ZIL, you can complete the deposit by adding the remaining amount.
 ```bash
 cast send --legacy --value 5000000ether --private-key $PRIVATE_KEY \
 0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
