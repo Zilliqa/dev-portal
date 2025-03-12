@@ -144,7 +144,7 @@ If your validator node has already met the minimum staking requirement, execute 
 
 ### Scenario 2: Not activated validators 
 
-#### Case 1: If You Have Enough Balance in the Delegation Contract
+#### Case 1: If you have already deployed delegation Contract
 If you don't have an activated validator node yet, but have already deployed a delegation contract and your balance as the contract owner covers the required minimum stake, you can activate a fully synced node as your first validator by submitting a transaction with 10 million ZIL:
 ```bash
 cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
