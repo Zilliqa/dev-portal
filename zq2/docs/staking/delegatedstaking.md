@@ -101,7 +101,12 @@ Expected output:
 
 ## Step 3: Validator Addition
 
-Before your validator node can join the staking pool, you have to execute the following steps:
+Before your validator node can join the staking pool, follow one of the approaches below depending on 
+whether you have already deposited the required stake or need delegations to accumulate enough funds.
+
+### Scenario 1: Already Activated Validators
+If your validator node has already met the minimum staking requirement, execute the following steps:
+
 
 1. **Set the Control Address**:
    ```bash
@@ -121,14 +126,14 @@ Before your validator node can join the staking pool, you have to execute the fo
 2. **Join the Staking Pool**:
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
-   <DELEGATION_CONTRACT_PROXY_ADDRESS> "join(bytes,address)" \
+   <DELEGATION_CONTRACT_PROXY_ADDRESS> "joinPool(bytes,address)" \
    <BLS_PUBLIC_KEY> \
    <CONTROL_ADDRESS>
    ```
    Example:
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
-   0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "join(bytes,address)" \
+   0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "joinPool(bytes,address)" \
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
@@ -136,6 +141,46 @@ Before your validator node can join the staking pool, you have to execute the fo
    For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
 
 ---
+
+### Scenario 2: Not activated validators 
+
+#### Case 1: If you have already deployed delegation Contract
+If you don't have an activated validator node yet, but have already deployed a delegation contract and your balance as the contract owner covers the required minimum stake, you can activate a fully synced node as your first validator by submitting a transaction with 10 million ZIL:
+```bash
+cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
+<DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
+<BLS_PUBLIC_KEY> \
+<VALIDATOR_REGISTRATION_SIGNATURE> \
+<VALIDATOR_BLS_SIGNATURE>
+```
+Example:
+```bash
+cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
+```
+
+#### Case 2: If You Need Delegations to Reach 10M ZIL
+Even if you don’t own the full 10M ZIL, your delegation contract can still collect delegated stake. Once the total funds (your stake + delegations) reach 10M ZIL, you can activate a fully synced node as your first validator by adding required ZIL from your balance:
+```
+cast send --legacy --value <AMOUNT_IN_MILLIONS>ether --private-key $PRIVATE_KEY \
+<DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
+<BLS_PUBLIC_KEY> \
+<VALIDATOR_REGISTRATION_SIGNATURE> \
+<VALIDATOR_BLS_SIGNATURE>
+```
+Example: If your validator node has collected 5M ZIL from delegators but is still short of another 5M ZIL, you can complete the deposit by adding the remaining amount.
+```bash
+cast send --legacy --value 5000000ether --private-key $PRIVATE_KEY \
+0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
+```
+
+
 
 ## Step 4: Staking Pool Registration
 
