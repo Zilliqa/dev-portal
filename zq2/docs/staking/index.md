@@ -48,4 +48,4 @@ with their validator by following the instructions [here](../staking/delegatedst
 Node operators who do not have the minimum stake required to run a validator node can
 launch a staking pool, collect delegated stake and deposit it to turn their node into
 a validator once the total delegated stake reaches the minimum required of validators.
-Detailed setup instructions for this scenario will be published soon.
+Refer [here](../staking/delegatedstaking.md) for more information.
