@@ -5,7 +5,7 @@ title: Delegated Staking
 
 ## Overview
 
-The following steps outline the creation of a staking pool for an already deposited validator node.
+The following steps outline the creation of a staking pool with a single validator node.
 
 ---
 
@@ -37,7 +37,7 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 
 
 ## Step 1: Contract Deployment
-Choose one of the variant Non-Liquid/Liquid staking contract to deploy:
+Choose which variant of the staking contract to deploy:
 
 ### Deploying **NonLiquidDelegation** Contract
 
@@ -54,8 +54,6 @@ Example output:
   Owner is 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77
   Upgraded to version: 0.3.4
 ```
-
-Alternatively, deploy the LiquidDelegation contract.
 
 ### Deploying **LiquidDelegation** Contract
 
@@ -87,7 +85,7 @@ Configure the validator’s commission rate (e.g., 10%):
 forge script script/Configure.s.sol --broadcast --legacy --sig "commissionRate(address payable, uint16)" <DELEGATION_CONTRACT_PROXY_ADDRESS> 1000
 ```
 
-You can find `DELEGATION_CONTRACT_PROXY_ADDRESS` in the output of deployment step 1.
+You can find `DELEGATION_CONTRACT_PROXY_ADDRESS` in the output of step 1.
 
 Expected output:
 
@@ -101,12 +99,11 @@ Expected output:
 
 ## Step 3: Validator Addition
 
-Before your validator node can join the staking pool, follow one of the approaches below depending on 
-whether you have already deposited the required stake or need delegations to accumulate enough funds.
+Follow one of the approaches below depending on whether you have already deposited your validator node
+with the required stake or need delegations to accumulate enough stake to deposit a node as a validator.
 
-### Scenario 1: Already Activated Validators
-If your validator node has already met the minimum staking requirement, execute the following steps:
-
+### Scenario 1: Already Deposited Validator Node
+If you are operating an already deposited validator node, execute the following steps:
 
 1. **Set the Control Address**:
    ```bash
@@ -133,65 +130,46 @@ If your validator node has already met the minimum staking requirement, execute 
    Example:
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
-   0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "joinPool(bytes,address)" \
+   0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "joinPool(bytes,address)" \
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
-   The `CONTROL_ADDRESS` was generated when depositing the minimum stake required of validators. 
+   The `CONTROL_ADDRESS` was generated when depositing the stake required of validators. 
    For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
+
+
+### Scenario 2: Not Yet Deposited Node 
+
+If you're operating a fully synced node that has not been deposited yet, and you don't own the 10m ZIL minimum stake required of validators, proceeding with step 4 will enable your contract to collect delegated stake you need for depositing your node as a validator. Once the stake delegated to the contract plus your ZIL balance as the contract owner exceed the required minimum, you can add your fully synced node to the staking pool and activate it as a validator by executing:
+
+```bash
+cast send --legacy --value <YOUR_ZIL>ether --private-key $PRIVATE_KEY \
+<DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
+<BLS_PUBLIC_KEY> \
+<VALIDATOR_REGISTRATION_SIGNATURE> \
+<VALIDATOR_BLS_SIGNATURE>
+```
+Example: If your contract has collected 8M ZIL from delegators but is still short of another 2M ZIL, you can complete the deposit by transferring the remaining 2M ZIL out of your balance.
+```bash
+cast send --legacy --value 2000000ether --private-key $PRIVATE_KEY \
+0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "depositFromPool(bytes,bytes,bytes)" \
+0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
+0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
+0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
+```
 
 ---
 
-### Scenario 2: Not activated validators 
-
-#### Case 1: If you have already deployed delegation Contract
-If you don't have an activated validator node yet, but have already deployed a delegation contract and your balance as the contract owner covers the required minimum stake, you can activate a fully synced node as your first validator by submitting a transaction with 10 million ZIL:
-```bash
-cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
-<DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
-<BLS_PUBLIC_KEY> \
-<VALIDATOR_REGISTRATION_SIGNATURE> \
-<VALIDATOR_BLS_SIGNATURE>
-```
-Example:
-```bash
-cast send --legacy --value 10000000ether --private-key $PRIVATE_KEY \
-0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
-0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
-0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
-0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
-```
-
-#### Case 2: If You Need Delegations to Reach 10M ZIL
-Even if you don’t own the full 10M ZIL, your delegation contract can still collect delegated stake. Once the total funds (your stake + delegations) reach 10M ZIL, you can activate a fully synced node as your first validator by adding required ZIL from your balance:
-```
-cast send --legacy --value <AMOUNT_IN_MILLIONS>ether --private-key $PRIVATE_KEY \
-<DELEGATION_CONTRACT_PROXY_ADDRESS> "depositFromPool(bytes,bytes,bytes)" \
-<BLS_PUBLIC_KEY> \
-<VALIDATOR_REGISTRATION_SIGNATURE> \
-<VALIDATOR_BLS_SIGNATURE>
-```
-Example: If your validator node has collected 5M ZIL from delegators but is still short of another 5M ZIL, you can complete the deposit by adding the remaining amount.
-```bash
-cast send --legacy --value 5000000ether --private-key $PRIVATE_KEY \
-0x7a0b7e6d24ede78260c9ddbd98e828b0e11a8ea2 "depositFromPool(bytes,bytes,bytes)" \
-0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
-0x002408011220d5ed74b09dcbe84d3b32a56c01ab721cf82809848b6604535212a219d35c412f \
-0xb14832a866a49ddf8a3104f8ee379d29c136f29aeb8fccec9d7fb17180b99e8ed29bee2ada5ce390cb704bc6fd7f5ce814f914498376c4b8bc14841a57ae22279769ec8614e2673ba7f36edc5a4bf5733aa9d70af626279ee2b2cde939b4bd8a
-```
-
-
-
 ## Step 4: Staking Pool Registration
 
- Once the validator has joined the staking pool, share the 
- **<DELEGATION_CONTRACT_PROXY_ADDRESS>** with the Zilliqa team to allow users
- to delegate ZIL to the staking pool on the new staking portal.
+Share the **<DELEGATION_CONTRACT_PROXY_ADDRESS>** with the Zilliqa team to allow
+users to delegate ZIL to your staking pool on the new staking portal.
 
 ---
 
 ## Summary
 
 By following these steps, you have successfully deployed, configured, and added
-a validator into either a **Non-Liquid Staking Pool** or a **Liquid Staking Pool**.
-ZIL holders can now delegate to the pool and you receive commissions on the delegated amount.
+a validator to either a **Non-Liquid Staking Pool** or a **Liquid Staking Pool**.
+ZIL holders who delegated to the pool will earn rewards or see their liquid staking
+token's value increase and you will receive commissions on the delegated amounts.
