@@ -215,7 +215,7 @@ docker stop <container id>
 Start your new node:
 
 ```bash
-./start_node.sh
+./start_node.sh -k $PRIVATE_KEY
 ```
 
 You can validate the version your node is running by calling the `GetVersion` API method:
