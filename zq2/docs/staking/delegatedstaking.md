@@ -105,14 +105,28 @@ with your validator node or you need delegations to accumulate enough stake to d
 ### Scenario 1: Node with Deposited Stake
 If you are operating a validator node with the required stake already deposited, execute the following steps:
 
-1. **Set the Control Address**:
+1. **Register the Control Address**:
+   ```bash
+   cast send --legacy --private-key <0x...> \
+   <DELEGATION_CONTRACT_PROXY_ADDRESS> "registerControlAddress(bytes)" \
+   <BLS_PUBLIC_KEY>
+   ```
+   here `--private-key <0x...>` refers to the private key previously used to deposit stake for the validator node.
+   For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md).
+   Example:
+   ```bash
+   cast send --legacy --private-key 0x... \
+   0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "registerControlAddress(bytes)" \
+   0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
+   ```
+2. **Change the Control Address**:
    ```bash
    cast send --legacy --private-key <0x...> \
    0x00000000005a494c4445504f53495450524f5859 "setControlAddress(bytes,address)" \
    <BLS_PUBLIC_KEY> \
    <DELEGATION_CONTRACT_PROXY_ADDRESS>
    ```
-   here `--private-key <0x...>` refers to the private key previously used to deposit stake for the validator node.
+   here `--private-key <0x...>` refers to the private key used in the previous step.
    Example:
    ```bash
    cast send --legacy --private-key 0x... \
@@ -120,12 +134,11 @@ If you are operating a validator node with the required stake already deposited,
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2
    ```
-2. **Join the Staking Pool**:
+3. **Join the Staking Pool**:
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
-   <DELEGATION_CONTRACT_PROXY_ADDRESS> "joinPool(bytes,address)" \
-   <BLS_PUBLIC_KEY> \
-   <CONTROL_ADDRESS>
+   <DELEGATION_CONTRACT_PROXY_ADDRESS> "joinPool(bytes)" \
+   <BLS_PUBLIC_KEY>
    ```
    Example:
    ```bash
@@ -134,9 +147,6 @@ If you are operating a validator node with the required stake already deposited,
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
    0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
    ```
-   The `CONTROL_ADDRESS` was generated when depositing the stake required of validators. 
-   For details, refer to the [staking.md](https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md#generating-required-values).
-
 
 ### Scenario 2: Node Without Deposited Stake 
 
