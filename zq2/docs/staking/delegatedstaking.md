@@ -143,9 +143,8 @@ If you are operating a validator node with the required stake already deposited,
    Example:
    ```bash
    cast send --legacy --private-key $PRIVATE_KEY \
-   0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "joinPool(bytes,address)" \
-   0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c \
-   0xe0c6f3d59b8cda6ce4fd66418212404a63ad8517
+   0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "joinPool(bytes)" \
+   0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
    ```
 
 ### Scenario 2: Node Without Deposited Stake 
