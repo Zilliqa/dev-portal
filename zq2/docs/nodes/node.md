@@ -45,12 +45,12 @@ and you are facing any traversal issue you might have to debug on your own._
 
 #### Required
 
-3333/UDP - P2P protocol port: has to be opened on inbound and outbound to
+3333/TCP - P2P protocol port: has to be opened on inbound and outbound to
 public internet.
 
 #### Optional
 
-4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
+4201/TCP,4202/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
 be accessible via the internet.
 
 ## Installation
