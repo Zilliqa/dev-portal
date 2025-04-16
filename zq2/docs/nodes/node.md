@@ -50,7 +50,7 @@ public internet.
 
 #### Optional
 
-4201/TCP,4202/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
+4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
 be accessible via the internet.
 
 ## Installation
