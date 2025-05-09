@@ -23,7 +23,7 @@ Zilliqa nodes support two **mutually exclusive** configuration parameters:
 - **Use case:** Ideal for **validator nodes** that only need recent block data for performance.
 - **Note:** Pruning only starts **after** more than `N` blocks are present. No backward sync is performed to reach count `N`.
 
-### `node.sync.sync_base_height`
+### `node.sync.base_height`
 
 - **Purpose:** Ensures the lowest block retained is at height `N`.
 - **Effect:** Deletes blocks **below** height `N` and **passively syncs** blocks from `TIP` backwards to `N`.
@@ -59,7 +59,7 @@ node.sync.prune_interval = 10000
 Set the following in the config:
 
 ```toml
-node.sync.sync_base_height = 0
+node.sync.base_height = 0
 ```
 
 * Node begins **passive syncing backwards** toward block `0`.
@@ -88,7 +88,7 @@ node.sync.sync_base_height = 0
 | Config                       | Purpose                  | Passive Sync | Prune Old Blocks | Use Case       |
 | ---------------------------- | ------------------------ | ------------ | ---------------- | -------------- |
 | `node.sync.prune_interval`   | Retain latest `N` blocks | ❌            | ✅                | Validator Node |
-| `node.sync.sync_base_height` | Retain from `N` to TIP   | ✅            | ✅                | Archive Node   |
+| `node.sync.base_height`      | Retain from `N` to TIP   | ✅            | ✅                | Archive Node   |
 
 ---
 

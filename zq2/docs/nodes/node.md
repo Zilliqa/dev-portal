@@ -115,7 +115,7 @@ There are two options you can choose from:
     settings to start the node from a checkpoint. Detailed instructions for this configuration
     are available in [syncing-from-checkpoints](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpointsyncing-a-node-from-a-checkpoint).
 
-    - Synchronization from the genesis(passive syncing).
+    - Synchronization from the genesis.
 
     This method initializes the node from the genesis block, ensuring that the node processes 
     the entire blockchain history. However, this process is time-consuming, as the node must 
