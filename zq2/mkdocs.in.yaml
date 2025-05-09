@@ -10,6 +10,7 @@ nav:
           - nodes/checkpoints/index.md
           - Downloads: nodes/checkpoints/download.md
       - Node FAQ: nodes/nodefaq.md
+      - Passive sync and Pruning: nodes/passive-pruning.md
       - Monitoring:
           - Validator Stats Agent: nodes/monitoring/statsagent.md
           - OpenTelemetry: nodes/monitoring/opentelemetry.md
