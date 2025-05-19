@@ -3,13 +3,13 @@ id: staking/delegatedstaking
 title: Delegated Staking
 ---
 
-## Overview
+##  🧭 Overview
 
 The following steps outline the creation of a staking pool with a single validator node.
 
 ---
 
-## Prerequisites
+## ⚙️ Prerequisites
 
 Clone the [delegated staking](https://github.com/zilliqa/delegated_staking) repository or pull the `main` branch if you have already cloned it.
 
@@ -36,10 +36,11 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 ---
 
 
-## Step 1: Contract Deployment
-Choose which variant of the staking contract to deploy:
+## ✅ Step 1: Contract Deployment & Verification
+Choose which variant of the staking contract to deploy, then verify the implementation and proxy contracts on Sourcify.
 
-### Deploying **NonLiquidDelegation** Contract
+
+### 🔹 Deploying **NonLiquidDelegation** Contract
 
 ```bash
 forge script script/Deploy.s.sol --broadcast --legacy --sig "nonLiquidDelegation()"
@@ -55,7 +56,23 @@ Example output:
   Upgraded to version: 0.3.4
 ```
 
-### Deploying **LiquidDelegation** Contract
+#### ✅ Verify Implementation Contract
+
+```bash
+forge verify-contract 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD NonLiquidDelegation --verifier sourcify
+```
+
+#### ✅ Verify Proxy Contract
+
+```bash
+forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy \
+--verifier sourcify \
+--constructor-args $(cast abi-encode "_(address,bytes)" \
+0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD \
+$(cast calldata "initialize(address)" 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77))
+```
+
+### 🔹 Deploying **LiquidDelegation** Contract
 
 ```bash
 forge script script/Deploy.s.sol --broadcast --legacy --sig "liquidDelegation(string,string)" Name Symbol
@@ -73,11 +90,40 @@ Example output:
   Upgraded to version: 0.3.4
 ```
 
- 
+#### ✅ Verify Implementation Contract
+
+```bash
+forge verify-contract 0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD LiquidDelegation --verifier sourcify
+```
+
+#### ✅ Verify Proxy Contract
+
+```bash
+forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy \
+--verifier sourcify \
+--constructor-args $(cast abi-encode "_(address,bytes)" \
+0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD \
+$(cast calldata "initialize(address,string,string)" \
+0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77 Name Symbol))
+```
+
+### 📝 Notes
+
+* Ensure that your `remappings.txt` includes the local path to the ZQ2 repository, otherwise you may encounter errors during contract verification. For example:
+
+  ```
+  @zilliqa/zq2/=/home/your-user/zq2/zilliqa/src/contracts/
+  ```
+
+* Always verify both the implementation and proxy contracts after deployment.
+
+* You must repeat implementation contract verification after every contract upgrade.
+
+* Proxy contract needs to be verified only once after the initial deployment.
 
 ---
 
-## Step 2: Contract Configuration
+##  🛠️ Step 2: Contract Configuration
 
 Configure the validator’s commission rate (e.g., 10%):
 
@@ -97,12 +143,12 @@ Expected output:
 
 ---
 
-## Step 3: Validator Addition
+##  🧩 Step 3: Validator Addition
 
 Follow one of the approaches below, depending on whether you have already deposited the required stake
 with your validator node or you need delegations to accumulate enough stake to deposit the required stake.
 
-### Scenario 1: Node with Deposited Stake
+###  🔐 Scenario 1: Node with Deposited Stake
 If you are operating a validator node with the required stake already deposited, execute the following steps:
 
 1. **Register the Control Address**:
@@ -147,7 +193,7 @@ If you are operating a validator node with the required stake already deposited,
    0x92fbe50544dce63cfdcc88301d7412f0edea024c91ae5d6a04c7cd3819edfc1b9d75d9121080af12e00f054d221f876c
    ```
 
-### Scenario 2: Node Without Deposited Stake 
+###  💧 Scenario 2: Node Without Deposited Stake
 
 If you are operating a node that does not yet have the required stake deposited, and you do not own
 the minimum ZIL stake required of validators, proceeding with step 4 will enable your contract to
@@ -189,14 +235,14 @@ cast send --legacy --value 2000000ether --private-key $PRIVATE_KEY \
 
 ---
 
-## Step 4: Staking Pool Registration
+##  📝 Step 4: Staking Pool Registration
 
 Share the **<DELEGATION_CONTRACT_PROXY_ADDRESS>** from step 1 with the Zilliqa team to allow
 users to delegate ZIL to your staking pool on the new staking portal.
 
 ---
 
-## Summary
+##  🧾 Summary
 
 By following these steps, you have successfully deployed and configured a **Non-Liquid Staking Pool**
 or a **Liquid Staking Pool**, and added a validator node to it. ZIL holders who delegate to the pool
