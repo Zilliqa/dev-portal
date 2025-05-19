@@ -109,7 +109,7 @@ $(cast calldata "initialize(address,string,string)" \
 
 ### 📝 Notes
 
-* Ensure that your `remappings.txt` includes the local path to the ZQ2 repository, for example:
+* Ensure that your `remappings.txt` includes the local path to the ZQ2 repository, otherwise you may encounter errors during contract verification. For example:
 
   ```
   @zilliqa/zq2/=/home/your-user/zq2/zilliqa/src/contracts/
