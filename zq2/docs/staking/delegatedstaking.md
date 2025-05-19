@@ -72,6 +72,12 @@ forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy \
 $(cast calldata "initialize(address)" 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77))
 ```
 
+Where:
+
+* `0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2` — Proxy contract address
+* `0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD` — Implementation contract address
+* `0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77` — Signer address (i.e. the contract owner who deployed the contract)
+
 ### 🔹 Deploying **LiquidDelegation** Contract
 
 ```bash
@@ -106,6 +112,13 @@ forge verify-contract 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 ERC1967Proxy \
 $(cast calldata "initialize(address,string,string)" \
 0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77 Name Symbol))
 ```
+
+Where:
+
+* `0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2` — Proxy contract address
+* `0x7C623e01c5ce2e313C223ef2aEc1Ae5C6d12D9DD` — Implementation contract address
+* `0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77` — Signer address (i.e. the contract owner who deployed the contract)
+* `Name` and `Symbol` — Token metadata provided during deployment (e.g., `"Zilliqa LST"`, `"zLST"`)
 
 ### 📝 Notes
 
