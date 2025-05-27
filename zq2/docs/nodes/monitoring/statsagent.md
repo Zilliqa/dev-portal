@@ -42,7 +42,7 @@ docker run -td --restart=unless-stopped \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="<secret-value>" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.5
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.6
 ```
 
 > **Note:** 
@@ -92,7 +92,7 @@ docker run -td --restart=unless-stopped \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="your-provided-secret" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.5
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.6
 ```
 
 ### Troubleshooting
