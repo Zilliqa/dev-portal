@@ -11,6 +11,8 @@ Zilliqa 2.0 is designed as an entirely new protocol which will be backwards-comp
 
 - Zilliqa 2.0 uses Proof-of-Stake based on Pipelined Fast-Hotstuff as a consensus algorithm. Mining is no longer necessary.
 
+- Blocks are not finalized instantly. A block and its ancestors become finalized if a child block is proposed in the next view, and the block has a grandchild in any subsequent view. In the common case, finalization requires two block confirmations.
+
 - There are no DS epochs, no long delay at TX block 99, and the transaction pool is no longer cleared at the start of an epoch.
 
 - Zilliqa 2.0 has much fewer nodes and is thus far cheaper to run than Zilliqa 1.0 - a typical Zilliqa 2.0 mainnet can be operated efficiently and securely by 32 validator nodes.
