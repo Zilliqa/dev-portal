@@ -37,12 +37,13 @@ docker run -td --restart=unless-stopped \
     -e RPC_HOST="127.0.0.1" \
     -e RPC_PORT="4202" \
     -e LISTENING_PORT="3333" \
-    -e INSTANCE_NAME="validator-name" \
+    -e INSTANCE_NAME="validator name" \
+    -e PEER_ID="validator peer id" \
     -e CONTACT_DETAILS="your email address" \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
-    -e WS_SECRET="<secret-value>" \
+    -e WS_SECRET="<secret value>" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.6
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.9
 ```
 
 > **Note:** 
@@ -62,6 +63,8 @@ Customize the following environment variables based on your node and network set
 - `LISTENING_PORT`: The P2P communication port where the agent is listening. Default is `3333`.
 
 - `INSTANCE_NAME`: A unique name for your node instance (e.g., "validator-1").
+  
+- `PEER_ID`: The base58-encoded peer id of your node (e.g., "12D3KooWC7W24XNeeKsoxCVsrKo4i3wbWxvBvuGoSyB26ua4eeA4").
 
 - `CONTACT_DETAILS`: Your contact email address for identification.
 
@@ -88,11 +91,12 @@ docker run -td --restart=unless-stopped \
     -e RPC_PORT="4202" \
     -e LISTENING_PORT="3333" \
     -e INSTANCE_NAME="operator-name-validator" \
+    -e PEER_ID="12D3KooWC7W24XNeeKsoxCVsrKo4i3wbWxvBvuGoSyB26ua4eeA4"
     -e CONTACT_DETAILS="operator@example.com" \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="your-provided-secret" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.6
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.9
 ```
 
 ### Troubleshooting
