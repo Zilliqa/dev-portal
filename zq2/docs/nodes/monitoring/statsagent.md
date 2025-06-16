@@ -40,6 +40,7 @@ docker run -td --restart=unless-stopped \
     -e INSTANCE_NAME="validator name" \
     -e PEER_ID="validator peer id" \
     -e CONTACT_DETAILS="your email address" \
+    -e WS_PORT="4202" \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="<secret value>" \
     -e VERBOSITY="2" \
@@ -68,6 +69,8 @@ Customize the following environment variables based on your node and network set
 
 - `CONTACT_DETAILS`: Your contact email address for identification.
 
+- `WS_PORT`: The RPC admin port your Zilliqa node is listening on. Default is `4202`.
+
 - `WS_SERVER`: WebSocket server URL for the stats page.
 
     - Use `ws://stats.zq2-protomainnet.zilliqa.com` for protomainnet.
@@ -93,6 +96,7 @@ docker run -td --restart=unless-stopped \
     -e INSTANCE_NAME="operator-name-validator" \
     -e PEER_ID="12D3KooWC7W24XNeeKsoxCVsrKo4i3wbWxvBvuGoSyB26ua4eeA4"
     -e CONTACT_DETAILS="operator@example.com" \
+    -e WS_PORT="4202" \
     -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="your-provided-secret" \
     -e VERBOSITY="2" \
