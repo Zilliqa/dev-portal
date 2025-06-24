@@ -10,18 +10,19 @@ description: Endpoints, Block Explorer & Faucet
 
 # [Endpoints, Block Explorer & Faucet](#endpoints-block-explorer-faucet)
 
-As we introduce additional test networks for Zilliqa 2.0, their public RPC node URLs and chain IDs will be published on [ChainList](https://chainlist.org/?search=zilliqa&testnets=true) alongside existing chain information for Zilliqa 1.0.
+The public RPC node URLs and chain IDs are published on [ChainList](https://chainlist.org/?search=zilliqa&testnets=true).
+
 <br>
 <br>
 
 <span id="addZilliqaPTChainButton" class="metamask">
-Add Zilliqa 2 EVM proto-testnet
+Add Zilliqa 2 EVM testnet
 </span>
 <br>
 <br>
 
 <span id="addZilliqaPMChainButton" class="metamask">
-Add Zilliqa 2 EVM proto-mainnet
+Add Zilliqa 2 EVM mainnet
 </span>
 <br>
 <br>
@@ -32,36 +33,36 @@ Details for the current network versions of Zilliqa 2.0 are listed below.
 <div class="table" markdown>
 |  Name  | Version | ChainId | API | Otterscan | Faucet  | Checkpoint Bucket |
 | ------ | ------- | ------- | --- | --------- | ------  | ----------------- |
-| proto-testnet | v0.1.0 | 33103 | https://api.zq2-prototestnet.zilliqa.com	 | https://explorer.zq2-prototestnet.zilliqa.com | https://faucet.zq2-prototestnet.zilliqa.com | https://checkpoints.zq2-prototestnet.zilliqa.com |
-| proto-mainnet | v0.4.1 | 32770 | https://api.zq2-protomainnet.zilliqa.com	 | https://explorer.zq2-protomainnet.zilliqa.com | https://faucet.zq2-protomainnet.zilliqa.com | https://checkpoints.zq2-protomainnet.zilliqa.com |
+| devnet | v0.10.2 | 33469 | https://api.zq2-devnet.zilliqa.com	 | https://otterscan.zq2-.devnet.zilliqa.com | https://faucet.zq2-devnet.zilliqa.com | https://checkpoints.zq2-devnet.zilliqa.com |
+| testnet | v0.10.2 | 33101 | https://api.zq2-testnet.zilliqa.com https://api.testnet.zilliqa.com	 | https://otterscan.testnet.zilliqa.com | https://faucet.testnet.zilliqa.com | https://checkpoints.testnet.zilliqa.com |
+| mainnet | v0.10.2 | 32769 | https://api.zq2-mainnet.zilliqa.com https://api.zilliqa.com	| https://otterscan.zilliqa.com | n/a | https://checkpoints.zilliqa.com |
 </div>
 
-_**Note** that this is currently a proto-testnet and proto-mainnet versions of Zilliqa 2.0 designed primarily for testing purposes, and therefore its state and uptime are not guaranteed_
 
 ## [Block Explorer](#block-explorer)
 
-The current version of Zilliqa 2.0 is compatible with the Otterscan block explorer and does not support Devex.
+The current default block explorer is Otterscan
 
-- Proto-testnet: [Prototestnet Explorer URL](https://explorer.zq2-prototestnet.zilliqa.com).
+- Testnet: [Testnet Explorer URL](https://otterscan.testnet.zilliqa.com).
 
-- Proto-mainnet: [Protomainnet Explorer URL](https://explorer.zq2-protomainnet.zilliqa.com).
+- Mainnet: [Mainnet Explorer URL](https://otterscan.zilliqa.com).
 
 ## [Faucet](#faucet)
 
 The faucet sends an amount of 100 ZIL to the supplied address for use in testing the network.
 
-Enter the hex address of your compatible EVM wallet into the field below to receive 100 ZIL on the Zilliqa 2.0 proto-testnet:
+Enter the hex address of your compatible EVM wallet into the field below to receive 100 ZIL on the devnet or testnet:
 
-Proto-testnet:
-
-<div class="fish">
- <iframe width="80%" height="200px" src="https://faucet.zq2-prototestnet.zilliqa.com/"></iframe>
- </div>
-
-Proto-mainnet:
+Devnet:
 
 <div class="fish">
- <iframe width="80%" height="200px" src="https://faucet.zq2-protomainnet.zilliqa.com/"></iframe>
+ <iframe width="80%" height="200px" src="https://faucet.zq2-devnet.zilliqa.com/"></iframe>
  </div>
 
-_If you are unable to use the tool above, you can also access faucet [proto-testnet](https://faucet.zq2-prototestnet.zilliqa.com) and [proto-mainnet](https://faucet.zq2-protomainnet.zilliqa.com)._
+Testnet:
+
+<div class="fish">
+ <iframe width="80%" height="200px" src="https://otterscan.testnet.zilliqa.com/"></iframe>
+ </div>
+
+_If you are unable to use the tool above, you can also access faucet [devnet](https://faucet.zq2-devnet.zilliqa.com) and [testnet](https://otterscan.testnet.zilliqa.com)._

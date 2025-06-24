@@ -20,7 +20,7 @@ This document provides a step-by-step guide for validator operators to deploy th
 
 Before proceeding, ensure you have the following:
 
-- A running Zilliqa node.
+- A running validator node.
 
 - Docker installed on your system.
 

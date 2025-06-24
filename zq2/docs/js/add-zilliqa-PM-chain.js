@@ -16,7 +16,7 @@ async function addZilliqaPMChain() {
                 params: [
                     {
                         blockExplorerUrls: [
-                            "https://explorer.zq2-protomainnet.zilliqa.com"
+                            "https://otterscan.zilliqa.com"
                         ],
                         iconUrls: [
                             "https://www.zilliqa.com/images/icon-zilliqa-testnet.svg",
@@ -28,14 +28,14 @@ async function addZilliqaPMChain() {
                             decimals: 18
                         },
                         rpcUrls: [
-                            "https://api.zq2-protomainnet.zilliqa.com"
+                            "https://api.zilliqa.com"
                         ],
-                        chainId: "0x8002",
-                        chainName: "Zilliqa 2 EVM proto-mainnet"
+                        chainId: "0x8001",
+                        chainName: "Zilliqa 2 EVM mainnet"
                     }
                 ],
             });
-            alert('Zilliqa 2 EVM proto-mainnet has been added to your wallet!');
+            alert('Zilliqa 2 EVM mainnet has been added to your wallet!');
         } catch (error) {
             console.error(error);
             alert('An error occurred while trying to add the network: ' + error.message);
