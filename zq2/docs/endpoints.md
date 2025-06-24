@@ -38,7 +38,6 @@ Details for the current network versions of Zilliqa 2.0 are listed below.
 | mainnet | v0.10.2 | 32769 | https://api.zq2-mainnet.zilliqa.com https://api.zilliqa.com	| https://otterscan.zilliqa.com | n/a | https://checkpoints.zilliqa.com |
 </div>
 
-
 ## [Block Explorer](#block-explorer)
 
 The current default block explorer is Otterscan
@@ -62,7 +61,7 @@ Devnet:
 Testnet:
 
 <div class="fish">
- <iframe width="80%" height="200px" src="https://otterscan.testnet.zilliqa.com/"></iframe>
+ <iframe width="80%" height="200px" src="https://faucet.zq2-testnet.zilliqa.com/"></iframe>
  </div>
 
-_If you are unable to use the tool above, you can also access faucet [devnet](https://faucet.zq2-devnet.zilliqa.com) and [testnet](https://otterscan.testnet.zilliqa.com)._
+_If you are unable to use the tool above, you can also access faucet [devnet](https://faucet.zq2-devnet.zilliqa.com) and [testnet](https://faucet.testnet.zilliqa.com)._
