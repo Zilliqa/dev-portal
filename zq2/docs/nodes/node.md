@@ -5,20 +5,11 @@ title: Node setup
 
 # Node setup
 
-Both the proto-testnet and the proto-mainnet version of Zilliqa 2.0 allow users to setup a node and join the network.
+Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by following the instructions below
 
 ## Prerequisites
 
-### [Proto-testnet hardware requirements](#proto-testnet-hardware-requirements)
-
-- **CPU**:
-    - 1 Core / 2 threads or more
-- **RAM**:
-    - 4 GB or more
-- **Disk**:
-    - 100 GB or more
-
-### [Proto-mainnet hardware requirements](#proto-mainnet-hardware-requirements)
+### [Minimum hardware requirements](#minimum-hardware-requirements)
 
 - **CPU**:
     - 2 Core / 4 threads or more
@@ -28,7 +19,7 @@ Both the proto-testnet and the proto-mainnet version of Zilliqa 2.0 allow users 
     - 200 GB or more
 
 We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
-GCE VM `e2-standard-2` instance with 256 GB SSD (`pd-ssd`).
+GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -57,8 +48,7 @@ be accessible via the internet.
 
 ### [Setting up your node](#setting-up-your-node)
 
-To run a Zilliqa 2.0 node and join the proto-mainnet or the proto-testnet,
-we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code
 base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
@@ -81,16 +71,16 @@ base. Follow the step by step guide to setup your node:
   This will give you access to the `z2` tool (in `zq2/z2`).
 7. Generate the startup script and the configuration file for your node by running:
   ```bash
-  z2 join --chain zq2-prototestnet
+  z2 join --chain zq2-mainnet
   ```
-  _NOTE: You can replace `zq2-prototestnet` with `zq2-protomainnet` depending on
+  _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
   which network you want your node to join._
 
 8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
   ```bash
-  z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
+  z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
   ```
   _NOTE: For more details on testing and using the available OpenTelemetry 
   metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
@@ -103,45 +93,34 @@ base. Follow the step by step guide to setup your node:
   _NOTE: Please save the node key as described above. You may need it
   in the future to restart the node to generate the BLS public
   key of the node._
-10. Now it's time to decide how the node will synchronize with the network. 
-There are two options you can choose from:
 
-    - Synchronization from a checkpoint.
+10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
-    Starting from a checkpoint is a significantly faster option. This method leverages a 
-    predefined checkpoint block number and hash, enabling the node to sync with the network 
-     in justa few hours, depending on the checkpoint's block height. Before proceeding to 
-    [start the node](#starting-your-node) section, you'll need to configure the necessary
-    settings to start the node from a checkpoint. Detailed instructions for this configuration
-    are available in [syncing-from-checkpoints](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpointsyncing-a-node-from-a-checkpoint).
+  - Synchronization from a checkpoint.
 
-    - Synchronization from the genesis.
+  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
-    This method initializes the node from the genesis block, ensuring that the node processes 
-    the entire blockchain history. However, this process is time-consuming, as the node must 
-    download and validate every block from the genesis block to the latest block height. 
-    Syncing the node to the latest block may take a considerable amount of time, 
-    potentially up to several days to complete fully.
+  - Synchronization from the genesis.
 
-Please refer to [Pruning and Passive sync](../nodes/passive-pruning.md) for more information on genesis syncing and pruning.
+  This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
+
+Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
 
 ### [Starting your node](#starting-your-node)
-Since only full archive nodes need to sync from the genesis block, all other nodes can be started from a checkpoint: 
+Since only devnet nodes can sync from the genesis, all other nodes must be started from a checkpoint: 
 
 * <b>start the node from a checkpoint:</br></b>
-(fast, recommended)
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.dat>
   ```
 
 * <b>start the node from the genesis:</br></b>
-(slow, available in a future upgrade)
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY
   ```
-
+_NOTE: After a node is successfully launched from a checkpoint for the first time, the checkpoint settings can be removed from its configuration file and the node can be restarted without specifying a checkpoint file on the command line._
 
 _NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
@@ -171,13 +150,6 @@ Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to 
 the network and promote themselves as validator nodes. In return, they receive a 
 share of the block rewards.
 
-While becoming a validator on the Zilliqa 2.0 mainnet will be permissionless,
-on the current proto-testnet you need to request the minimum required stake of
-10 million ZIL in order for you to register as a validator.
-
-To register as a validator on the Jasper proto-testnet, please complete and
-submit validator join form.
-
 Once you have sufficient $ZILs you can register your node as validator.
 
 Below is a guide on how to register a validator node for Zilliqa 2.0:
@@ -196,9 +168,9 @@ Not doing so may lead to your node going out of sync and losing rewards if it is
 First, pull the `main` branch and update your `start_node.sh` script and configuration file by re-running `z2 join`:
 
 ```bash
-z2 join --chain zq2-prototestnet
+z2 join --chain zq2-mainnet
 ```
-_NOTE: Replace `zq2-prototestnet` with the chain you are running on._
+_NOTE: Replace `zq2-mainnet` with the chain you are running on._
 
 To minimise the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 

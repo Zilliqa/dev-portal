@@ -29,7 +29,7 @@ will be added as we approach the mainnet launch.
 ### [Virtual machines on Cloud Platforms](#virtual-machines-on-cloud-platforms)
 
 We are running our Zilliqa 2.0 validators on Google Cloud Platform, GCP,
-GCE VM `e2-standard-2` instance with 256 GB SSD (`pd-ssd`).
+GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 If you running on other cloud provider, please do select an instance with
 similar specs.
@@ -94,7 +94,7 @@ and run.
 - Generate the startup script and the configuration file for your node by running:
 
   ```bash
-  z2 join --chain zq2-prototestnet
+  z2 join --chain zq2-mainnet
   ```
 
 - Generate the validator node private key.
@@ -138,13 +138,6 @@ For additional details on `z2` and the `join` capability refer to:
 Under the consensus mechanism introduced in Zilliqa 2.0, validators stake ZIL
 to secure the network, in return for which they receive a share of block
 rewards.
-
-While becoming a validator on the Zilliqa 2.0 mainnet will be permissionless,
-on the current proto-testnet you need to request the minimum required stake of
-10 million ZIL in order for you to register as a validator.
-
-To register as a validator on the Jasper proto-testnet, please complete and
-submit validator join form.
 
 Once you have sufficient $ZILs you can register your node as validator.
 
