@@ -1,9 +1,9 @@
 ---
 id: nodes/passive-pruning
-title: Syncing & Pruning
+title: Node Pruning and Passive Sync
 ---
 
-# [Syncing & Pruning](#node-prune-passive-sync)
+# [Node Pruning and Passive Sync](#node-prune-passive-sync)
 
 ## Overview
 
@@ -70,10 +70,16 @@ node.sync.base_height = 0
 
 ## Performance Notes
 
-* Pruning is done **gradually in the background** as new block proposals are received.
-* **Pruning rate** on a GCP node: \~300–400 **empty** blocks/sec. The rate drops significantly when pruning blocks with **many transactions**, possibly below 1 block/sec.
+* Pruning is done **gradually in the background**.
+* On a GCP node:
 
-* **Disk space is not immediately freed** because SQLite does **not shrink** DB file unless VACUUM is used. Freed space is reused for future inserts.
+  * **Pruning rate:** \~300–400 **empty** blocks/sec.
+  * Rate drops significantly when pruning blocks with **many transactions**, possibly below 1 block/sec.
+* **Disk space is not immediately freed** due to SQLite behavior:
+
+  * SQLite does **not shrink** DB file unless `VACUUM` is used.
+  * Freed space is reused for future inserts.
+  * This behavior may change when migrating to `redb` in the future.
 
 ---
 

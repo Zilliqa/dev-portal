@@ -38,10 +38,10 @@ increase their share of the total stake and their future rewards. Furthermore, t
 can replace their registered address to make another wallet eligible for unstaking
 and claiming rewards.
 
-## Setup by Depositing a Validator from Operator Funds
+## Setup for Existing Validators
 
-Node operators with sufficient funds to deposit the minimum stake required of validators can turn their node into a validator node as soon as it is synced, and join a staking pool later. Detailed instructions can be found [here](../staking/delegatedstaking.md)..
-
+Operators of validator nodes on the proto-mainnet can set up and join a staking pool
+with their validator by following the instructions [here](../staking/delegatedstaking.md).
 
 ## Setup by Funding a Validator through Delegations
 

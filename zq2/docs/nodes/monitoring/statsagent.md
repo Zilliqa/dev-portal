@@ -10,16 +10,11 @@ description: Validator Stats Agent
 
 # Validator Stats Agent Setup Guide
 
-The status of the bootstrap, validator and public API nodes is monitored of the respective network status pages:
+This document provides a step-by-step guide for validator operators to deploy the Zilliqa Stats Agent, enabling their node to appear on the public Zilliqa Network Status pages:
 
-- [Mainnet Status Page](https://stats.zq2-mainnet.zilliqa.com)
+- [Protomainnet Status Page](https://stats.zq2-protomainnet.zilliqa.com/)
 
-- [Testnet Status Page](https://stats.zq2-testnet.zilliqa.com)
-
-- [Devnet Status Page](https://stats.zq2-devnet.zilliqa.com)
-
-This document provides a step-by-step guide for validator operators to deploy the Zilliqa Stats Agent, enabling their node to appear on the Mainnet Status Page.
-
+- [Prototestnet Status Page](https://stats.zq2-prototestnet.zilliqa.com/)
 
 ## Prerequisites
 
@@ -46,10 +41,10 @@ docker run -td --restart=unless-stopped \
     -e PEER_ID="validator peer id" \
     -e CONTACT_DETAILS="your email address" \
     -e WS_PORT="4202" \
-    -e WS_SERVER="ws://stats.zq2-mainnet.zilliqa.com" \
+    -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="<secret value>" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.1.0
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.9
 ```
 
 > **Note:** 
@@ -78,6 +73,10 @@ Customize the following environment variables based on your node and network set
 
 - `WS_SERVER`: WebSocket server URL for the stats page.
 
+    - Use `ws://stats.zq2-protomainnet.zilliqa.com` for protomainnet.
+
+    - Use `ws://stats.zq2-prototestnet.zilliqa.com` for prototestnet.
+
 - `WS_SECRET`: The secret token provided by Zilliqa. **This is sensitive and confidential information. Please do not share it publicly or with unauthorized parties.**
 
 - `VERBOSITY`: Logging verbosity level (default: `2`).
@@ -85,7 +84,7 @@ Customize the following environment variables based on your node and network set
 
 ### Example Configuration
 
-For a node connecting to the mainnet:
+For a node connecting to the protomainnet:
 
 ```bash
 docker run -td --restart=unless-stopped \
@@ -98,10 +97,10 @@ docker run -td --restart=unless-stopped \
     -e PEER_ID="12D3KooWC7W24XNeeKsoxCVsrKo4i3wbWxvBvuGoSyB26ua4eeA4" \
     -e CONTACT_DETAILS="operator@example.com" \
     -e WS_PORT="4202" \
-    -e WS_SERVER="ws://stats.zq2-mainnet.zilliqa.com" \
+    -e WS_SERVER="ws://stats.zq2-protomainnet.zilliqa.com" \
     -e WS_SECRET="your-provided-secret" \
     -e VERBOSITY="2" \
-    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.1.0
+    asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zilstats-agent:v0.0.9
 ```
 
 ### Troubleshooting

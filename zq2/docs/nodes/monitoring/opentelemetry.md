@@ -30,7 +30,7 @@ To export the OpenTelemetry metrics, you can define a collector endpoint with th
 parameter in `z2 join`, for example `http://localhost:4317`:
 
 ```bash
-z2 join --chain zq2-mainnet --otlp-endpoint=http://localhost:4317
+z2 join --chain zq2-prototestnet --otlp-endpoint=http://localhost:4317
 ```
 
 This endpoint should point to a OpenTelemetry compatible [collector](https://opentelemetry.io/docs/collector/) 

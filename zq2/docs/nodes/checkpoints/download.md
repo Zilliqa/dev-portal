@@ -3,23 +3,16 @@ id: nodes/checkpoints/download
 title: Download checkpoints
 ---
 
-# Devnet checkpoints
+# Prototestnet checkpoints
 
-<div class="zq2_checkpoints" list="https://checkpoints.zq2-devnet.zilliqa.com" api="https://api.zq2-devnet.zilliqa.com" number=4 >
+<div class="zq2_checkpoints" list="https://checkpoints.zq2-prototestnet.zilliqa.com/" api="https://api.zq2-prototestnet.zilliqa.com" number=4 >
 Loading; please wait ..
 </div>
 <p></p>
 
-# Testnet checkpoints
+# Protomainnet checkpoints
 
-<div class="zq2_checkpoints" list="https://checkpoints.testnet.zilliqa.com" api="https://api.zq2-testnet.zilliqa.com" number=4 >
-Loading; please wait ..
-</div>
-<p></p>
-
-# Mainnet checkpoints
-
-<div class="zq2_checkpoints" list="https://checkpoints.zilliqa.com" api="https://api.zq2-mainnet.zilliqa.com" number=4 >
+<div class="zq2_checkpoints" list="https://checkpoints.zq2-protomainnet.zilliqa.com/" api="https://api.zq2-protomainnet.zilliqa.com" number=4 >
 Loading; please wait ..
 </div>
 
