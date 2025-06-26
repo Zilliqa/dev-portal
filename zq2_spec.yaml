@@ -1,4 +1,4 @@
 versions:
   - refspec: 328c209889c472ea65b13f52a7e854604ec2c078
     name: APIs
-    api_url: "https://api.mainnet.zilliqa.com/"
+    api_url: "https://api.zilliqa.com/"
