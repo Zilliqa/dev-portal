@@ -1,4 +1,4 @@
 versions:
-  - refspec: 328c209889c472ea65b13f52a7e854604ec2c078
+  - refspec: 2c6796c5bc4937b4188b1c04ddb07ad5bc43583b
     name: APIs
     api_url: "https://api.zilliqa.com/"
