@@ -60,22 +60,17 @@ Zilliqa 2.0 is based on 2 years of research into cutting-edge blockchain technol
 
 </div>
 
-More documentation for Zilliqa 2.0 will become available as new functionality is rolled out to the protocol and its capabilities are expanded.
-
-*__Note:__ This documentation refers to Zilliqa 2.0. Documentation for the current production version of Zilliqa is available at
- [__https://dev.zilliqa.com/zilliqa1/__](/zilliqa1/)*
-<br>
 <br>
 <br>
 
 <span id="addZilliqaPTChainButton" class="metamask">
-Add Zilliqa 2 EVM proto-testnet
+Add Zilliqa 2 Testnet
 </span>
 <br>
 <br>
 <br>
 <span id="addZilliqaPMChainButton" class="metamask">
-Add Zilliqa 2 EVM proto-mainnet
+Add Zilliqa 2 Mainnet
 </span>
 <br>
 <br>  

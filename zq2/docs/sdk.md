@@ -40,9 +40,9 @@ We also continue to maintain tools such as:
 
 We provide a number of open-source repositories relevant to Zilliqa 2.0:
 
-- [zq2](https://github.com/Zilliqa/zq2) - the Zilliqa 2 source code itself.
+- [zq2](https://github.com/Zilliqa/zq2) - the Zilliqa 2 source code itself
 - [zq2-staking](https://github.com/zilliqa/zq2-staking) - the Zilliqa 2 staking portal
 - [delegated-staking](https://github.com/zilliqa/delegated_staking/) - Zilliqa 2 staking pool contracts
-- [eth-spout](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/eth-spout) - a simple faucet.
+- [eth-spout](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/eth-spout) - a simple faucet
 - [neo-savant](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/neo-savant) - the Scilla IDE
-- [developer-portal-zq2](#) - this developer portal
+- [developer-portal-zq2](https://dev.zilliqa.com) - this developer portal

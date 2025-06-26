@@ -308,7 +308,7 @@ p a {
   transition: color 300ms ease-in-out;
 }
 .md-zil-cards.cards ul li a:hover {
-  color: rgba(255, 255, 255, 0.6);
+  color: #00d0c6;
 }
 .md-zil-cards > div {
   padding: 1.5rem 2rem;
