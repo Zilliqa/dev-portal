@@ -13,13 +13,11 @@ When building a dApp, accessing historical smart contract data can be challengin
 
 <div class="grid cards md-zil-cards" markdown>
 
--  [__The Graph__](https://thegraph.com/)
+- [**The Graph**](https://thegraph.com/)
 
-
--   [__Quick Start__](https://thegraph.com/docs/en/subgraphs/quick-start/)
+- [**Quick Start**](https://thegraph.com/docs/en/subgraphs/quick-start/)
 
 </div>
-
 
 ## Why use The Graph?
 
