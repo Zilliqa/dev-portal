@@ -13,9 +13,9 @@ When building a dApp, accessing historical smart contract data can be challengin
 
 <div class="grid cards md-zil-cards" markdown>
 
-- [**The Graph**](https://thegraph.com/)
+- [**More <br> Info**](https://thegraph.com/)
 
-- [**Quick Start**](https://thegraph.com/docs/en/subgraphs/quick-start/)
+- [**Quick <br> Start**](https://thegraph.com/docs/en/subgraphs/quick-start/)
 
 </div>
 
