@@ -16,13 +16,13 @@ The public RPC node URLs and chain IDs are published on [ChainList](https://chai
 <br>
 
 <span id="addZilliqaPTChainButton" class="metamask">
-Add Zilliqa 2 EVM testnet
+Add Zilliqa 2 Testnet
 </span>
 <br>
 <br>
 
 <span id="addZilliqaPMChainButton" class="metamask">
-Add Zilliqa 2 EVM mainnet
+Add Zilliqa 2 Mainnet
 </span>
 <br>
 <br>
@@ -34,7 +34,7 @@ Details for the current network versions of Zilliqa 2.0 are listed below.
 |  Name  | Version | ChainId | API | Otterscan | Faucet  | Checkpoint Bucket |
 | ------ | ------- | ------- | --- | --------- | ------  | ----------------- |
 | devnet | v0.10.2 | 33469 | https://api.zq2-devnet.zilliqa.com	 | https://otterscan.zq2-.devnet.zilliqa.com | https://faucet.zq2-devnet.zilliqa.com | https://checkpoints.zq2-devnet.zilliqa.com |
-| testnet | v0.10.2 | 33101 | https://api.zq2-testnet.zilliqa.com https://api.testnet.zilliqa.com	 | https://otterscan.testnet.zilliqa.com | https://faucet.testnet.zilliqa.com | https://checkpoints.testnet.zilliqa.com |
+| testnet | v0.10.2 | 33101 | https://api.zq2-testnet.zilliqa.com https://api.testnet.zilliqa.com	 | https://otterscan.testnet.zilliqa.com | https://faucet.zq2-testnet.zilliqa.com | https://checkpoints.testnet.zilliqa.com |
 | mainnet | v0.10.2 | 32769 | https://api.zq2-mainnet.zilliqa.com https://api.zilliqa.com	| https://otterscan.zilliqa.com | n/a | https://checkpoints.zilliqa.com |
 </div>
 

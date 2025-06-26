@@ -23,32 +23,33 @@ The following steps apply to both networks.
    Navigate to the directory you created during the setup process, e.g., `/my/dir/zq2`.
 
 2. **Download the Checkpoint File**
+
    Follow these steps to download the latest checkpoint file for your chosen network:
 
    - **Devnet**
      Visit the public [checkpoint URL](https://checkpoints.zq2-devnet.zilliqa.com).
 
-    - **Testnet**:
-     Visit the public [checkpoint URL](https://checkpoints.testnet.zilliqa.com).
+   - **Testnet**:
+   Visit the public [checkpoint URL](https://checkpoints.testnet.zilliqa.com).
 
-    - **Mainnet**:
-     Visit the public [checkpoint URL](https://checkpoints.zilliqa.com).
+   - **Mainnet**:
+   Visit the public [checkpoint URL](https://checkpoints.zilliqa.com).
 
-    From the XML file at the respective URL:
+   From the XML file at the respective URL:
 
-      - Look for the `<key>` tag, which contains the checkpoint file's name. The file follows the `block_num.dat` format (e.g., `000291600.dat`).
+   - Look for the `<key>` tag, which contains the checkpoint file's name. The file follows the `block_num.dat` format (e.g., `000291600.dat`).
 
-      - Copy the file name of the latest checkpoint from the topmost `<key>` tag. For older checkpoints, explore the `previous/` directory.
+   - Copy the file name of the latest checkpoint from the topmost `<key>` tag. For older checkpoints, explore the `previous/` directory.
 
-      - Download the checkpoint file using the `wget` command or paste the link in your browser:
+   - Download the checkpoint file using the `wget` command or paste the link in your browser:
 
-      ```bash
-      wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.dat>
-      ```
+   ```bash
+   wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.dat>
+   ```
 
-      Replace <network> with `mainnet`, `testnet` or `devnet` based on your selected network.
+   Replace <network> with `mainnet`, `testnet` or `devnet` based on your selected network.
 
-      _NOTE: Checkpoints are generated every 86400 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node can’t process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint.
+   _NOTE: Checkpoints are generated every 86400 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node can’t process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint._
 
 3. **Configure Checkpoints in the Configuration File**
    Open the respective configuration file (`zq2-mainnet.toml` or `zq2-testnet.toml`) and add the following lines to enable checkpoint settings:

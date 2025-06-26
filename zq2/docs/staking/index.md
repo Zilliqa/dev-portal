@@ -40,7 +40,7 @@ and claiming rewards.
 
 ## Setup by Depositing a Validator from Operator Funds
 
-Node operators with sufficient funds to deposit the minimum stake required of validators can turn their node into a validator node as soon as it is synced, and join a staking pool later. Detailed instructions can be found [here](../staking/delegatedstaking.md)..
+Node operators with sufficient funds to deposit the minimum stake required of validators can turn their node into a validator node as soon as it is synced, and join a staking pool later. Detailed instructions can be found [here](../staking/delegatedstaking.md).
 
 
 ## Setup by Funding a Validator through Delegations

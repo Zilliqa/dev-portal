@@ -2,14 +2,14 @@ INHERIT: ./parent.yaml
 nav:
   - Welcome: index.md
   - What's new in Zilliqa 2.0: changes.md
-  - Endpoints, Block Explorer & Faucet: endpoints.md
+  - Public Endpoints: endpoints.md
   - Nodes & Validators:
       - Overview: nodes/index.md
       - Nodes: nodes/node.md
       - Checkpoints:
           - nodes/checkpoints/index.md
           - Downloads: nodes/checkpoints/download.md
-      - Passive sync and Pruning: nodes/passive-pruning.md
+      - Syncing & Pruning: nodes/passive-pruning.md
       - Monitoring:
           - Validator Stats Agent: nodes/monitoring/statsagent.md
           - OpenTelemetry: nodes/monitoring/opentelemetry.md

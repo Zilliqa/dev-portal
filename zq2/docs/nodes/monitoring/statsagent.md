@@ -10,15 +10,15 @@ description: Validator Stats Agent
 
 # Validator Stats Agent Setup Guide
 
-The status of the bootstrap, validator and public API nodes is monitored of the respective network status pages:
+The stats of the bootstrap, validator and public API nodes is monitored on the respective network stats pages:
 
-- [Mainnet Status Page](https://stats.zq2-mainnet.zilliqa.com)
+- [Mainnet stats Page](https://stats.zq2-mainnet.zilliqa.com)
 
-- [Testnet Status Page](https://stats.zq2-testnet.zilliqa.com)
+- [Testnet stats Page](https://stats.zq2-testnet.zilliqa.com)
 
-- [Devnet Status Page](https://stats.zq2-devnet.zilliqa.com)
+- [Devnet stats Page](https://stats.zq2-devnet.zilliqa.com)
 
-This document provides a step-by-step guide for validator operators to deploy the Zilliqa Stats Agent, enabling their node to appear on the Mainnet Status Page.
+This document provides a step-by-step guide for validator operators to deploy the Zilliqa Stats Agent, enabling their node to appear on the Mainnet stats Page.
 
 
 ## Prerequisites
@@ -29,7 +29,7 @@ Before proceeding, ensure you have the following:
 
 - Docker installed on your system.
 
-- The required WebSocket secret (`WS_SECRET`) provided by Zilliqa to connect to the public status pages.
+- The required WebSocket secret (`WS_SECRET`) provided by Zilliqa to connect to the public stats pages.
 
 ## Deployment Command
 
