@@ -120,7 +120,7 @@ Where:
 * `0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77` — Signer address (i.e. the contract owner who deployed the contract)
 * `Name` and `Symbol` — Token metadata provided during deployment (e.g., `"Zilliqa LST"`, `"zLST"`)
 
-You also need to verify the LST contract in case of the liquid variant.
+You’ll also need to verify the LST contract if you're using the liquid variant:
 
 ```bash
 forge verify-contract \
