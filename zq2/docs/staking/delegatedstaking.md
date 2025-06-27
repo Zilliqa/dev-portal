@@ -120,6 +120,16 @@ Where:
 * `0x15fc323DFE5D5DCfbeEdc25CEcbf57f676634d77` — Signer address (i.e. the contract owner who deployed the contract)
 * `Name` and `Symbol` — Token metadata provided during deployment (e.g., `"Zilliqa LST"`, `"zLST"`)
 
+You’ll also need to verify the LST contract if you're using the liquid variant:
+
+```bash
+forge verify-contract \
+  $(cast call 0x7A0b7e6D24eDe78260c9ddBD98e828B0e11A8EA2 "getLST()(address)") \
+  NonRebasingLST \
+  --verifier sourcify \
+  --constructor-args $(cast abi-encode "_(string,string)" "Name" "Symbol")
+```
+
 ### 📝 Notes
 
 * Ensure that your `remappings.txt` includes the local path to the ZQ2 repository, otherwise you may encounter errors during contract verification. For example:
