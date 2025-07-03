@@ -26,7 +26,7 @@ Zilliqa 2.0 is designed as an entirely new protocol which will be backwards-comp
 
 **There are also things that have not changed:**
 
-- Zilliqa 2.0 will be compatible with all the same dApps, tokens and sites as Zilliqa 1.0 (EVM -> Scilla contract interoperability is currently unavailable on proto-testnet but will be reintroduced in an upgrade soon).
+- Zilliqa 2.0 will be compatible with all the same dApps, tokens and sites as Zilliqa 1.0.
 
 - A non-EVM native token transfer uses 50 gas; an EVM transfer uses 21000 gas. To make both cost the same amount of ZIL we divide EVM gas costs by 420 (== 21000/50). That is why EVM transactions require a minimum gas price of 4761.9048 Gwei.
 
