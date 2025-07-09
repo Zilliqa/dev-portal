@@ -33,7 +33,7 @@ Details for the current network versions of Zilliqa 2.0 are listed below.
 <div class="table" markdown>
 |  Name  | Version | ChainId | API | Otterscan | Faucet  | Checkpoint Bucket |
 | ------ | ------- | ------- | --- | --------- | ------  | ----------------- |
-| devnet | v0.11.0 | 33469 | https://api.zq2-devnet.zilliqa.com	 | https://otterscan.zq2-.devnet.zilliqa.com | https://faucet.zq2-devnet.zilliqa.com | https://checkpoints.zq2-devnet.zilliqa.com |
+| devnet | v0.11.0 | 33469 | https://api.zq2-devnet.zilliqa.com	 | https://otterscan.zq2-devnet.zilliqa.com | https://faucet.zq2-devnet.zilliqa.com | https://checkpoints.zq2-devnet.zilliqa.com |
 | testnet | v0.11.0 | 33101 | https://api.zq2-testnet.zilliqa.com https://api.testnet.zilliqa.com	 | https://otterscan.testnet.zilliqa.com | https://faucet.testnet.zilliqa.com | https://checkpoints.testnet.zilliqa.com |
 | mainnet | v0.11.0 | 32769 | https://api.zq2-mainnet.zilliqa.com https://api.zilliqa.com	| https://otterscan.zilliqa.com | n/a | https://checkpoints.zilliqa.com |
 </div>
