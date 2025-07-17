@@ -28,7 +28,7 @@ async function addZilliqaPTChain() {
                             decimals: 18
                         },
                         rpcUrls: [
-                            "https://dev-api.zilliqa.com"
+                            "https://api.testnet.zilliqa.com"
                         ],
                         chainId: "0x80de",
                         chainName: "Zilliqa 2 EVM testnet"
