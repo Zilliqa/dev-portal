@@ -34,7 +34,7 @@ First we need to add the Zilliqa testnet to our metamask:
 
 - **Network Name**: Zilliqa Testnet
 - **Chain ID**: 33101
-- **RPC URL**: [https://dev-api.zilliqa.com](https://dev-api.zilliqa.com)
+- **RPC URL**: [https://api.testnet.zilliqa.com](https://api.testnet.zilliqa.com)
 - **Currency Symbol**: ZIL
 
 Using the information above, follow this guide: [How to add a custom network to Metamask](https://support.metamask.io/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC).
