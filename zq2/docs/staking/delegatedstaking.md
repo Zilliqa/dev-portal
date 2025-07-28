@@ -20,8 +20,8 @@ To deploy and interact with staking contracts via the CLI, use the provided Forg
 
 2. **Install OpenZeppenlin Contracts**:
    ```bash
-   forge install OpenZeppelin/openzeppelin-contracts-upgradeable --no-commit
-   forge install OpenZeppelin/openzeppelin-contracts --no-commit
+   forge install OpenZeppelin/openzeppelin-contracts-upgradeable
+   forge install OpenZeppelin/openzeppelin-contracts
    ```
 3. **Set the RPC URL**:
    ```bash
