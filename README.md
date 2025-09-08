@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Zilliqa/dev-portal)
+
 # Zilliqa developer documentation
 
 This repository contains the Zilliqa developer documentation.
