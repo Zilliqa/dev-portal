@@ -58,3 +58,5 @@ cache/**
 # Used for rendering API docs.
 zq2/docs/api/**
 docgen/target
+
+venv/

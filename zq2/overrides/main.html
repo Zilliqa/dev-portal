@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ super() }}
+<df-messenger
+  project-id="prj-d-playground-b7i4vh7s"
+  agent-id="2931e6f5-8038-4c5b-80a7-536463e10b43"
+  language-code="en"
+  max-query-length="-1">
+  <df-messenger-chat-bubble
+    chat-title="Dev Portal AI assistant">
+  </df-messenger-chat-bubble>
+</df-messenger>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    
+      /**
+       * Returns true if the AI chat input is focused
+       */
+      function isChatFocused() {
+        const messenger = document.querySelector("df-messenger");
+        if (!messenger || !messenger.shadowRoot) return false;
+    
+        // Find the editable div inside the shadow DOM
+        const input = messenger.shadowRoot.querySelector("div[contenteditable='true']");
+        return input && input === document.activeElement;
+      }
+    
+        // Hook into global keyboard mode
+        const originalKeyboard$ = window.keyboard$; // MkDocs Material global observable
+    
+        if (originalKeyboard$) {
+        originalKeyboard$.subscribe((keyEvent) => {
+            if (isChatFocused()) {
+            // Ignore all MkDocs global shortcuts while chat is focused
+            return;
+            }
+            // Otherwise let the original keyboard logic run
+            // (you can re-dispatch the event if needed)
+        });
+        }
+    
+      /**
+       * Capture all keydown events at the document level
+       * and stop propagation if the chat is focused
+       */
+      document.addEventListener(
+        "keydown",
+        (e) => {
+          if (isChatFocused()) {
+            e.stopPropagation();
+            // prevent search shortcuts, arrow keys, etc.
+            // e.preventDefault(); // uncomment only if needed
+          }
+        },
+        true // capture phase, before other listeners
+      );
+    
+    /**
+     * Capture all keydown events at the document level
+     * and stop propagation if the chat is focused
+     */
+    document.addEventListener(
+    "keyup",
+    (e) => {
+        if (isChatFocused()) {
+        e.stopPropagation();
+        // prevent search shortcuts, arrow keys, etc.
+        // e.preventDefault(); // uncomment only if needed
+        }
+    },
+    true // capture phase, before other listeners
+    );
+    
+      /**
+       * Optionally capture keypress/input events as well
+       * in case the search plugin is listening to them
+       */
+      document.addEventListener(
+        "keypress",
+        (e) => {
+          if (isChatFocused()) {
+            e.stopPropagation();
+          }
+        },
+        true
+      );
+    
+      document.addEventListener(
+        "input",
+        (e) => {
+          if (isChatFocused()) {
+            e.stopPropagation();
+          }
+        },
+        true
+      );
+    
+      /**
+       * Optional: When the chat loses focus, search works normally
+       * No special action needed; events will propagate naturally
+       */
+    });
+</script>
+<style>
+  df-messenger {
+    z-index: 999;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    /* more info in: */
+    /* https://cloud.google.com/dialogflow/cx/docs/concept/integration/dialogflow-messenger/css */
+  
+    /* Use Zilliqa color scheme */
+    --df-messenger-primary-color: var(--md-code-hl-punctuation-color);
+    --df-messenger-font-color: var(--md-primary-fg-color);
+    --df-messenger-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --df-messenger-chat-background: var(--md-code-h1-name-color);
+    --df-messenger-message-user-background: var(--md-accent-fg-color);
+    --df-messenger-message-user-font-color: var(--md-default-fg-color);
+    --df-messenger-message-bot-background: var(--md-primary-bg-color);
+    --df-messenger-message-bot-font-color: var(--md-default-fg-color);
+    --df-messenger-border-color: var(--md-accent-fg-color);
+    --df-messenger-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    
+    /* Button styling */
+    --df-messenger-button-color: var(--md-accent-fg-color);
+    --df-messenger-button-hover-color: var(--md-accent-fg-color--light);
+    
+    /* Input styling */
+    --df-messenger-input-color: var(--md-primary-fg-color);
+    --df-messenger-input-background: var(--md-primary-bg-color);
+    --df-messenger-input-border-color: var(--md-accent-fg-color);
+    
+    /* Header styling */
+    --df-messenger-header-color: var(--md-accent-fg-color);
+    --df-messenger-header-background: var(--md-primary-bg-color);
+
+    /* Styling for df-messenger-chat-bubble */
+    --df-messenger-chat-window-height: 480px; /* Default: 480px */
+    --df-messenger-chat-window-width: 320px; /* Default: 320px */
+    --df-messenger-chat-bubble-background: var(--md-accent-fg-color);
+    --df-messenger-chat-bubble-icon-color: var(--md-default-fg-color);
+
+    /* Styling for titlebar */
+    --df-messenger-titlebar-background: var(--md-accent-fg-color);
+  }
+</style>
+{% endblock %}
+
+{% block extrahead %}
+<!-- Dialogflow Messenger -->
+<link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+<!-- inert polyfill for wider browser support (optional but recommended) -->
+<script src="https://unpkg.com/wicg-inert@3.1.0/dist/inert.min.js"></script>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}
