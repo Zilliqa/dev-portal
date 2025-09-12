@@ -4,7 +4,6 @@
     "description": "Documentation for Zilliqa developer",
     "folders": ["zq2"],
     "excludeFolders": [
-      "zq1"
     ]
   }
 }

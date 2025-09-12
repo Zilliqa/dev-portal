@@ -9,23 +9,14 @@ This repository contains the Zilliqa developer documentation.
 
 ## How it works
 
-The developer portal is a pair of `mkdocs` materials-themed sites -
-one for Zilliqa 1 and one for Zilliqa 2.
+The developer portal is a `mkdocs` materials-themed site for Zilliqa 2.
 
-The Zilliqa 1 site is static.
 The Zilliqa 2 site includes content created by the rust program in `docgen` - see below.
 
-They are served in production by an nginx container containing the
-routing between the two, built by the `Dockerfile` and using the
+It is served in production by an nginx container, built by the `Dockerfile` and using the
 config file from `default.conf`.
 
-The material theme is fairly heavily customised with overrides in both
-Zilliqa 1 and Zilliqa 2.
-
-There are two versions of the Zilliqa 1 documentation - regular, and
-without the zq2 documentation (`nozq2`); the switch is made by
-substituting the relevant `mkdocs.yaml` file from the `zq1/`
-directory.
+The material theme is fairly heavily customised with overrides.
 
 If you want to build the docs from a checked out version of zq2, set
 `USE_ZQ2_FROM` to the location of your zq2 directory and `NO_CHECKOUT`
@@ -72,8 +63,6 @@ repository](https://github.com/zilliqa/zq2) for details.
 
 Now,
 
-- `make dev1` will make and serve the ZQ1 docs locally on port 8000.
-- `make dev1nozq2` will make and serve the ZQ1 docs (with no ZQ2 reference) locally on port 8000
 - `make dev2` will do the same with the ZQ2 docs.
 
 You can set `SERVEROPTS` to pass option (usually `-a

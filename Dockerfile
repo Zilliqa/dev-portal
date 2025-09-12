@@ -1,4 +1,4 @@
-FROM rust:slim-bullseye as builder
+FROM rust:slim-bookworm AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV NEEDRESTART_MODE=a
@@ -11,7 +11,7 @@ RUN apt-get autoremove
 # Nonsensical, but allows us to cache requirements.
 RUN mkdir /build
 COPY requirements.txt /build/requirements.txt
-RUN pip3 install --no-cache-dir -r /build/requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r /build/requirements.txt
 
 COPY .  /build
 
@@ -27,14 +27,9 @@ ARG VERSION
 ENV VERSION=$VERSION
 RUN mkdocs build
 
-WORKDIR /build/zq1
-RUN mkdocs build -f mkdocs.zq2.yml;
-
 FROM nginx:alpine-slim
 
-RUN mkdir -p /usr/share/nginx/html/zilliqa1
 RUN mkdir -p /usr/share/nginx/html/zilliqa2
-COPY --from=builder --chown=nginx:nginx /build/zq1/site/. /usr/share/nginx/html/zilliqa1/.
 COPY --from=builder --chown=nginx:nginx /build/zq2/site/. /usr/share/nginx/html/zilliqa2/.
 COPY default.conf /etc/nginx/conf.d/default.conf
 

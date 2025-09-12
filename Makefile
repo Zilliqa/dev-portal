@@ -21,15 +21,9 @@ HERE=$(shell pwd)
 VERSION=$(shell cat $(HERE)/VERSION)
 export VERSION
 
-.PHONY: autogen dev1 dev2 assemble build run-image push-dev-image image/build-and-push
+.PHONY: autogen dev2 assemble build run-image push-dev-image image/build-and-push
 zq2/docs/mkdocs.yml autogen:
 	(cd $(HERE)/docgen && cargo run $(HERE))
-
-dev1:
-	(cd zq1 && DOC_SOURCE=$(HERE)/zq1/docs mkdocs serve -f mkdocs.zq2.yml $(SERVEOPTS))
-
-dev1nozq2:
-	(cd zq1 && DOC_SOURCE=$(HERE)/zq1/docs mkdocs serve -f mkdocs.nozq2.yml $(SERVEOPTS))
 
 dev2: zq2/docs/mkdocs.yml
 	(cd zq2 && DOC_SOURCE=$(HERE)/zq2/docs mkdocs serve $(SERVEOPTS))
@@ -44,7 +38,6 @@ assemble:
 	rm -rf $(BINDIR)
 	mkdir -p $(BINDIR)
 	cp -r $(HERE_FILES) $(BINDIR)
-	cp -r $(HERE)/zq1 $(BINDIR)
 	cp -r $(HERE)/zq2 $(BINDIR)
 
 IMAGE_TAG ?= developer-portal:latest
