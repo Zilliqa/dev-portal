@@ -2,8 +2,9 @@
   "settings": {
     "projectTitle": "Zilliqa Developer Portal",
     "description": "Documentation for Zilliqa developer",
-    "folders": ["zq2"],
-    "excludeFolders": [
-    ]
+    "folders": [
+      "zq2"
+    ],
+    "excludeFolders": []
   }
 }
