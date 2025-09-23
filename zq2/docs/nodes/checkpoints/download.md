@@ -25,3 +25,15 @@ Loading; please wait ..
 
 
 
+
+
+
+
+
+
+
+
+
+*Note:* Checkpoints 2.0 uses `.ckpt` files instead of legacy `.dat` files. The XML bucket listings now include `.ckpt` files.
+
+To verify downloaded checkpoints, use the updated block hash retrieval RPC compatible with Checkpoints 2.0.
