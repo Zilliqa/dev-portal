@@ -56,7 +56,7 @@ docker run -td --restart=unless-stopped \
 >
 > - Check the [Zilliqa eth-net-intelligence-api repository](https://github.com/Zilliqa/eth-net-intelligence-api) for more recent versions of the zilstats-agent image before deploying.
 >
-> - To ensure compatibility, is used the `--platform=linux/amd64` option in the docker run command. If your machine’s architecture is not `Linux/amd64` (e.g., ARM64 on a MacBook or Raspberry Pi), you may need to explicitly specify the platform when running the Docker container.
+> - To ensure compatibility, is used the `--platform=linux/amd64` option in the docker run command. If your machines architecture is not `Linux/amd64` (e.g., ARM64 on a MacBook or Raspberry Pi), you may need to explicitly specify the platform when running the Docker container.
 
 ### Environment Variables
 
