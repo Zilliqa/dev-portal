@@ -46,3 +46,8 @@ We provide a number of open-source repositories relevant to Zilliqa 2.0:
 - [eth-spout](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/eth-spout) - a simple faucet
 - [neo-savant](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/neo-savant) - the Scilla IDE
 - [developer-portal-zq2](https://dev.zilliqa.com) - this developer portal
+
+
+Note the following dependency bumps in crates such as `anyhow`, `serde_json`, `eth_trie`, `tempfile`, `zip`, and `axios`. Developers should verify the compatibility of these changes, especially in local development environments.
+
+Checkpoint management toolsets and utilities, including the new conversion tool, have been updated and integrated into the overall SDK and tooling ecosystem.
