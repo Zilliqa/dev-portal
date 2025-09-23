@@ -112,7 +112,7 @@ Since only devnet nodes can sync from the genesis, all other nodes must be start
 * <b>start the node from a checkpoint:</br></b>
   ```bash
   chmod +x start_node.sh && \
-  ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.dat>
+  ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.ckpt>
   ```
 
 * <b>start the node from the genesis:</br></b>
@@ -120,9 +120,10 @@ Since only devnet nodes can sync from the genesis, all other nodes must be start
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY
   ```
+
 _NOTE: After a node is successfully launched from a checkpoint for the first time, the checkpoint settings can be removed from its configuration file and the node can be restarted without specifying a checkpoint file on the command line._
 
-_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
+_NOTE: The `<checkpoint_block_num.ckpt>` file is the one you previously downloaded or converted from legacy format. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
 Great! The node should now be syncing with the network. It may
 take up to 1-2 hours for the node to fully synchronize. You can check the progress
@@ -188,7 +189,7 @@ docker stop <container id>
 Start your new node:
 
 ```bash
-./start_node.sh -k $PRIVATE_KEY
+./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.ckpt>
 ```
 
 You can validate the version your node is running by calling the `GetVersion` API method:
@@ -196,3 +197,48 @@ You can validate the version your node is running by calling the `GetVersion` AP
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
+
+
+## Synchronization Strategies
+
+The Zilliqa 2.0 networks offer different synchronization strategies depending on the network's history and requirements:
+
+- **Mainnet and Testnet:** Synchronize nodes using checkpoints in the newer `.ckpt` file format. This approach accelerates syncing times by loading a known blockchain state from the checkpoint.
+
+- **Devnet:** Synchronizes from genesis as a development-focused network.
+
+For synchronization on mainnet and testnet networks, nodes use the new `load_ckpt()` functionality internally to handle the `.ckpt` checkpoint files.
+
+### Migration from Legacy Checkpoints
+
+To support migration from legacy `.dat` checkpoint files, use the `convert-ckpt.rs` tool to convert old checkpoints to the new `.ckpt` format before starting the node.
+
+## Backup and Restore Persistence
+
+Zilliqa 2.0 nodes include improved backup and restore persistence mechanisms that reduce startup and recovery times (see DEVOPS-2302).
+
+This enhancement helps nodes to restore state more quickly after restarts or crashes, improving operational readiness.
+
+## CLI Commands
+
+CLI commands related to checkpoint management now support the new Checkpoints 2.0 `.ckpt` file format.
+
+Example conversion usage:
+
+```bash
+./convert-ckpt --input old_checkpoint.dat --output new_checkpoint.ckpt
+```
+
+Developers should update custom scripts or integrations that reference legacy `.dat` checkpoint files.
+
+### Admin RPC Commands
+
+Checkpoint-related admin commands, such as `admin_generateCheckpoint`, have been updated to handle the new `.ckpt` format.
+
+### Troubleshooting
+
+- Monitor node logs during startup for checkpoint migration and conversion status messages.
+
+- Validate checkpoint files and hashes carefully to avoid synchronization issues.
+
+- The checkpoint filename flags and parameters no longer assume `.dat` specific naming.
