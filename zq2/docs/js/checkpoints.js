@@ -58,20 +58,22 @@ async function fillCheckpointTableFromElem(elem) {
           let key = c.getElementsByTagName("Key")[0].textContent;
           let size = c.getElementsByTagName("Size")[0].textContent;
           let isSwitchover = false;
-          if (key.startsWith("switchover/")) {
-            block = parseInt(key.substring(11))
-            switchoverBlock = { key, block, size }
-          } else {
-            if (key.startsWith("previous/")) {
-              block = parseInt(key.substring(10))
+          if (key.endsWith(".ckpt")) {
+            if (key.startsWith("switchover/")) {
+              block = parseInt(key.substring(11, key.length - 5));
+              switchoverBlock = { key, block, size };
             } else {
-              block = parseInt(key)
+              if (key.startsWith("previous/")) {
+                block = parseInt(key.substring(9, key.length - 5));
+              } else {
+                block = parseInt(key.substring(0, key.length - 5));
+              }
+              sortedCheckpoints.push({ key, block, size });
             }
-            sortedCheckpoints.push({ key, block, size })
           }
         }
         sortedCheckpoints.sort( (a,b) => b.block - a.block );
-        let contents = ""
+        let contents = "";
         const sliced = sortedCheckpoints.slice(0, nrCheckpoints);
         const tableHeader = "<tr>" +
               "<th>Checkpoint</th>" +
@@ -82,7 +84,7 @@ async function fillCheckpointTableFromElem(elem) {
           if (sliced.length > 0) {
             const promises = sliced.map( (v) => generateTableRow(apiUrl, listUrl, v) );
             Promise.all(promises).then(function (values) {
-              const tableContents = values.reduce( (acc,v) => acc + v, "")
+              const tableContents = values.reduce( (acc,v) => acc + v, "");
               contents += "<table>" + tableHeader + tableContents + "</table>";
               resolve(contents);
             }, function (err) {
