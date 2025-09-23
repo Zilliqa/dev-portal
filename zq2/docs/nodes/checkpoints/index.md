@@ -37,48 +37,48 @@ The following steps apply to both networks.
 
    From the XML file at the respective URL:
 
-   - Look for the `<key>` tag, which contains the checkpoint file's name. The file follows the `block_num.dat` format (e.g., `000291600.dat`).
+   - Look for the `<key>` tag, which contains the checkpoint file's name. The file now uses the `.ckpt` extension (e.g., `000291600.ckpt`).
 
    - Copy the file name of the latest checkpoint from the topmost `<key>` tag. For older checkpoints, explore the `previous/` directory.
 
    - Download the checkpoint file using the `wget` command or paste the link in your browser:
 
    ```bash
-   wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.dat>
+   wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.ckpt>
    ```
 
    Replace <network> with `mainnet`, `testnet` or `devnet` based on your selected network.
 
-   _NOTE: Checkpoints are generated every 86400 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node can’t process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint._
+   _NOTE: Checkpoints are generated every 86400 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node cant process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint._
 
 3. **Configure Checkpoints in the Configuration File**
    Open the respective configuration file (`zq2-mainnet.toml` or `zq2-testnet.toml`) and add the following lines to enable checkpoint settings:
    ```toml
    [nodes.load_checkpoint]
-   file = "xxxxx..." # File name of the checkpoint block. for eg: 3000.dat
-   hash = "xxxxx..." # Block hash corresponding to the file block (Remove '0x' prefix from hash if present)
+   file = "000291600.ckpt"
+   hash = "<block_hash>"
    ```
 
-    `file` : This parameter specifies the name of the checkpoint or block number file, which
-    can be obtained from the public GCS bucket. It’s recommended to download the latest checkpoint
-    file from this source.
+   Remove previous `.dat` filename conventions. Use the new `.ckpt` files.
 
-    `hash` : The hash is used to verify the validity of the state data and ensure that no
-    tampering has occurred. You can obtain the block hash corresponding to the checkpoint height from the
-    public explorer of your chosen network. For example, if the downloaded
-    checkpoint file is 3000, you can use the `eth_getBlockByNumber` API to query the block hash:
+4. **Convert Legacy Checkpoint Files (if applicable)**
 
-    ```bash
-    curl --request POST --url https://api.zq2-mainnet.zilliqa.com/ \
-    --header 'Content-Type: application/json' \
-    --data '{"method":"eth_getBlockByNumber","params":["0xBB8",false],"id":1,"jsonrpc":"2.0"}' \
-    | grep -o '"hash":"[^"]*"' | awk -F':' '{print $2}' | tr -d '"'
-    ```
-  Alternatively, you can retrieve the block hash directly from the public explorer of your chosen network by searching for the block number.
-  Refer to [block explorers](../endpoints.md#block-explorer) section for public explorer.
-  By this stage, your checkpoints settings should be specified in the configuration file.
+   Before starting your node, if you have legacy `.dat` checkpoint files, use the new conversion tool `convert-ckpt.rs` to migrate to the `.ckpt` format:
 
-4. **Launch the node**  
-Now the node is ready to launch. Follow the instructions in the [Start the Node](../nodes/node.md#starting-your-node) section to start your node.
+   ```bash
+   ./convert-ckpt --input old_checkpoint.dat --output new_checkpoint.ckpt
+   ```
 
-**Note**: After starting a node from a checkpoint for the first time it typically takes approximately 1.5 hours to start syncing. During this time the node won’t respond to RPC requests. Please allow sufficient time for the process to complete.
+5. **Launch the Node**
+
+   Modify startup commands to expect `.ckpt` checkpoint files:
+
+   ```bash
+   chmod +x start_node.sh
+   ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.ckpt>
+   ```
+
+   Monitor node logs carefully during startup to ensure checkpoint conversion and migration are successful.
+
+
+**Note**: After starting a node from a checkpoint for the first time it typically takes approximately 1.5 hours to start syncing. During this time the node wont respond to RPC requests. Please allow sufficient time for the process to complete.
