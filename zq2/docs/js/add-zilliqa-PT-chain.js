@@ -30,7 +30,7 @@ async function addZilliqaPTChain() {
                         rpcUrls: [
                             "https://api.testnet.zilliqa.com"
                         ],
-                        chainId: "0x80de",
+                        chainId: "0x814d",
                         chainName: "Zilliqa 2 EVM testnet"
                     }
                 ],
