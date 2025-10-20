@@ -26,7 +26,7 @@ The reference smart contracts currently support two variants of delegated stakin
 - Users receive a **non-rebasing Liquid Staking Token (LST)** upon delegation.
 - The tokens represent the delegator's share of the total stake delegated to the
 staking pool. As the staking pool earns rewards, the value of the liquid staking
-token will increase. The tokens are burned when the delegator withdraws their stake,
+token will increase. The tokens are burned when the delegator withdraws their stake
 in return for ZIL.
 
 ### 2. **Non-Liquid Staking**
@@ -37,6 +37,19 @@ their principal amount.
 increase their share of the total stake and their future rewards. Furthermore, they
 can replace their registered address to make another wallet eligible for unstaking
 and claiming rewards.
+
+## Deposit Contract Versions
+
+### Deposit Contract Versions
+- **deposit_v6**: Previous version of the staking deposit contract
+- **deposit_v7**: New version with a reinitializable `withdrawal_period` parameter
+  - Allows adjustment of the unbonding period through contract upgrade
+  - Default withdrawal period set to 461,680 blocks (approximately 7 days)
+
+### Withdrawal Period
+- The `withdrawal_period` can now be reinitialized through a contract upgrade
+- Current setting: 461,680 blocks (≈ 7 days, assuming 1-second block times)
+- Provides flexibility for future network parameter adjustments
 
 ## Setup by Depositing a Validator from Operator Funds
 
