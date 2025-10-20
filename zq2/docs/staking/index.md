@@ -11,9 +11,21 @@ it by unstaking and withdrawing part of their deposit. Note that the remaining
 deposit must be at least the required minimum. If a validator does not want to
 participate in the consensus anymore, they must unstake their entire deposit.
 
+## Deposit Contract Versions
+
+The Zilliqa network now uses `deposit_v7.sol` as the default active deposit contract. Key changes include:
+
+- Introduction of an overloaded `reinitialize(uint256 _withdrawalPeriod)` function
+- Reduced withdrawal period to 461,680 blocks (approximately 7 days)
+
+**Important for Node Operators:**
+- Ensure your node configurations are aligned with the `deposit_v7` contract parameters
+- The new withdrawal period allows quicker access to unstaked funds
+- Use the `deposit_v7` ABI when interacting with the Deposit contract
+
 # Delegated Staking
 
-Alternatively, validators can operate staking pools, allowing users to delegate 
+Alternatively, validators can operate staking pools, allowing users to delegate
 stake to them. To set up a staking pool, they can use the reference implementation
 mentioned below or create and deploy their own smart contracts.
 
@@ -26,12 +38,12 @@ The reference smart contracts currently support two variants of delegated stakin
 - Users receive a **non-rebasing Liquid Staking Token (LST)** upon delegation.
 - The tokens represent the delegator's share of the total stake delegated to the
 staking pool. As the staking pool earns rewards, the value of the liquid staking
-token will increase. The tokens are burned when the delegator withdraws their stake,
+token will increase. The tokens are burned when the delegator withdraws their stake
 in return for ZIL.
 
 ### 2. **Non-Liquid Staking**
 
-- Users can withdraw their share of the rewards in ZIL regularly without unstaking 
+- Users can withdraw their share of the rewards in ZIL regularly without unstaking
 their principal amount.
 - Instead of withdrawing the accrued rewards, users can also stake the rewards to
 increase their share of the total stake and their future rewards. Furthermore, they
@@ -40,7 +52,9 @@ and claiming rewards.
 
 ## Setup by Depositing a Validator from Operator Funds
 
-Node operators with sufficient funds to deposit the minimum stake required of validators can turn their node into a validator node as soon as it is synced, and join a staking pool later. Detailed instructions can be found [here](../staking/delegatedstaking.md).
+Node operators with sufficient funds to deposit the minimum stake required of
+validators can turn their node into a validator node as soon as it is synced,
+and join a staking pool later. Detailed instructions can be found [here](../staking/delegatedstaking.md).
 
 
 ## Setup by Funding a Validator through Delegations
