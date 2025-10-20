@@ -1,6 +1,0 @@
----
-hide:
-  - title
----
-
-- <!-- markdownlint-disable -->
