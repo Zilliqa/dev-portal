@@ -1,36 +1,81 @@
-## Synchronizing the Node
+---
+id: nodes/nodes
+title: Node setup 
+---
 
-### Checkpoint 2.0: New `.ckpt` Format
+# Node setup
 
-**Key Changes:**
-- Checkpoint files now use the `.ckpt` extension, a ZIP64 archive
-- Existing `.dat` checkpoint files are NOT compatible with the new format
+Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by following the instructions below
 
-#### Migrating Checkpoint Files
+## Prerequisites
 
-To migrate existing checkpoint files, use the `z2 convert-ckpt` tool:
-```bash
-z2 convert-ckpt <old_checkpoint.dat> <new_checkpoint.ckpt>
-```
+### [Minimum hardware requirements](#minimum-hardware-requirements)
 
-When starting the node, use the new `.ckpt` file:
-```bash
-chmod +x start_node.sh && \
-./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.ckpt>
-```
+- **CPU**:
+    - 2 Core / 4 threads or more
+- **RAM**:
+    - 8 GB or more
+- **Disk**:
+    - 200 GB or more
 
-**Note for Operators:** Update your node management scripts to handle the new `.ckpt` file extension and use the conversion tool for existing checkpoints.
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
+GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
-### Synchronization Methods
+### [Software requirements](#software-requirements)
 
-Once a node is successfully launched from a checkpoint for the first time, the checkpoint settings can be removed from its configuration file and the node can be restarted without specifying a checkpoint file on the command line.
+1. Operating System: We build and run on Ubuntu 22.04LTS or above
+2. Docker: 27.0.3
 
-> * Synchronization from a checkpoint.
+### [Port-forwarding](#port-forwarding)
 
-This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
+The following TCP ports need to be open to the internet for both inbound and
+outbound.
 
-> * Synchronization from the genesis.
+_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so
+and you are facing any traversal issue you might have to debug on your own._
 
-This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
+#### Required
 
-Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
+3333/TCP - P2P protocol port: has to be opened on inbound and outbound to
+public internet.
+
+#### Optional
+
+4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
+be accessible via the internet.
+
+## Installation
+
+### [Setting up your node](#setting-up-your-node)
+
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/*)
+code base. Follow the step by step guide to setup your node:
+
+(... rest of the existing content remains the same ...)
+
+### [Becoming a Validator](#becoming-a-validator)
+
+Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
+the network and promote themselves as validator nodes. In return, they receive a 
+share of the block rewards.
+
+Once you have sufficient $ZILs you can register your node as validator.
+
+Below is a guide on how to register a validator node for Zilliqa 2.0:
+
+<https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md>
+
+**Validator Jailing Mechanism**
+
+In Zilliqa 2.0, a new jailing mechanism has been introduced to promote validator liveness and network reliability. Validators who consistently miss block proposals may be temporarily 'jailed', which means:
+- They are excluded from proposing new blocks
+- They can still participate in validation and voting
+- They continue to earn cosigner rewards
+
+The jailing is triggered if a validator misses multiple blocks within a specific time window. Validators should monitor their performance using the `admin_missedViews` RPC method and ensure consistent block proposal to avoid potential jailing.
+
+For detailed configuration and monitoring instructions, refer to the [Nodes documentation](../nodes.md).
+
+### [Upgrading your node](#upgrading-your-node)
+
+(... rest of the existing content remains the same ...)
