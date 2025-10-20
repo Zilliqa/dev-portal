@@ -1,81 +1,39 @@
----
-id: nodes/nodes
-title: Node setup 
----
+## Performance and Resource Configuration
 
-# Node setup
+Zilliqa 2.0 provides advanced configuration options to optimize node performance and resource utilization. These settings allow node operators to fine-tune their node's behavior based on available hardware and specific network requirements.
 
-Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by following the instructions below
+### Cache and Memory Optimization
 
-## Prerequisites
+Zilliqa 2.0 provides fine-grained control over internal cache sizes to prevent Out-Of-Memory (OOM) issues:
 
-### [Minimum hardware requirements](#minimum-hardware-requirements)
+- `state_cache_size`: Controls the size of the state cache. 
+  - **Default**: `67108864` bytes (64 MB)
+  - **Purpose**: Limits memory used for caching blockchain state
+  - **Recommendation**: Adjust based on your node's available memory
 
-- **CPU**:
-    - 2 Core / 4 threads or more
-- **RAM**:
-    - 8 GB or more
-- **Disk**:
-    - 200 GB or more
+- `db.conn_cache_size`: Limits the number of SQLite database connections.
+  - **Default**: `128` connections
+  - **Purpose**: Prevents excessive database connection overhead
 
-We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
-GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+- `sled` Temporary Database Cache:
+  - **Default**: `1024 * 1024` bytes (1 MB)
+  - **Purpose**: Controls memory used by the internal key-value store
 
-### [Software requirements](#software-requirements)
+### RPC Handler Performance
 
-1. Operating System: We build and run on Ubuntu 22.04LTS or above
-2. Docker: 27.0.3
+Zilliqa 2.0 introduces categorization of RPC handlers to improve responsiveness:
 
-### [Port-forwarding](#port-forwarding)
+- `slow_rpc_queries_handlers_count`: Configures dedicated threads for complex RPC queries
+  - **Type**: `usize`
+  - **Default**: `1`
+  - **Purpose**: Manages threads for longer-running RPC methods
+  - **Affected Methods**: `admin`, `debug`, `erigon`, `ots`, `trace`, `txpool`, `zilliqa`
+  - **Recommendation**: Increase if experiencing slow RPC response times, but be mindful of resource consumption
 
-The following TCP ports need to be open to the internet for both inbound and
-outbound.
+### Contract State Query Optimization
 
-_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so
-and you are facing any traversal issue you might have to debug on your own._
+- `disable_get_full_state_for_contracts`: Prevents `GetSmartContractState` queries for specific contract addresses
+  - **Purpose**: Mitigate performance issues for high-volume or problematic contracts
+  - **Usage**: Configure to limit state retrieval for specific contracts
 
-#### Required
-
-3333/TCP - P2P protocol port: has to be opened on inbound and outbound to
-public internet.
-
-#### Optional
-
-4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
-be accessible via the internet.
-
-## Installation
-
-### [Setting up your node](#setting-up-your-node)
-
-To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/*)
-code base. Follow the step by step guide to setup your node:
-
-(... rest of the existing content remains the same ...)
-
-### [Becoming a Validator](#becoming-a-validator)
-
-Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
-the network and promote themselves as validator nodes. In return, they receive a 
-share of the block rewards.
-
-Once you have sufficient $ZILs you can register your node as validator.
-
-Below is a guide on how to register a validator node for Zilliqa 2.0:
-
-<https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md>
-
-**Validator Jailing Mechanism**
-
-In Zilliqa 2.0, a new jailing mechanism has been introduced to promote validator liveness and network reliability. Validators who consistently miss block proposals may be temporarily 'jailed', which means:
-- They are excluded from proposing new blocks
-- They can still participate in validation and voting
-- They continue to earn cosigner rewards
-
-The jailing is triggered if a validator misses multiple blocks within a specific time window. Validators should monitor their performance using the `admin_missedViews` RPC method and ensure consistent block proposal to avoid potential jailing.
-
-For detailed configuration and monitoring instructions, refer to the [Nodes documentation](../nodes.md).
-
-### [Upgrading your node](#upgrading-your-node)
-
-(... rest of the existing content remains the same ...)
+_Note: These configuration options should be set in your node's configuration file. Always monitor your node's performance and adjust settings based on your specific infrastructure and network conditions._
