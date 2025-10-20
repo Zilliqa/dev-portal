@@ -26,7 +26,7 @@ The following steps apply to both networks.
 
    Follow these steps to download the latest checkpoint file for your chosen network:
 
-   - **Devnet**
+   - **Devnet**:
      Visit the public [checkpoint URL](https://checkpoints.zq2-devnet.zilliqa.com).
 
    - **Testnet**:
@@ -37,33 +37,48 @@ The following steps apply to both networks.
 
    From the XML file at the respective URL:
 
-   - Look for the `<key>` tag, which contains the checkpoint file's name. The file follows the `block_num.dat` format (e.g., `0002916000.dat`).
+   - Look for the `<key>` tag, which contains the checkpoint file's name. The file follows the `block_num.ckpt` format (e.g., `000291600.ckpt`).
 
    - Copy the file name of the latest checkpoint from the topmost `<key>` tag. For older checkpoints, explore the `previous/` directory.
 
    - Download the checkpoint file using the `wget` command or paste the link in your browser:
 
    ```bash
-   wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.dat>
+   wget https://checkpoints.zq2-<network>.zilliqa.com/<block_num.ckpt>
    ```
 
    Replace <network> with `mainnet`, `testnet` or `devnet` based on your selected network.
 
-   _NOTE: Checkpoints are generated every 8640 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node can't process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint._
+   _NOTE: Checkpoints are generated every 86400 blocks. The earliest checkpoint for the mainnet and testnet was generated at the switchover from Zilliqa 1. If the node does not need historical state it is recommended to use the latest checkpoint file to speed up synchronization. Keep in mind that the node can't process RPC requests such as eth_getBalance on blocks that were produced before the checkpoint._
+
+   **Checkpoint Migration**:
+   If you have older .dat checkpoint files, use the new migration tool:
+   ```bash
+   z2 convert-ckpt <old_checkpoint.dat> <new_checkpoint.ckpt>
+   ```
+
+   **Checkpoint File Structure**:
+   The new .ckpt format is a ZIP64-based archive containing:
+   - `metadata.json`: Checkpoint metadata
+   - `block.bincode`: Block data
+   - `transactions.bincode`: Transaction data
+   - `parent.bincode`: Parent block information
+   - `state.bincode`: Blockchain state
+   - `history.bincode`: Historical data
 
 3. **Configure Checkpoints in the Configuration File**
    Open the respective configuration file (`zq2-mainnet.toml` or `zq2-testnet.toml`) and add the following lines to enable checkpoint settings:
    ```toml
    [nodes.load_checkpoint]
-   file = "xxxxx..." # File name of the checkpoint block. for eg: 3000.dat
+   file = "xxxxx..." # File name of the checkpoint block. for eg: 3000.ckpt
    hash = "xxxxx..." # Block hash corresponding to the file block (Remove '0x' prefix from hash if present)
    ```
 
-   `file` : This parameter specifies the name of the checkpoint or block number file, which
+   `file`: This parameter specifies the name of the checkpoint or block number file, which
    can be obtained from the public GCS bucket. It's recommended to download the latest checkpoint
    file from this source.
 
-   `hash` : The hash is used to verify the validity of the state data and ensure that no
+   `hash`: The hash is used to verify the validity of the state data and ensure that no
    tampering has occurred. You can obtain the block hash corresponding to the checkpoint height from the
    public explorer of your chosen network. For example, if the downloaded
    checkpoint file is 3000, you can use the `eth_getBlockByNumber` API to query the block hash:
@@ -78,39 +93,7 @@ The following steps apply to both networks.
    Refer to [block explorers](../endpoints.md#block-explorer) section for public explorer.
    By this stage, your checkpoints settings should be specified in the configuration file.
 
-4. **Launch the node**
+4. **Launch the Node**
    Now the node is ready to launch. Follow the instructions in the [Start the Node](../nodes/node.md#starting-your-node) section to start your node.
 
 **Note**: After starting a node from a checkpoint for the first time it typically takes approximately 1.5 hours to start syncing. During this time the node won't respond to RPC requests. Please allow sufficient time for the process to complete.
-
-## [State Storage Migration from SQLite to RocksDB](#state-storage-migration)
-
-### Migration Configuration
-
-Zilliqa nodes now use RocksDB as the underlying state storage backend. Existing nodes running on SQLite will need to migrate their state data. A new configuration key `db.state_sync` has been introduced to manage this migration process.
-
-#### Configuration Parameters
-
-- `db.state_sync`: Enables and manages the state data migration from SQLite to RocksDB
-  - When set, the node will replay blocks from a configured checkpoint
-
-#### Migration Process
-
-1. **Backup Existing Data**
-   - Before migration, create a backup of your existing SQLite `state_trie` table
-   - Recommended command: `cp state_trie.db state_trie.db.backup`
-
-2. **Configure Migration**
-   Add the following to your node configuration file:
-   ```toml
-   [db]
-   state_sync = true  # Enable RocksDB state migration
-   ```
-
-3. **Monitor Migration Progress**
-   - Use the `admin_syncing` RPC endpoint to track migration status
-   - Key migration metrics:
-     * `migrate_at`: Current migration height
-     * `cutover_at`: RocksDB migration start height
-
-**Note**: The migration process may take several hours depending on your node's historical state size. During migration, the node will not respond to standard RPC requests.
