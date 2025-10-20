@@ -1,39 +1,76 @@
-## Performance and Resource Configuration
+---
+id: nodes/nodes
+title: Node setup 
+---
 
-Zilliqa 2.0 provides advanced configuration options to optimize node performance and resource utilization. These settings allow node operators to fine-tune their node's behavior based on available hardware and specific network requirements.
+# Node setup
 
-### Cache and Memory Optimization
+Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by following the instructions below
 
-Zilliqa 2.0 provides fine-grained control over internal cache sizes to prevent Out-Of-Memory (OOM) issues:
+## Prerequisites
 
-- `state_cache_size`: Controls the size of the state cache. 
-  - **Default**: `67108864` bytes (64 MB)
-  - **Purpose**: Limits memory used for caching blockchain state
-  - **Recommendation**: Adjust based on your node's available memory
+### [Minimum hardware requirements](#minimum-hardware-requirements)
 
-- `db.conn_cache_size`: Limits the number of SQLite database connections.
-  - **Default**: `128` connections
-  - **Purpose**: Prevents excessive database connection overhead
+- **CPU**:
+    - 2 Core / 4 threads or more
+- **RAM**:
+    - 8 GB or more
+- **Disk**:
+    - 200 GB or more
 
-- `sled` Temporary Database Cache:
-  - **Default**: `1024 * 1024` bytes (1 MB)
-  - **Purpose**: Controls memory used by the internal key-value store
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
+GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
-### RPC Handler Performance
+### [Software requirements](#software-requirements)
 
-Zilliqa 2.0 introduces categorization of RPC handlers to improve responsiveness:
+1. Operating System: We build and run on Ubuntu 22.04 LTS or above
+2. Docker: 27.0.3
 
-- `slow_rpc_queries_handlers_count`: Configures dedicated threads for complex RPC queries
-  - **Type**: `usize`
-  - **Default**: `1`
-  - **Purpose**: Manages threads for longer-running RPC methods
-  - **Affected Methods**: `admin`, `debug`, `erigon`, `ots`, `trace`, `txpool`, `zilliqa`
-  - **Recommendation**: Increase if experiencing slow RPC response times, but be mindful of resource consumption
+### [Port-forwarding](#port-forwarding)
 
-### Contract State Query Optimization
+The following TCP ports need to be open to the internet for both inbound and
+outbound.
 
-- `disable_get_full_state_for_contracts`: Prevents `GetSmartContractState` queries for specific contract addresses
-  - **Purpose**: Mitigate performance issues for high-volume or problematic contracts
-  - **Usage**: Configure to limit state retrieval for specific contracts
+_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so
+and you are facing any traversal issue you might have to debug on your own._
 
-_Note: These configuration options should be set in your node's configuration file. Always monitor your node's performance and adjust settings based on your specific infrastructure and network conditions._
+#### Required
+
+3333/TCP - P2P protocol port: has to be opened on inbound and outbound to
+public internet.
+
+#### Optional
+
+4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
+be accessible via the internet.
+
+## Installation
+
+### [Setting up your node](#setting-up-your-node)
+
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/z2/) code
+base. Follow the step by step guide to setup your node:
+
+[... rest of the existing content ...]
+
+### Node Performance and Reliability
+
+#### Recent Architectural Improvements
+
+Zilliqa 2.0 has implemented several internal architectural enhancements to improve node performance and reliability:
+
+- **Concurrent State Management**: 
+  - Switched from `Arc<Mutex<...>>` to `Arc<RwLock<...>>` for account state management, allowing multiple concurrent readers
+  - Implemented `ArcSwap<Vec<PeerId>>` for thread-safe peer list updates
+
+- **Enhanced Error Handling**:
+  - Custom RPC panic hook to capture and convert panics into structured error responses
+  - Improved debugging capabilities through detailed error information
+
+- **Request Handling**:
+  - Randomized request ID generation for improved distributed tracing
+  - Centralized and optimized transaction retrieval logic
+
+_These improvements enhance the node's ability to handle concurrent operations, provide better error insights, and maintain system stability._
+
+[... rest of the existing content ...]
