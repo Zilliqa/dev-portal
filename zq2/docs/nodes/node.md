@@ -18,7 +18,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
 - **Disk**:
     - 200 GB or more
 
-We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP
 GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
@@ -52,47 +52,47 @@ To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility 
 base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
-  You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
-  you can update Rust to the latest stable version.
+   You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
+   you can update Rust to the latest stable version.
 2. Install the following requirements:
-  ```bash
-  sudo add-apt-repository ppa:ethereum/ethereum && sudo apt update && \
-  sudo apt install -y solc build-essential pkg-config libssl-dev cmake \
-  protobuf-compiler
-  ```
+   ```bash
+   sudo add-apt-repository ppa:ethereum/ethereum && sudo apt update && \
+   sudo apt install -y solc build-essential pkg-config libssl-dev cmake \
+   protobuf-compiler
+   ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
 4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
-  ```bash
-  source /my/dir/zq2/scripts/setenv
-  ```
-  This will give you access to the `z2` tool (in `zq2/z2`).
+   ```bash
+   source /my/dir/zq2/scripts/setenv
+   ```
+   This will give you access to the `z2` tool (in `zq2/z2`).
 7. Generate the startup script and the configuration file for your node by running:
-  ```bash
-  z2 join --chain zq2-mainnet
-  ```
-  _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
-  which network you want your node to join._
+   ```bash
+   z2 join --chain zq2-mainnet
+   ```
+   _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
+   which network you want your node to join._
 
-8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
-  protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
-  endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
-  ```bash
-  z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
-  ```
-  _NOTE: For more details on testing and using the available OpenTelemetry 
-  metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
+8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
+   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
+   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
+   ```bash
+   z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
+   ```
+   _NOTE: For more details on testing and using the available OpenTelemetry
+   metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
-  ```bash
-  openssl rand -hex 32 > node-private-key.txt
-  export PRIVATE_KEY=$(cat node-private-key.txt)
-  ```
-  _NOTE: Please save the node key as described above. You may need it
-  in the future to restart the node to generate the BLS public
-  key of the node._
+   ```bash
+   openssl rand -hex 32 > node-private-key.txt
+   export PRIVATE_KEY=$(cat node-private-key.txt)
+   ```
+   _NOTE: Please save the node key as described above. You may need it
+   in the future to restart the node to generate the BLS public
+   key of the node._
 
 10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
@@ -109,13 +109,13 @@ Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information
 ### [Starting your node](#starting-your-node)
 Since only devnet nodes can sync from the genesis, all other nodes must be started from a checkpoint: 
 
-* <b>start the node from a checkpoint:</br></b>
+* <b>start the node from a checkpoint:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.dat>
   ```
 
-* <b>start the node from the genesis:</br></b>
+* <b>start the node from the genesis:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY
@@ -196,3 +196,26 @@ You can validate the version your node is running by calling the `GetVersion` AP
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
+
+### State Storage Migration to RocksDB
+
+The blockchain's state trie storage has been migrated from SQLite to RocksDB to enhance performance and scalability. This change significantly improves the efficiency of state lookups and updates.
+
+#### Automatic Lazy Migration
+
+An on-demand migration occurs in the background. If a state entry isn't found in the new RocksDB storage, the node will automatically look it up in the old SQLite `state_trie` table and migrate it. Most operators will not need to take any action for this.
+
+#### Full Migration via State-Sync
+
+For node operators who wish to proactively migrate all state data to RocksDB, a full migration process is available:
+
+1.  **Restart from an Older Checkpoint**: Restart your node from an older checkpoint, preferably the one originally used to bootstrap the node.
+2.  **Enable State-Sync**: Set the `db.state_sync = true` flag in your node's configuration file.
+3.  **Replay Blocks**: This process will cause the node to replay blocks from the specified checkpoint up to the current head, fully populating the RocksDB state database.
+
+#### Configuration Parameters
+
+The following new parameters are available for state storage configuration:
+
+-   `db.state_sync` (boolean): Set to `true` to enable the active state migration process when restarting from a checkpoint. Default: `false`.
+-   `db.rocksdb_cache_size` (integer): Configures the block cache size for RocksDB in bytes. Default: `268435456` (256MB).
