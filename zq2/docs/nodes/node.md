@@ -19,7 +19,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
     - 200 GB or more
 
 We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP
-GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+GCE VM `e2-highcpu-8c` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -83,7 +83,7 @@ base. Follow the step by step guide to setup your node:
    z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
    _NOTE: For more details on testing and using the available OpenTelemetry
-   metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
+   metrics refer to the [OpenTelemetry](/monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
    ```bash
@@ -96,13 +96,13 @@ base. Follow the step by step guide to setup your node:
 
 10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
-  >* Synchronization from a checkpoint.
+    > **Synchronization from a checkpoint.**
 
-  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
+    This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
-  >* Synchronization from the genesis.
+    > **Synchronization from the genesis.**
 
-  This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
+    This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
 
 Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
 
@@ -122,7 +122,7 @@ Since only devnet nodes can sync from the genesis, all other nodes must be start
   ```
 _NOTE: After a node is successfully launched from a checkpoint for the first time, the checkpoint settings can be removed from its configuration file and the node can be restarted without specifying a checkpoint file on the command line._
 
-_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
+_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
 Great! The node should now be syncing with the network. It may
 take up to 1-2 hours for the node to fully synchronize. You can check the progress
@@ -147,7 +147,7 @@ For additional details on `z2` and the `join` capability refer to:
 ### [Becoming a Validator](#becoming-a-validator)
 
 Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
-the network and promote themselves as validator nodes. In return, they receive a 
+the network and promote themselves as validator nodes. In return, they receive a
 share of the block rewards.
 
 Once you have sufficient $ZILs you can register your node as validator.
@@ -213,7 +213,7 @@ For node operators who wish to proactively migrate all state data to RocksDB, a 
 2.  **Enable State-Sync**: Set the `db.state_sync = true` flag in your node's configuration file.
 3.  **Replay Blocks**: This process will cause the node to replay blocks from the specified checkpoint up to the current head, fully populating the RocksDB state database.
 
-#### Configuration Parameters
+##### Configuration Parameters
 
 The following new parameters are available for state storage configuration:
 
