@@ -61,7 +61,7 @@ base. Follow the step by step guide to setup your node:
    protobuf-compiler
    ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
-4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
+4. Clone [zq2](https://github.com/Zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
@@ -80,7 +80,7 @@ base. Follow the step by step guide to setup your node:
    protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
    endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
    ```bash
-   z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
+   z2 join --chain zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
    _NOTE: For more details on testing and using the available OpenTelemetry
    metrics refer to the [OpenTelemetry](/monitoring/opentelemetry.md) page._
@@ -104,7 +104,7 @@ base. Follow the step by step guide to setup your node:
 
     This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
 
-Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
+Please refer to [Syncing & Pruning](../../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
 
 ### [Starting your node](#starting-your-node)
 Since only devnet nodes can sync from the genesis, all other nodes must be started from a checkpoint: 
@@ -140,7 +140,6 @@ the above request, then it is still processing the checkpoint file
 and has not started synchronizing yet.
 
 For additional details on `z2` and the `join` capability refer to:
-
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/README.md>
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/join.md>
 
@@ -213,9 +212,19 @@ For node operators who wish to proactively migrate all state data to RocksDB, a 
 2.  **Enable State-Sync**: Set the `db.state_sync = true` flag in your node's configuration file.
 3.  **Replay Blocks**: This process will cause the node to replay blocks from the specified checkpoint up to the current head, fully populating the RocksDB state database.
 
-##### Configuration Parameters
+#### Configuration Parameters
 
 The following new parameters are available for state storage configuration:
 
 -   `db.state_sync` (boolean): Set to `true` to enable the active state migration process when restarting from a checkpoint. Default: `false`.
 -   `db.rocksdb_cache_size` (integer): Configures the block cache size for RocksDB in bytes. Default: `268435456` (256MB).
+
+### Default Configuration Changes
+
+Several minor adjustments have been made to default configurations and logging behavior to improve node stability and reduce log verbosity.
+
+- **Cache Sizes for Checkpoint Nodes**: For nodes with the `checkpoint` role, the default cache sizes have been reduced to prevent potential out-of-memory issues.
+  - `state_cache_size`: The new default is `67108864` (64MB).
+  - `db.conn_cache_size`: The new default is `128`.
+
+- **Log Level**: The default log level for most nodes has been changed from `trace` to `info` to reduce the amount of log data generated. `trace` level logging can still be enabled selectively on specific nodes for debugging purposes.
