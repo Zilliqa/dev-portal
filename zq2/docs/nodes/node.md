@@ -76,13 +76,13 @@ base. Follow the step by step guide to setup your node:
    _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
    which network you want your node to join._
 
-8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
-   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
+8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
+   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
    endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
    ```bash
    z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
-   _NOTE: For more details on testing and using the available OpenTelemetry 
+   _NOTE: For more details on testing and using the available OpenTelemetry
    metrics refer to the [OpenTelemetry](../monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
@@ -96,11 +96,11 @@ base. Follow the step by step guide to setup your node:
 
 10. Now it's time to synchronise the node with the network. For networks created using Zilliqa 2, the node can be synchronised from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronised from a checkpoint:
 
-  >* Synchronisation from a checkpoint.
+  > **Synchronisation from a checkpoint**.
 
-  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
+  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
-  >* Synchronisation from the genesis.
+  > **Synchronisation from the genesis**.
 
   This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
 
@@ -122,7 +122,7 @@ Since only devnet nodes can sync from the genesis, all other nodes must be start
   ```
 _NOTE: After a node is successfully launched from a checkpoint for the first time, the checkpoint settings can be removed from its configuration file and the node can be restarted without specifying a checkpoint file on the command line._
 
-_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
+_NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoints](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
 Great! The node should now be syncing with the network. It may
 take up to 1-2 hours for the node to fully synchronise. You can check the progress
@@ -146,7 +146,7 @@ For additional details on `z2` and the `join` capability refer to:
 ### [Becoming a Validator](#becoming-a-validator)
 
 Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
-the network and promote themselves as validator nodes. In return, they receive a 
+the network and promote themselves as validator nodes. In return, they receive a
 share of the block rewards.
 
 Once you have sufficient $ZILs you can register your node as validator.
@@ -161,10 +161,18 @@ To ensure network liveness and participation, Zilliqa 2.0 introduces a jailing m
 
 Accumulating too many missed views within a defined period will result in a validator being "jailed." When jailed, a validator is temporarily excluded from proposing new blocks, but can still participate in co-signing existing blocks. This mechanism encourages consistent validator uptime and participation.
 
-The `max_missed_view_age` configuration parameter controls the duration for which missed views are tracked. It defines the maximum number of blocks after which a missed view is no longer considered for jailing.
+The `max_missed_view_age` configuration parameter, with a default value of `600`, controls the duration for which missed views are tracked. It defines the maximum number of blocks after which a missed view is no longer considered for jailing. For API and archive nodes, it is recommended to set this to a very large number to ensure a full history is retained.
 
 - **For validators:** It is recommended to set `max_missed_view_age` to a value that allows for minor, infrequent network disruptions without immediate jailing, but still penalises consistent liveness faults.
 - **For full, archive, and API nodes:** This parameter is less critical as these nodes do not participate in block proposal and are not subject to jailing. However, maintaining a reasonable value can help in monitoring network health.
+
+### Performance Tuning
+
+Several configuration parameters are available to optimize the performance of your Zilliqa node:
+
+-   `db.state_sync` (boolean, default: `false`): Set this to `true` to enable the state migration/sync process when migrating an existing node to the new RocksDB state backend.
+-   `db.rocksdb_cache_size` (integer, default: `268435456` bytes, i.e., 256MB): This parameter configures the size of the RocksDB block cache. Node operators can adjust this value to optimize performance based on the available system memory.
+-   `slow_rpc_queries_handlers_count` (integer, default: `1`): This parameter configures the number of threads dedicated to handling slow RPC queries, which can prevent them from blocking faster queries.
 
 ### [Upgrading your node](#upgrading-your-node)
 
@@ -185,7 +193,7 @@ _NOTE: Replace `zq2-mainnet` with the chain you are running on._
 To minimise the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 
 ```bash
-docker pull asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
+docker pull asia-docker.pkg.dev/prj-p-devops-tvwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
 ```
 
 Stop your existing node:
