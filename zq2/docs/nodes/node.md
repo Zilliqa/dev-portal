@@ -73,7 +73,7 @@ base. Follow the step by step guide to setup your node:
    ```bash
    z2 join --chain zq2-mainnet
    ```
-   _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
+   _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
    which network you want your node to join._
 
 8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
@@ -83,7 +83,7 @@ base. Follow the step by step guide to setup your node:
    z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
    _NOTE: For more details on testing and using the available OpenTelemetry 
-   metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
+   metrics refer to the [OpenTelemetry](../monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
    ```bash
@@ -140,7 +140,6 @@ the above request, then it is still processing the checkpoint file
 and has not started synchronising yet.
 
 For additional details on `z2` and the `join` capability refer to:
-
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/README.md>
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/join.md>
 
@@ -164,7 +163,7 @@ Accumulating too many missed views within a defined period will result in a vali
 
 The `max_missed_view_age` configuration parameter controls the duration for which missed views are tracked. It defines the maximum number of blocks after which a missed view is no longer considered for jailing.
 
-- **For validators:** It is recommended to set `max_missed_view_age` to a value that allows for minor, infrequent network disruptions without immediate jailing, but still penalizes consistent liveness faults.
+- **For validators:** It is recommended to set `max_missed_view_age` to a value that allows for minor, infrequent network disruptions without immediate jailing, but still penalises consistent liveness faults.
 - **For full, archive, and API nodes:** This parameter is less critical as these nodes do not participate in block proposal and are not subject to jailing. However, maintaining a reasonable value can help in monitoring network health.
 
 ### [Upgrading your node](#upgrading-your-node)
@@ -202,7 +201,22 @@ Start your new node:
 ```
 
 You can validate the version your node is running by calling the `GetVersion` API method:
-
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
+
+### Hard Fork - Validator Jailing Activation
+
+An upcoming hard fork will activate the validator jailing mechanism on the Zilliqa 2.0 network. This is a critical upgrade that introduces significant changes to how validator liveness is enforced.
+
+**Activation Block Heights:**
+- **Mainnet:** The jailing mechanism will be activated at block height `1234567` (example height, replace with actual).
+- **Testnet:** The jailing mechanism will be activated at block height `7654321` (example height, replace with actual).
+
+**Action Required:**
+All node operators, especially validators, **must upgrade their nodes to a compatible version** that includes the jailing mechanism implementation before the specified activation block heights. Failure to upgrade will result in your node going out of sync with the network and, for validators, potential loss of rewards due to being unable to participate correctly in consensus.
+
+**New RPC Method: `admin_importViewHistory`**
+To support the jailing mechanism, a new RPC method, `admin_importViewHistory`, has been introduced. This method allows nodes to import historical view data, which is crucial for accurately calculating missed views and applying jailing penalties. While primarily used internally by the network, node operators should be aware of its existence as it underpins the new liveness enforcement.
+
+This method is necessary for the jailing mechanism to function correctly by providing the historical context required to determine if a validator has missed views within the `max_missed_view_age` window.
