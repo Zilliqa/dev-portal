@@ -62,7 +62,8 @@ base. Follow the step by step guide to setup your node:
    protobuf-compiler
    ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
-4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
+4. Clone [zq2](https://github.com/Zilliqa/zq2) sourcecode into that directory to get
+   `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
@@ -95,11 +96,11 @@ base. Follow the step by step guide to setup your node:
 
 10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
-  >* Synchronization from a checkpoint.
+  > **Synchronization from a checkpoint.**
 
   This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
-  >* Synchronization from the genesis.
+  > **Synchronization from the genesis.**
 
   This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
 
@@ -139,7 +140,7 @@ _NOTE: Replace `zq2-mainnet` with the chain you are running on._
 To minimize the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 
 ```bash
-docker pull asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
+docker pull asia-docker.pkg.dev/prj-p-devops-twtwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
 ```
 
 Stop your existing node:
@@ -184,3 +185,12 @@ Once you have sufficient $ZILs you can register your node as validator.
 Below is a guide on how to register a validator node for Zilliqa 2.0:
 
 <https://github.com/Zilliqa/zq2/blob/main/z2/docs/staking.md>
+
+### Node Configuration
+
+The `zilliqa.toml` file contains several new keys for advanced node configuration:
+
+- **`db.state_sync`**: Set to `true` to enable the state migration/sync process. This is required for migrating an existing node's state to RocksDB.
+- **`db.rocksdb_cache_size`**: Configures the block cache size for RocksDB to manage memory usage. The default value is 256MB. You can specify the size in bytes.
+- **`max_missed_view_age`**: Defines the retention period for missed-view history, which is used by the jailing mechanism. For archive and API nodes, it is recommended to set this to a very large value (e.g., `1000000000000`) to ensure the full history is maintained.
+- **`slow_rpc_queries_handlers_count`**: Specifies the number of dedicated threads for handling slow RPC queries. This prevents slow queries from blocking other, faster API calls.
