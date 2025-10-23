@@ -19,7 +19,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
     - 200 GB or more
 
 We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP
-GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+GCE VM `e2-highcpu-8c` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -75,11 +75,13 @@ base. Follow the step by step guide to setup your node:
    ```bash
    z2 join --chain zq2-mainnet
    ```
-   _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
+   _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
    which network you want your node to join._
-8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
+8. (Optional) A Zilliqa node contains various performance and operational
+   metrics compatible with the OpenTelemetry
    protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
-   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
+   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry
+   monitoring stack, for example:
    ```bash
    z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
@@ -94,15 +96,16 @@ base. Follow the step by step guide to setup your node:
    in the future to restart the node to generate the BLS public
    key of the node._
 
-10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
+10. Now it's time to synchronize the node with the network. For networks created using Zilliqa
+    2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
-  > **Synchronization from a checkpoint.**
+    > **Synchronization from a checkpoint.**
 
-  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
+    This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
-  > **Synchronization from the genesis.**
+    > **Synchronization from the genesis.**
 
-  This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
+    This method initializes the node from the genesis block, ensuring that the node processes the entire transaction history and computes the corresponding states. This process is time-consuming, as the node must download and validate every block from the genesis block to the latest block height.
 
 Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information on how to download or discard historical blocks.
 
@@ -131,7 +134,6 @@ It is important to upgrade your node's version before the block height at which 
 Not doing so may lead to your node going out of sync and losing rewards if it is a validator.
 
 First, pull the `main` branch and update your `start_node.sh` script and configuration file by re-running `z2 join`:
-
 ```bash
 z2 join --chain zq2-mainnet
 ```
@@ -140,7 +142,7 @@ _NOTE: Replace `zq2-mainnet` with the chain you are running on._
 To minimize the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 
 ```bash
-docker pull asia-docker.pkg.dev/prj-p-devops-twtwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
+docker pull asia-docker.pkg.dev/prj-p-devops-twtwmrf63e/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
 ```
 
 Stop your existing node:
@@ -155,6 +157,7 @@ Start your new node:
 ```bash
 ./start_node.sh -k $PRIVATE_KEY
 ```
+_NOTE: If your `start_node.sh` script uses `docker run`, ensure that the `docker run` command includes the following capabilities: `--cap-add=SYS_PTRACE --cap-add=PERFMON --cap-add=BPF --cap-add=SYS_ADMIN`. Operators using Docker, systemd service files with Docker, or container orchestration systems should update their service definitions and startup scripts accordingly._
 
 You can validate the version your node is running by calling the `GetVersion` API method:
 
@@ -170,7 +173,6 @@ the above request, then it is still processing the checkpoint file
 and has not started synchronizing yet.
 
 For additional details on `z2` and the `join` capability refer to:
-
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/README.md>
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/join.md>
 
