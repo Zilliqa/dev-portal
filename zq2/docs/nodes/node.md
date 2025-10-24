@@ -18,8 +18,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
 - **Disk**:
     - 200 GB or more
 
-We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
-GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP, GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -28,28 +27,23 @@ GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Port-forwarding](#port-forwarding)
 
-The following TCP ports need to be open to the internet for both inbound and
-outbound.
+The following TCP ports need to be open to the internet for both inbound and outbound.
 
-_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so
-and you are facing any traversal issue you might have to debug on your own._
+_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so and you are facing any traversal issue you might have to debug on your own._
 
 #### Required
 
-3333/TCP - P2P protocol port: has to be opened on inbound and outbound to
-public internet.
+3333/TCP - P2P protocol port: has to be opened on inbound and outbound to public internet.
 
 #### Optional
 
-4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to
-be accessible via the internet.
+4201/TCP - JSONRPC over HTTP: API port, only necessary if you want your API to be accessible via the internet.
 
 ## Installation
 
 ### [Setting up your node](#setting-up-your-node)
 
-To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code
-base. Follow the step by step guide to setup your node:
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
   You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
@@ -73,8 +67,7 @@ base. Follow the step by step guide to setup your node:
   ```bash
   z2 join --chain zq2-mainnet
   ```
-  _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
-  which network you want your node to join._
+  _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on which network you want your node to join._
 
 8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
@@ -90,8 +83,8 @@ base. Follow the step by step guide to setup your node:
   openssl rand -hex 32 > node-private-key.txt
   export PRIVATE_KEY=$(cat node-private-key.txt)
   ```
-  _NOTE: Please save the node key as described above. You may need it
-  in the future to restart the node to generate the BLS public
+  _NOTE: Please save the node key as described above. You may need it 
+  in the future to restart the node to generate the BLS public 
   key of the node._
 
 10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
@@ -109,13 +102,13 @@ Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information
 ### [Starting your node](#starting-your-node)
 Since only devnet nodes can sync from the genesis, all other nodes must be started from a checkpoint: 
 
-* <b>start the node from a checkpoint:</br></b>
+* <b>start the node from a checkpoint:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.dat>
   ```
 
-* <b>start the node from the genesis:</br></b>
+* <b>start the node from the genesis:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY
@@ -124,8 +117,7 @@ _NOTE: After a node is successfully launched from a checkpoint for the first tim
 
 _NOTE: The `<checkpoint_block_num.dat>` file is the one you previously downloaded. Refer to [syncing-from-checkpoint](../nodes/checkpoints/index.md#syncing-a-node-from-a-checkpoint)_
 
-Great! The node should now be syncing with the network. It may
-take up to 1-2 hours for the node to fully synchronize. You can check the progress
+Great! The node should now be syncing with the network. It may take up to 1-2 hours for the node to fully synchronize. You can check the progress
 of the node by running the following command, which should return the latest
 block height after syncing.
 ```bash
@@ -196,3 +188,5 @@ You can validate the version your node is running by calling the `GetVersion` AP
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
+---
+_NOTE: The activation block height for the `deposit_v7` contract upgrade on the ZQ2 testnet has been postponed to `17,010,000` from the original `16,934,100`. Node operators on the ZQ2 testnet should be aware of this change to ensure they remain on the correct chain fork._
