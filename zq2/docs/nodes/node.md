@@ -45,8 +45,7 @@ be accessible via the internet.
 
 ### [Setting up your node](#setting-up-your-node)
 
-To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code
-base. Follow the step by step guide to setup your node:
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
    You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
@@ -58,7 +57,7 @@ base. Follow the step by step guide to setup your node:
    protobuf-compiler
    ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
-4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
+4. Clone [zq2](https://github.com/Zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
@@ -73,13 +72,13 @@ base. Follow the step by step guide to setup your node:
    _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
    which network you want your node to join._
 
-8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
-   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
+8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
+   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
    endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
    ```bash
    z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
    ```
-   _NOTE: For more details on testing and using the available OpenTelemetry 
+   _NOTE: For more details on testing and using the available OpenTelemetry
    metrics refer to the [OpenTelemetry](/monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
@@ -144,7 +143,7 @@ For additional details on `z2` and the `join` capability refer to:
 ### [Becoming a Validator](#becoming-a-validator)
 
 Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
-the network and promote themselves as validator nodes. In return, they receive a 
+the network and promote themselves as validator nodes. In return, they receive a
 share of the block rewards.
 
 Once you have sufficient $ZILs you can register your node as validator.
@@ -163,12 +162,10 @@ It is important to upgrade your node's version before the block height at which 
 Not doing so may lead to your node going out of sync and losing rewards if it is a validator.
 
 First, pull the `main` branch and update your `start_node.sh` script and configuration file by re-running `z2 join`:
-
 ```bash
 z2 join --chain zq2-mainnet
 ```
 _NOTE: Replace `zq2-mainnet` with the chain you are running on._
-
 :::note
 **Important ZQ2 Testnet Update: `deposit_v7` Contract Upgrade Postponed**
 
@@ -180,24 +177,21 @@ Additionally, the `withdrawal_period` for the testnet will be updated to `461680
 To minimise the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 
 ```bash
-docker pull asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
+docker pull asia-docker.pkg.dev/prj-p-devops-services-ttwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
 ```
 
 Stop your existing node:
-
 ```bash
 docker container ls # Identify the container ID of the existing node. This will look a 12 charachter hex-string (e.g. af6010f3f9ae).
 docker stop <container id>
 ```
 
 Start your new node:
-
 ```bash
 ./start_node.sh -k $PRIVATE_KEY
 ```
 
 You can validate the version your node is running by calling the `GetVersion` API method:
-
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
