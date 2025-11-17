@@ -7,8 +7,6 @@ title: Node setup
 
 Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by following the instructions below
 
-## Prerequisites
-
 ### [Minimum hardware requirements](#minimum-hardware-requirements)
 
 - **CPU**:
@@ -18,7 +16,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
 - **Disk**:
     - 200 GB or more
 
-We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP, GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -45,8 +43,7 @@ be accessible via the internet.
 
 ### [Setting up your node](#setting-up-your-node)
 
-To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code
-base. Follow the step by step guide to setup your node:
+To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility as part of the [zq2](https://github.com/Zilliqa/zq2/blob/main/) code base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
    You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
@@ -58,7 +55,7 @@ base. Follow the step by step guide to setup your node:
    protobuf-compiler
    ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
-4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
+4. Clone [zq2](https://github.com/Zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
@@ -70,7 +67,7 @@ base. Follow the step by step guide to setup your node:
    ```bash
    z2 join --chain zq2-mainnet
    ```
-   _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
+   _NOTE: You can replace `zq2-mainnet` with `zq2-testnet` or `zq2-devnet` depending on
    which network you want your node to join._
 
 8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
@@ -137,14 +134,13 @@ the above request, then it is still processing the checkpoint file
 and has not started synchronizing yet.
 
 For additional details on `z2` and the `join` capability refer to:
-
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/README.md>
 - <https://github.com/Zilliqa/zq2/blob/main/z2/docs/join.md>
 
 ### [Becoming a Validator](#becoming-a-validator)
 
 Under the consensus mechanism introduced in Zilliqa 2.0, nodes can stake ZIL to secure
-the network and promote themselves as validator nodes. In return, they receive a 
+the network and promote themselves as validator nodes. In return, they receive a
 share of the block rewards.
 
 Once you have sufficient $ZILs you can register your node as validator.
@@ -169,14 +165,12 @@ z2 join --chain zq2-mainnet
 ```
 _NOTE: Replace `zq2-mainnet` with the chain you are running on._
 
-To minimise the downtime of your node, we recommend pulling the new image locally before you stop your old node:
-
+To minimize the downtime of your node, we recommend pulling the new image locally before you stop your old node:
 ```bash
 docker pull asia-docker.pkg.dev/prj-p-devops-services-tvwmrf63/zilliqa-public/zq2:${ZQ_VERSION} # You can copy the new ZQ_VERSION from inside `start_node.sh`
 ```
 
 Stop your existing node:
-
 ```bash
 docker container ls # Identify the container ID of the existing node. This will look a 12 character hex-string (e.g. af6010f3f9ae).
 docker stop <container id>
@@ -196,6 +190,8 @@ curl --request POST --url http://localhost:4202 --header 'content-type: applicat
 #### State Storage Migration from SQLite to RocksDB
 
 With the introduction of the `state_sync` feature, Zilliqa 2.0 nodes now use RocksDB for state storage, replacing the older SQLite database. This change significantly improves performance and reliability. Existing nodes running on SQLite will need to migrate their state storage to RocksDB.
+
+- `db.state_sync` (boolean, default: `false`): Enables the state migration process from SQLite to RocksDB. Must be set to `true` on existing nodes to perform the migration.
 
 ##### Manual Migration Process
 
@@ -218,3 +214,20 @@ To manually migrate your node's state storage from SQLite to RocksDB, follow the
 ##### Lazy Migration
 
 Nodes that do not perform the manual migration will undergo a lazy migration process. In this scenario, the node will continue to operate using the SQLite database until a new state is generated. Upon the generation of a new state, the node will automatically switch to RocksDB for all subsequent state operations. While this approach requires no manual intervention, it might result in a temporary performance impact during the initial transition.
+
+### Performance Tuning
+
+The following parameters can be configured in your `zilliqa.toml` file for performance tuning:
+
+- `db.rocksdb_cache_size` (integer, default: `268435456`): Sets the block cache size for RocksDB in bytes.
+- `slow_rpc_queries_handlers_count` (integer, default: `4`): Configures the number of threads in the Tokio runtime dedicated to handling slow RPC queries.
+
+_NOTE: The default values for `state_cache_size` and `db.conn_cache_size` have been reduced to prevent Out-Of-Memory issues._
+
+### Jailing Mechanism
+
+- `max_missed_view_age` (integer, default: `600`): Defines the number of views of missed block history to retain for the jailing mechanism.
+
+### Caching
+
+- `REDIS_ENDPOINT` (environment variable): An optional endpoint for a Redis instance can now be provided to the node, used for caching purposes.
