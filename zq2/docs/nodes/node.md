@@ -18,8 +18,7 @@ Users can set up a node and join the Zilliqa 2.0 mainnet, testnet or devnet by f
 - **Disk**:
     - 200 GB or more
 
-We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP,
-GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
+We are running our Zilliqa 2.0 Nodes on Google Cloud Platform, GCP, GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Software requirements](#software-requirements)
 
@@ -28,11 +27,9 @@ GCE VM `e2-highcpu-8` instance with 256 GB SSD (`pd-ssd`).
 
 ### [Port-forwarding](#port-forwarding)
 
-The following TCP ports need to be open to the internet for both inbound and
-outbound.
+The following TCP ports need to be open to the internet for both inbound and outbound.
 
-_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so
-and you are facing any traversal issue you might have to debug on your own._
+_NOTE: We don't recommend to run Nodes behind a NAT, if you're doing so and you are facing any traversal issue you might have to debug on your own._
 
 #### Required
 
@@ -52,53 +49,53 @@ To configure a node and join a Zilliqa 2.0 network, we provide the `z2` utility 
 base. Follow the step by step guide to setup your node:
 
 1. Cargo and Rust: You need to have Cargo and Rust installed on your system.
-  You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
-  you can update Rust to the latest stable version.
+   You can install them using [rustup](https://rustup.rs/). Once rustup is installed,
+   you can update Rust to the latest stable version.
 2. Install the following requirements:
-  ```bash
-  sudo add-apt-repository ppa:ethereum/ethereum && sudo apt update && \
-  sudo apt install -y solc build-essential pkg-config libssl-dev cmake \
-  protobuf-compiler
-  ```
+   ```bash
+   sudo add-apt-repository ppa:ethereum/ethereum && sudo apt update && \
+   sudo apt install -y solc build-essential pkg-config libssl-dev cmake \
+   protobuf-compiler
+   ```
 3. Pick a directory. You'll need quite a lot of space. Let's call it `/my/dir`.
 4. Clone [zq2](https://github.com/zilliqa/zq2) sourcecode into that directory to get `/my/dir/zq2`.
 
 5. Build the code using `cargo build`.
 6. Source the setenv file:
-  ```bash
-  source /my/dir/zq2/scripts/setenv
-  ```
-  This will give you access to the `z2` tool (in `zq2/z2`).
+   ```bash
+   source /my/dir/zq2/scripts/setenv
+   ```
+   This will give you access to the `z2` tool (in `zq2/z2`).
 7. Generate the startup script and the configuration file for your node by running:
-  ```bash
-  z2 join --chain zq2-mainnet
-  ```
-  _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
-  which network you want your node to join._
+   ```bash
+   z2 join --chain zq2-mainnet
+   ```
+   _NOTE: You can replace zq2-mainnet with `zq2-testnet` or `zq2-devnet` depending on
+   which network you want your node to join._
 
-8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry 
-  protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/) 
-  endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
-  ```bash
-  z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
-  ```
-  _NOTE: For more details on testing and using the available OpenTelemetry 
-  metrics refer to the [OpenTelemetry](monitoring/opentelemetry.md) page._
+8. (Optional) A Zilliqa node contains various performance and operational metrics compatible with the OpenTelemetry
+   protocol specification. If you want to export these metrics you can define a [collector](https://opentelemetry.io/docs/collector/)
+   endpoint with the `--otlp-endpoint` parameter in `z2 join` pointing to your own OpenTelemetry monitoring stack, for example:
+   ```bash
+   z2 join --chain  zq2-mainnet --otlp-endpoint=http://localhost:4317
+   ```
+   _NOTE: For more details on testing and using the available OpenTelemetry
+   metrics refer to the [OpenTelemetry](/monitoring/opentelemetry.md) page._
 
 9. Generate the node private key.
-  ```bash
-  openssl rand -hex 32 > node-private-key.txt
-  export PRIVATE_KEY=$(cat node-private-key.txt)
-  ```
-  _NOTE: Please save the node key as described above. You may need it
-  in the future to restart the node to generate the BLS public
-  key of the node._
+   ```bash
+   openssl rand -hex 32 > node-private-key.txt
+   export PRIVATE_KEY=$(cat node-private-key.txt)
+   ```
+   _NOTE: Please save the node key as described above. You may need it
+   in the future to restart the node to generate the BLS public
+   key of the node._
 
 10. Now it's time to synchronize the node with the network. For networks created using Zilliqa 2, the node can be synchronized from the genesis. However, for networks such as mainnet and testnet that migrated from Zilliqa 1, the node must be synchronized from a checkpoint:
 
   >* Synchronization from a checkpoint.
 
-  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](../nodes/node/#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
+  This method leverages a predefined checkpoint block number and hash and the corresponding state imported from a checkpoint file. Historical states based on blocks prior to the checkpoint are unavailable. Before proceeding to the [start the node section](#starting-your-node), configure the checkpoint settings according to the instructions in syncing-from-checkpoints.
 
   >* Synchronization from the genesis.
 
@@ -109,13 +106,13 @@ Please refer to [Syncing & Pruning](../nodes/passive-pruning.md) for information
 ### [Starting your node](#starting-your-node)
 Since only devnet nodes can sync from the genesis, all other nodes must be started from a checkpoint: 
 
-* <b>start the node from a checkpoint:</br></b>
+* <b>start the node from a checkpoint:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY -p <checkpoint_block_num.dat>
   ```
 
-* <b>start the node from the genesis:</br></b>
+* <b>start the node from the genesis:</b>
   ```bash
   chmod +x start_node.sh && \
   ./start_node.sh -k $PRIVATE_KEY
@@ -186,7 +183,6 @@ docker stop <container id>
 ```
 
 Start your new node:
-
 ```bash
 ./start_node.sh -k $PRIVATE_KEY
 ```
@@ -196,3 +192,29 @@ You can validate the version your node is running by calling the `GetVersion` AP
 ```bash
 curl --request POST --url http://localhost:4202 --header 'content-type: application/json' --data '{"method":"GetVersion","id":1,"jsonrpc":"2.0"}'
 ```
+
+#### State Storage Migration from SQLite to RocksDB
+
+With the introduction of the `state_sync` feature, Zilliqa 2.0 nodes now use RocksDB for state storage, replacing the older SQLite database. This change significantly improves performance and reliability. Existing nodes running on SQLite will need to migrate their state storage to RocksDB.
+
+##### Manual Migration Process
+
+To manually migrate your node's state storage from SQLite to RocksDB, follow these steps:
+
+1.  **Restore from a Checkpoint**: Ensure your node is configured to restore from a recent checkpoint. This will provide a consistent starting point for the migration. Refer to the [Syncing from a Checkpoint](#syncing-from-a-checkpoint) section for detailed instructions.
+
+2.  **Enable `state_sync`**: In your node's configuration file (typically `config.json`), set the `db.state_sync` parameter to `true`. This flag activates the RocksDB state synchronization mechanism.
+
+    ```json
+    {
+      "db": {
+        "state_sync": true
+      }
+    }
+    ```
+
+3.  **Start the Node**: Once `state_sync` is enabled and your node is configured to restore from a checkpoint, start your node as usual. The node will automatically begin replaying blocks from the checkpoint to populate the new RocksDB state database. This process might take some time depending on the size of the state and the number of blocks to replay.
+
+##### Lazy Migration
+
+Nodes that do not perform the manual migration will undergo a lazy migration process. In this scenario, the node will continue to operate using the SQLite database until a new state is generated. Upon the generation of a new state, the node will automatically switch to RocksDB for all subsequent state operations. While this approach requires no manual intervention, it might result in a temporary performance impact during the initial transition.
