@@ -3,7 +3,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - deployment.yaml
+  - healthcheckpolicy.yaml
   - svc.yaml
-  - ingress.yaml
-  - backend-config.yaml
-  - frontend-config.yaml
