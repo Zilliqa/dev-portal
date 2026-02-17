@@ -11,6 +11,7 @@ spec:
       sectionName: https
   hostnames:
     - developer-portal.zilstg.dev
+    - stg-dev.zilliqa.com
   rules:
     - backendRefs:
         - name: developer-portal
