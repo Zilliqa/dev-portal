@@ -5,7 +5,7 @@ ENV NEEDRESTART_MODE=a
 
 RUN apt-get update && apt-get dist-upgrade -y
 RUN apt-get install -y python3 python3-pip python3-setuptools --no-install-recommends
-RUN apt-get install -y protobuf-compiler build-essential libssl-dev pkg-config git cmake
+RUN apt-get install -y protobuf-compiler build-essential libssl-dev pkg-config git cmake libclang-dev
 RUN apt-get autoremove
 
 # Nonsensical, but allows us to cache requirements.
