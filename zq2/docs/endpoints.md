@@ -54,10 +54,6 @@ Here is a list of available block explorers.
 - **Mainnet:** http://zilliqa.blockscout.com
 - **Testnet:** http://testnet.zilliqa.blockscout.com
 
-### EVMX
-- **Mainnet:** https://evmx.zilliqa.com
-- **Testnet:** https://evmx.testnet.zilliqa.com
-
 ### Otterscan
 - **Mainnet:** https://otterscan.zilliqa.com
 - **Testnet:** https://otterscan.testnet.zilliqa.com
