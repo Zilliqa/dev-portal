@@ -61,7 +61,7 @@ jobs:
 
       - name: Get tag version - staging
         id: set-tag
-        uses: Zilliqa/gh-actions-workflows/actions/generate-tag@v1
+        uses: Zilliqa/gh-actions-workflows/actions/generate-tag@v4
         with:
           tag: ${{ env.REGISTRY }}/${{ matrix.image_name }}
           length: ${{ matrix.tag_length }}
