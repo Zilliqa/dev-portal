@@ -14,12 +14,6 @@ Below is a list of useful tools for use with the Zilliqa 2.0 networks:
 Zilliqa 2.0 features an EVM execution layer and can therefore be used with standard EVM tools and frameworks.</br>
 These include popular IDEs such as VSCode, Remix, and many others.
 
-### Neo Savant 2.0
-
-The Neo Savant 2.0 IDE is an upgraded version of the original online IDE for creating and deploying Scilla contracts. This version adds a host of new features, including multi-tab text editing and the ability to read contract states.
-
-Neo Savant 2.0 can be accessed at [https://ide.zilliqa.com/](https://ide.zilliqa.com/).
-
 ### SDKs and other tools
 
 Zilliqa 2.0 continues providing native SDKs for:
@@ -44,5 +38,4 @@ We provide a number of open-source repositories relevant to Zilliqa 2.0:
 - [zq2-staking](https://github.com/zilliqa/zq2-staking) - the Zilliqa 2 staking portal
 - [delegated-staking](https://github.com/zilliqa/delegated_staking/) - Zilliqa 2 staking pool contracts
 - [eth-spout](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/eth-spout) - a simple faucet
-- [neo-savant](https://github.com/Zilliqa/zilliqa-developer/tree/main/products/neo-savant) - the Scilla IDE
 - [developer-portal-zq2](https://dev.zilliqa.com) - this developer portal
