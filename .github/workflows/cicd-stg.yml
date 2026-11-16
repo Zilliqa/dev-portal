@@ -43,7 +43,16 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
+      # GCP workload identity only trusts refs/heads/main and releases (DEVOPS-280),
+      # so pull requests build the image to catch breakage but never log in or push.
+      - name: "Build ${{ matrix.application }} - pull request, no push"
+        if: github.event_name == 'pull_request'
+        run: |
+          cd ${{ matrix.path }}
+          make build
+
       - name: "Authenticate to Google Cloud - staging"
+        if: github.event_name == 'push'
         id: google-auth
         uses: "google-github-actions/auth@71fee32a0bb7e97b4d33d548e7d957010649d8fa"
         with:
@@ -53,6 +62,7 @@ jobs:
           create_credentials_file: true
 
       - name: Login to the registry - staging
+        if: github.event_name == 'push'
         uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
         with:
           registry: ${{ env.DOCKER_DOMAIN }}
@@ -60,6 +70,7 @@ jobs:
           password: "${{ steps.google-auth.outputs.access_token }}"
 
       - name: Get tag version - staging
+        if: github.event_name == 'push'
         id: set-tag
         uses: Zilliqa/gh-actions-workflows/actions/generate-tag@v4
         with:
@@ -67,6 +78,7 @@ jobs:
           length: ${{ matrix.tag_length }}
 
       - name: "Build and push ${{ matrix.application }} - staging"
+        if: github.event_name == 'push'
         env:
           ENVIRONMENT: stg
           IMAGE_TAG: ${{ steps.set-tag.outputs.tags }}
@@ -75,7 +87,7 @@ jobs:
           make image/build-and-push
 
       - name: "Build and push ${{ matrix.application }} tag latest - staging"
-        if: ${{ matrix.tag_latest == true }}
+        if: github.event_name == 'push' && matrix.tag_latest == true
         env:
           ENVIRONMENT: stg
           IMAGE_TAG: "${{ env.REGISTRY }}/${{ matrix.image_name }}:latest"
@@ -131,7 +143,7 @@ jobs:
               -e OP_SERVICE_ACCOUNT_TOKEN='${{ env.OP_SERVICE_ACCOUNT_TOKEN }}' \
               -e GITHUB_PAT='${{ env.GITHUB_PAT }}' \
               -e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE='/google/application_default_credentials.json' \
-              -v `pwd`:/devops \
+              -v "$(pwd)":/devops \
               -v ${{ steps.google-auth.outputs.credentials_file_path }}:/google/application_default_credentials.json \
               --name z_container ${{ env.Z_IMAGE }} \
               bash -c "gcloud config set account ${{ env.Z_SERVICE_ACCOUNT }} && z /app /devops app sync --cache-dir .cache ${{ env.APP_NAME }}"

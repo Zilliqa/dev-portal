@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+<!--
+  ABOUTME: Theme override that marks the whole portal as deprecated (banner + title label).
+  ABOUTME: Extends mkdocs-material 8.5 base.html; remove once the docs migration is complete.
+-->
+
+<!-- Page title: same logic as base.html, prefixed with a deprecation label -->
+{% block htmltitle %} {% if page.meta and page.meta.title %}
+<title>[Deprecated] {{ page.meta.title }} - {{ config.site_name }}</title>
+{% elif page.title and not page.is_homepage %}
+<title>[Deprecated] {{ page.title|striptags }} - {{ config.site_name }}</title>
+{% else %}
+<title>[Deprecated] {{ config.site_name }}</title>
+{% endif %} {% endblock %}
+
+<!-- Announcement bar: non-dismissible, "announce.dismiss" is not enabled -->
+{% block announce %}
+<span class="zp-deprecated">Deprecated</span>
+<span>
+  This developer portal is deprecated and will stay online only until the
+  migration is complete. Zilliqa is becoming an Ethereum Layer 2: follow
+  <a href="https://www.zilliqa.com/">zilliqa.com</a> and the
+  <a href="https://www.zilliqa.com/changelog.html">changelog</a> for updates.
+</span>
+{% endblock %}

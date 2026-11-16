@@ -427,3 +427,28 @@ p a {
     font-size: 12px;
   }
 }
+
+/* Deprecation banner (overrides/main.html): high-contrast on the dark theme. */
+.md-banner {
+  background-color: #ffb020;
+  color: #0a0a0a;
+}
+
+.md-banner .md-typeset a,
+.md-banner a {
+  color: #0a0a0a;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.zp-deprecated {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.2rem;
+  background-color: #0a0a0a;
+  color: #ffb020;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
