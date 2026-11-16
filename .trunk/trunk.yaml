@@ -16,6 +16,13 @@ runtimes:
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
+  definitions:
+    # Backport from trunk-io/plugins v1.10.0: parallel trivy runs sharing one cache dir race
+    # while unpacking the checks bundle ("load checks: ... no such file"). Drop when bumping plugins.
+    - name: trivy
+      commands:
+        - name: config
+          run: trivy config ${target} --format json --cache-dir ${tmpdir}
   enabled:
     - clippy@1.80.1
     - rustfmt@1.80.1
