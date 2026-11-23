@@ -26,6 +26,7 @@ spec:
             limits:
               memory: 200Mi
             requests:
+              cpu: 50m
               memory: 100Mi
           readinessProbe:
             httpGet:
