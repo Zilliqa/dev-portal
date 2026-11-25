@@ -52,93 +52,10 @@ z app sync
 
 Verify your application is running correct from the `http://localhost` URL and with `kubectl` commands (if required).
 
-## Deploying applications to staging
+## Staging
 
-To deploy the staging environment we need to clone the devops repository and execute `z` from there:
-
-```sh
-git clone https://github.com/Zilliqa/devops.git
-cd devops
-source setenv
-```
-
-### Set the following environment variables
-
-- `Z_ENV` to the path in which your `z.yaml` resides.
-- `ZQ_USER` to your username (the bit before `@` in your email address)
-- `GITHUB_PAT` (if you are deploying staging or production apps) to a classic PAT with all the repo permissions ticked.
-
-for example:
-
-```sh
-export Z_ENV=`pwd`/infra/live/gcp/non-production/prj-d-staging/z_ase1.yaml
-export ZQ_USER=<user_id>@zilliqa.com
-export GITHUB_PAT=<GITHUB_PAT>
-```
-
-### Login to Google Cloud
-
-```sh
-z login
-```
-
-### Add the application to the staging `z.yaml` file. Skip this step if it is an existing application
-
-1. Create a branch:
-
-   ```sh
-   git checkout -b users/<username>/add_developer_portal_to_staging_cluster
-   ```
-
-2. In the file `infra/live/gcp/non-production/prj-d-staging/z_ase1.yaml` add the following:
-
-   - in `apps` stanza add:
-
-     ```yaml
-     clusters:
-       staging:
-         apps:
-           developer-portal:
-             repo: https://github.com/Zilliqa/zilliqa-developer
-             path: products/developer-portal/cd/overlays/staging
-             track: staging
-             type: kustomize
-     ```
-
-   - in `subdomains` stanza add:
-
-     ```yaml
-     infrastructure:
-     dns:
-       vars:
-       subdomains:
-         developer-portal: {}
-     ```
-
-3. Push the changes
-
-   ```sh
-   git add .
-   git commit -m "Add Developer Portal to staging cluster"
-   git push origin users/<username>/add_developer_portal_to_staging_cluster
-   ```
-
-4. Open a Pull Request to the main branch
-
-5. Apply the changes
-
-   ```sh
-   z plan
-   z apply
-   ```
-
-### Deploy the application
-
-```sh
-z app sync --cache-dir=.cache developer-portal
-```
-
-Verify your application is running correct from the staging URL and with `kubectl` commands (if required).
+There is no staging deployment: the staging cluster was retired on 2026-11-25. Merges to `main`
+still build and push the staging image, but nothing deploys it.
 
 ## Deploying applications to production
 
