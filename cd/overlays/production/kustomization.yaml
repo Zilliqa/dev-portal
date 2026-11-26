@@ -5,5 +5,18 @@ resources:
   - ../../base
   - backendpolicy.yaml
   - httproute.yaml
+  - pdb.yaml
 
 namespace: developer-portal-prd
+
+patches:
+  - path: deployment-spread-patch.yaml
+    target:
+      kind: Deployment
+      name: developer-portal
+
+# Two replicas (Autopilot drains nodes for upgrades and bin-packing; one pod would mean a short outage), kept
+# apart by the PDB and spread across zones when possible.
+replicas:
+  - name: developer-portal
+    count: 2
