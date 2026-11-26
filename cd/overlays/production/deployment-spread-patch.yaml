@@ -1,0 +1,17 @@
+# ABOUTME: Spreads the developer-portal replicas across zones when Autopilot can, without blocking scheduling
+# ABOUTME: Soft constraint (ScheduleAnyway): two pods in one zone are still better than a pending pod
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: developer-portal
+spec:
+  template:
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: developer-portal
